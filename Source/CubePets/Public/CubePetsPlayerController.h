@@ -8,6 +8,8 @@
 
 class UIrisWidget;
 class UControllGuideWidget;
+class UInputAction;
+class UInputMappingContext;
 
 /**
  * 
@@ -57,5 +59,17 @@ private:
 
 	UPROPERTY()
 	UControllGuideWidget* mCurrentControllGuideWidget = nullptr;
+
+protected:
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
+	TObjectPtr<UInputMappingContext> mSystemMappingContext;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
+	TObjectPtr<UInputAction> mPauseAction = nullptr;
+
+	void TogglePause();
+
+	virtual void SetupInputComponent() override;
 
 };

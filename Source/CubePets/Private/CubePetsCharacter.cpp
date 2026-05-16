@@ -146,6 +146,7 @@ void ACubePetsCharacter::UpdateOldestCubeGlow()
 	}
 }
 
+// ダメージを受けたときの処理
 float ACubePetsCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 	float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
@@ -158,6 +159,7 @@ float ACubePetsCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dam
 		if (APlayerController* PC = Cast<APlayerController>(GetController()))
 		{
 			DisableInput(PC);
+			PC->DisableInput(PC);
 		}
 
 		// ラグドールにする

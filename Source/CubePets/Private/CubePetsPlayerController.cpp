@@ -8,6 +8,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "ControllGuideWidget.h"
 #include "GameFramework/PlayerInput.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
 
 bool ACubePetsPlayerController::InputKey(const FInputKeyParams& Params)
 {
@@ -61,6 +63,15 @@ void ACubePetsPlayerController::BeginPlay()
 			mCurrentControllGuideWidget->AddToViewport();
 		}
 	}
+
+	// EnhancedInput用の処理
+	if (ULocalPlayer* LocalPlayer = GetLocalPlayer())
+	{
+		if (auto* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
+		{
+			Subsystem->AddMappingContext(mSystemMappingContext, 10);
+		}
+	}
 }
 
 void ACubePetsPlayerController::OnPossess(APawn* InPawn)
@@ -99,5 +110,34 @@ void ACubePetsPlayerController::NotifyReticleStateChanged(bool bReticleExistence
 	if (mCurrentControllGuideWidget)
 	{
 		mCurrentControllGuideWidget->UpdateTextBlockCreate(bReticleExistence);
+	}
+}
+
+// ポーズ切り替え
+void ACubePetsPlayerController::TogglePause()
+{
+	UWorld* World = GetWorld();
+	if (!World) return;
+
+	bool bNewPauseState = !UGameplayStatics::IsGamePaused(World);
+	UGameplayStatics::SetGamePaused(World, bNewPauseState);
+
+	if (bNewPauseState)
+	{
+		SetInputMode(FInputModeGameAndUI());
+	}
+	else
+	{
+		SetInputMode(FInputModeGameOnly());
+	}
+}
+
+void ACubePetsPlayerController::SetupInputComponent()
+{
+	Super::SetupInputComponent();
+
+	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent))
+	{
+		EnhancedInputComponent->BindAction(mPauseAction, ETriggerEvent::Triggered, this, &ACubePetsPlayerController::TogglePause);
 	}
 }
