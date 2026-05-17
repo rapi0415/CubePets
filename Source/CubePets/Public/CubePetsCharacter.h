@@ -13,6 +13,7 @@ class UInputMappingContext;
 class UInputAction;
 class ACubeReticle;
 class ACubePetsCube;
+class USoundBase;
 
 // フェードアウト処理用のデリゲート
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFadeOutTriggered);
@@ -130,6 +131,12 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category="Events")
 	FOnFadeOutTriggered mOnFadeOutTriggered;
+
+protected:
+
+	// 効果音
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="CubePets|Audio")
+	TObjectPtr<USoundBase> mCreateSound = nullptr;
 
 protected:
 

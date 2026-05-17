@@ -11,6 +11,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "CubePetsPlayerController.h"
 #include "SaveGameInstanceSubsystem.h"
+#include "CubePetsGameModeBase.h"
 
 // Sets default values
 ACubePetsCharacter::ACubePetsCharacter()
@@ -166,6 +167,15 @@ float ACubePetsCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dam
 		GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
 		GetMesh()->SetSimulatePhysics(true);
 
+		// BGMを止める
+		if (UWorld* World = GetWorld())
+		{
+			if (ACubePetsGameModeBase* GM = Cast<ACubePetsGameModeBase>(World->GetAuthGameMode()))
+			{
+				GM->StopStageBGM();
+			}
+		}
+
 		// 一定時間後にフェードアウト演出開始させる
 		GetWorldTimerManager().SetTimer(mRestartTimerHandle, this, &ACubePetsCharacter::BroadcastFadeOut, mRestartDelay, false);
 	}
@@ -292,6 +302,12 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 				UpdateOldestCubeGlow();
 
 				break;
+			}
+
+			// 効果音を鳴らす
+			if (mCreateSound)
+			{
+				UGameplayStatics::PlaySoundAtLocation(this, mCreateSound, SpawnLocation, FRotator::ZeroRotator, 1.0f, 1.0f, 0.0f);
 			}
 			
 			// レティクルは消す

@@ -41,5 +41,22 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	TObjectPtr<USphereComponent> mSphereTrigger = nullptr;
 
+	// ’N‚ªŒ‚‚Á‚½‚©‹L‰¯‚·‚é•Ï”
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Canon", meta = (ExposeOnSpawn = "true"))
+	TObjectPtr<AActor> mShooterActor = nullptr;
+
+protected:
+
+	// ÚG‚ÉŒÄ‚Î‚ê‚éŠÖ”
+	UFUNCTION()
+	void OnOverlapBegin(
+		UPrimitiveComponent* OverlappedComp,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult& SweepResult
+	);
+
 
 };
