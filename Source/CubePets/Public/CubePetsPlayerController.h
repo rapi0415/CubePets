@@ -10,6 +10,7 @@ class UIrisWidget;
 class UControllGuideWidget;
 class UInputAction;
 class UInputMappingContext;
+class UPauseWidget;
 
 /**
  * 
@@ -28,6 +29,10 @@ public:
 	// 操作ガイド用
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
 	TSubclassOf<UControllGuideWidget> mControllGuideWidgetClass = nullptr;
+
+	// ポーズ用
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
+	TSubclassOf<UPauseWidget> mPauseWidgetClass = nullptr;
 
 protected:
 
@@ -53,12 +58,17 @@ public:
 
 private:
 
-	// ウィジェット
+	// フェードウィジェット
 	UPROPERTY()
-	UIrisWidget* mCurrentIrisWidget = nullptr;
+	TObjectPtr<UIrisWidget> mCurrentIrisWidget = nullptr;
 
+	// 操作ガイドウィジェット
 	UPROPERTY()
-	UControllGuideWidget* mCurrentControllGuideWidget = nullptr;
+	TObjectPtr<UControllGuideWidget> mCurrentControllGuideWidget = nullptr;
+
+	// ポーズウィジェット
+	UPROPERTY()
+	TObjectPtr<UPauseWidget> mCurrentPauseWidget = nullptr;
 
 protected:
 
@@ -68,6 +78,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
 	TObjectPtr<UInputAction> mPauseAction = nullptr;
 
+	UFUNCTION(BlueprintCallable, Category="Pause")
 	void TogglePause();
 
 	virtual void SetupInputComponent() override;

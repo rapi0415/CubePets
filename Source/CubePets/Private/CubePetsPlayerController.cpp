@@ -10,6 +10,7 @@
 #include "GameFramework/PlayerInput.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "PauseWidget.h"
 
 bool ACubePetsPlayerController::InputKey(const FInputKeyParams& Params)
 {
@@ -40,7 +41,7 @@ void ACubePetsPlayerController::BeginPlay()
 
 		if (mCurrentIrisWidget)
 		{
-			mCurrentIrisWidget->AddToViewport(1000);
+			mCurrentIrisWidget->AddToViewport(100);
 
 			mCurrentIrisWidget->StartIrisIn();
 
@@ -125,10 +126,29 @@ void ACubePetsPlayerController::TogglePause()
 	if (bNewPauseState)
 	{
 		SetInputMode(FInputModeGameAndUI());
+		bShowMouseCursor = true;
+
+		// UI‚ð•\Ž¦
+		if (mPauseWidgetClass && mCurrentPauseWidget == nullptr)
+		{
+			mCurrentPauseWidget = CreateWidget<UPauseWidget>(this, mPauseWidgetClass);
+			if (mCurrentPauseWidget)
+			{
+				mCurrentPauseWidget->AddToViewport(1000);
+			}
+		}
 	}
 	else
 	{
 		SetInputMode(FInputModeGameOnly());
+		bShowMouseCursor = false;
+
+		// UI‚ð”jŠü
+		if (mCurrentPauseWidget)
+		{
+			mCurrentPauseWidget->RemoveFromParent();
+			mCurrentPauseWidget = nullptr;
+		}
 	}
 }
 
