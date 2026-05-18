@@ -33,6 +33,7 @@ protected:
 public:
 
 	// BGMí‚é~ópä÷êî
+	UFUNCTION(BlueprintCallable, Category="Audio")
 	void StopStageBGM();
 
 	
