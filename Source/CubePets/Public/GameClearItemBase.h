@@ -29,6 +29,11 @@ protected:
 
 protected:
 
+	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
+	void PlayEffects(AActor* TargetActor);
+
+protected:
+
 	FTimerHandle mClearTimerHandle;
 	FTimerHandle mFadeOutTimerHandle;
 

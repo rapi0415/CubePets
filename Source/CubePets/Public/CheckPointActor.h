@@ -27,7 +27,7 @@ public:
 
 protected:
 
-	UPROPERTY(VisibleAnywhere, Category="Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	TObjectPtr<UStaticMeshComponent> mStaticMesh = nullptr;
 
 	UPROPERTY(VisibleAnywhere, Category="Components")
@@ -36,5 +36,8 @@ protected:
 protected:
 
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
+	void PlayEffects();
 
 };

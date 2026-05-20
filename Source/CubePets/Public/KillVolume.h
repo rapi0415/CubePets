@@ -41,4 +41,7 @@ protected:
 		const FHitResult& SweepResult
 	);
 
+	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
+	void PlayEffects(AActor* TargetActor);
+
 };

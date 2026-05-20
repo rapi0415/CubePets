@@ -49,6 +49,8 @@ void AKillVolume::OnOverlapBegin
 		if (ACharacter* PlayerCharacter = Cast<ACharacter>(OtherActor))
 		{
 			UGameplayStatics::ApplyDamage(OtherActor, 1.0f, nullptr, this, UDamageType::StaticClass());
+
+			PlayEffects(OtherActor);
 		}
 	}
 }

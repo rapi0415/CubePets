@@ -43,6 +43,9 @@ void AGameClearItemBase::OnOverlapBegin(
 			// さらに一定時間後にフェードアウトしてタイトルに戻る
 			float DelayTimeFade = 4.0f;
 			GetWorld()->GetTimerManager().SetTimer(mFadeOutTimerHandle, this, &AGameClearItemBase::StartFadeOut, DelayTimeFade, false);
+
+			// エフェクト表示
+			PlayEffects(OtherActor);
 		}
 	}
 }

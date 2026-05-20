@@ -78,6 +78,8 @@ void AChaserBulletBase::OnOverlapBegin(
 				UGameplayStatics::ApplyDamage(OtherActor, 1.0f, nullptr, this, UDamageType::StaticClass());
 			}
 
+			PlayEffects();
+
 			Destroy();
 		}
 	}

@@ -45,17 +45,20 @@ void ACheckPointActor::Tick(float DeltaTime)
 void ACheckPointActor::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
-	UE_LOG(LogTemp, Warning, TEXT("Overlap!"));
 
-	// セーブ処理
+	// 接触したのがプレイヤーか？
 	if (Cast<ACubePetsCharacter>(OtherActor))
 	{
+		// セーブ処理
 		USaveGameInstanceSubsystem* SaveSubsystem = GetGameInstance()->GetSubsystem<USaveGameInstanceSubsystem>();
 		SaveSubsystem->SetCurrentCheckPoint(GetActorLocation());
 
 		UCubePetsSaveGame* SaveGame = Cast<UCubePetsSaveGame>(UGameplayStatics::CreateSaveGameObject(UCubePetsSaveGame::StaticClass()));
 		SaveGame->SetCheckPointLocation(SaveSubsystem->GetCurrentCheckPoint());
 		UGameplayStatics::SaveGameToSlot(SaveGame, TEXT("Slot1"), 0);
+
+		// エフェクトとかの表示
+		PlayEffects();
 	}
 }
 
