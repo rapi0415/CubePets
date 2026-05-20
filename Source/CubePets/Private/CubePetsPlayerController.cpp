@@ -46,7 +46,7 @@ void ACubePetsPlayerController::BeginPlay()
 			mCurrentIrisWidget->StartIrisIn();
 
 			// リスタート用の関数をバインドしておく
-			mCurrentIrisWidget->mOnFadeAnimationFinished.AddDynamic(this, &ACubePetsPlayerController::HandleAnimFinishedNotification);
+			mCurrentIrisWidget->mOnFadeAnimationFinished.AddDynamic(this, &ACubePetsPlayerController::HandleLevelTransitionNotification);
 		}
 	}
 
@@ -90,19 +90,29 @@ void ACubePetsPlayerController::OnPossess(APawn* InPawn)
 
 void ACubePetsPlayerController::HandleFadeOutNotification()
 {
+	FName CurrentLevelName = *GetWorld()->GetName();
+	RequestLevelTransition(CurrentLevelName);
+}
 
-	// アイリスアウトのアニメーションを再生する
+void ACubePetsPlayerController::HandleLevelTransitionNotification()
+{
+	// レベルの遷移
+	if(!mTargetLevelName.IsNone())
+	{
+		UGameplayStatics::OpenLevel(this, mTargetLevelName);
+	}
+}
+
+void ACubePetsPlayerController::RequestLevelTransition(FName TargetLevelName)
+{
+	// レベル名を設定
+	mTargetLevelName = TargetLevelName;
+
+	// フェードアウトを再生
 	if (mCurrentIrisWidget)
 	{
 		mCurrentIrisWidget->StartIrisOut();
 	}
-}
-
-void ACubePetsPlayerController::HandleAnimFinishedNotification()
-{
-	// レベルのリスタート
-	FName CurrentLevelName = *GetWorld()->GetName();
-	UGameplayStatics::OpenLevel(this, CurrentLevelName);
 }
 
 // レティクルの有無が変わった時にプレイヤーから呼んでもらう関数、ウィジェットのテキストブロックを更新

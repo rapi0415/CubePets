@@ -46,11 +46,25 @@ protected:
 
 	virtual void OnPossess(APawn* InPawn) override;
 
+protected:
+
+	// フェードアウトを再生する関数
 	UFUNCTION()
 	void HandleFadeOutNotification();
 	
+	// レベルの遷移をする関数
 	UFUNCTION()
-	void HandleAnimFinishedNotification();
+	void HandleLevelTransitionNotification();
+
+protected:
+
+	FName mTargetLevelName;
+
+public:
+
+	// 
+	UFUNCTION()
+	void RequestLevelTransition(FName TargetLevelName);
 
 public:
 
@@ -72,6 +86,7 @@ private:
 
 protected:
 
+	// インプット系
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
 	TObjectPtr<UInputMappingContext> mSystemMappingContext;
 
