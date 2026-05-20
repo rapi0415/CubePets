@@ -24,6 +24,10 @@ protected:
 
 	virtual void BeginPlay() override;
 
+public:
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 protected:
 
 	FTimerHandle mSearchTimerHandle;
@@ -38,7 +42,10 @@ protected:
 
 	// StaticMesh
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	UStaticMeshComponent* mStaticMesh = nullptr;
+	TObjectPtr<UStaticMeshComponent> mMeshBase = nullptr;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	TObjectPtr<UStaticMeshComponent> mMeshTurret = nullptr;
 
 	// BoxTrigger
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")

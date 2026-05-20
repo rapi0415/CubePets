@@ -4,20 +4,26 @@
 #include "CanonBase.h"
 #include "TimerManager.h"
 #include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 ACanonBase::ACanonBase()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 
-	// StaticMesh
-	mStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
-	RootComponent = mStaticMesh;
+	// MeshBase
+	mMeshBase = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshBase"));
+	RootComponent = mMeshBase;
+
+	// MeshTurret
+	mMeshTurret = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshTurret"));
+	mMeshTurret->SetupAttachment(mMeshBase);
 
 	// BoxTrigger
 	mBoxTrigger = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxTrigger"));
-	mBoxTrigger->SetupAttachment(mStaticMesh);
-	mBoxTrigger->SetBoxExtent(FVector(50.0f, 50.0f, 50.0f));
+	mBoxTrigger->SetupAttachment(mMeshBase);
 	mBoxTrigger->SetCollisionProfileName(TEXT("Trigger"));
+	mBoxTrigger->SetUsingAbsoluteScale(true);
+	mBoxTrigger->SetBoxExtent(FVector(100.0f, 100.0f, 100.0f));
 }
 
 void ACanonBase::BeginPlay()
@@ -26,6 +32,29 @@ void ACanonBase::BeginPlay()
 
 	// 0.2秒ごとに関数を実行
 	GetWorldTimerManager().SetTimer(mSearchTimerHandle, this, &ACanonBase::SearchForPlayer, 0.2f, true);
+}
+
+void ACanonBase::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(this, 0);
+
+	if (PlayerPawn && mMeshTurret)
+	{
+		// 自分とプレイヤーの現在位置を取得
+		FVector CurrentLocation = GetActorLocation();
+		FVector TargetLocation = PlayerPawn->GetActorLocation();
+
+		// プレイヤーへ向かう方向を計算（長さを1に正規化）
+		FVector Direction = (TargetLocation - CurrentLocation).GetSafeNormal();
+
+		// プレイヤーのほうを向かせる（砲台だけ）
+		FRotator CompleteRotation = Direction.Rotation();
+		FRotator NewRotation = FRotator(0.0f, CompleteRotation.Yaw, 0.0f);
+
+		mMeshTurret->SetWorldRotation(NewRotation);
+	}
 }
 
 void ACanonBase::SearchForPlayer()
