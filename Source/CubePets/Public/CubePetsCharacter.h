@@ -138,6 +138,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="CubePets|Audio")
 	TObjectPtr<USoundBase> mCreateSound = nullptr;
 
+public:
+
+	// セーブ処理用
+	UFUNCTION(BlueprintImplementableEvent, Category="Save")
+	void ShowFloatingText();
+
 protected:
 
 	// InputAction

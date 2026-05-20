@@ -47,7 +47,7 @@ void ACheckPointActor::NotifyActorBeginOverlap(AActor* OtherActor)
 	Super::NotifyActorBeginOverlap(OtherActor);
 
 	// 接触したのがプレイヤーか？
-	if (Cast<ACubePetsCharacter>(OtherActor))
+	if (ACubePetsCharacter* PlayerCharacter = Cast<ACubePetsCharacter>(OtherActor))
 	{
 		// セーブ処理
 		USaveGameInstanceSubsystem* SaveSubsystem = GetGameInstance()->GetSubsystem<USaveGameInstanceSubsystem>();
@@ -59,6 +59,9 @@ void ACheckPointActor::NotifyActorBeginOverlap(AActor* OtherActor)
 
 		// エフェクトとかの表示
 		PlayEffects();
+
+		// プレイヤーの頭上にテキストを表示
+		PlayerCharacter->ShowFloatingText();
 	}
 }
 
