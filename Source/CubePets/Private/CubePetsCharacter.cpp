@@ -305,10 +305,7 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 			}
 
 			// Œø‰Ê‰¹‚ð–Â‚ç‚·
-			if (mCreateSound)
-			{
-				UGameplayStatics::PlaySoundAtLocation(this, mCreateSound, SpawnLocation, FRotator::ZeroRotator, 1.0f, 1.0f, 0.0f);
-			}
+			PlayCreateEffects();
 			
 			// ƒŒƒeƒBƒNƒ‹‚ÍÁ‚·
 			mCubeReticle->Destroy();

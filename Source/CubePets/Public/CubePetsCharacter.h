@@ -134,9 +134,8 @@ public:
 
 protected:
 
-	// Œø‰Ê‰¹
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="CubePets|Audio")
-	TObjectPtr<USoundBase> mCreateSound = nullptr;
+	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
+	void PlayCreateEffects();
 
 public:
 

@@ -23,16 +23,13 @@ protected:
 
 protected:
 
-	// BGM再生用
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Audio")
-	TObjectPtr<USoundBase> mTitleBGM = nullptr;
-
-	UPROPERTY()
+	// BGM再生用コンポーネント
+	UPROPERTY(BlueprintReadWrite, Category="Audio")
 	TObjectPtr<UAudioComponent> mBGMAudioComponent = nullptr;
 
 public:
 
 	// BGM停止用関数
-	UFUNCTION(BlueprintCallable, Category="Audio")
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Audio")
 	void StopTitleBGM();
 };
