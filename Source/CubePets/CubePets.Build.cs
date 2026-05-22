@@ -19,7 +19,8 @@ public class CubePets : ModuleRules
 			"SlateCore",
 			"GameplayAbilities",
 			"GameplayTags",
-			"GameplayTasks"
+			"GameplayTasks",
+			"ImGui"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
