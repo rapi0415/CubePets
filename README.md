@@ -54,7 +54,7 @@ C++コード内でのアセット参照（SE・エフェクト・UIアニメー�
    特定のチェックポイント周辺でテストを行う際、そこまで移動する手間の排除（開発効率の向上）。
    
 ### ◆ システム基盤（Subsystem & UI & 多言語化）
-- **Subsystemの活用**: GameInstanceが神クラスにならないように `UGameInstanceSubsystem` を拡張し、セーブロードシステムやデバッグ機能を実現。
+- **Subsystemの活用**: GameInstanceが神クラスにならないように `UGameInstanceSubsystem` を採用し、プレイヤーの座標保持やデバッグ機能を実現。
 - **UI機能拡張**: 標準UserWidgetの機能を拡張し、キーボードとコントローラーの両方でフォーカス遷移を実装。操作ガイドのボタンアイコンも動的に切り替わるように。
 - **ローカライズ**: テキストデータを外部CSVから動的に読み込むシステムを実装。ローカライゼーションダッシュボードを採用し、ゲーム内設定から日本語と英語を切り替え可能に。
 
@@ -66,6 +66,8 @@ C++コード内でのアセット参照（SE・エフェクト・UIアニメー�
 - [プレイヤーキャラクタークラス（ソース）](Source/CubePets/Private/CubePetsCharacter.cpp)
 - [ギミックのベースとなるクラス（ヘッダー）](Source/CubePets/Public/GimmickBase.h)
 - [ギミックのベースとなるクラス（ソース）](Source/CubePets/Private/GimmickBase.cpp)
+- [デバッグメニュー用クラス（ヘッダー）](Source/CubePets/Public/GimmickBase.h)
+- [デバッグメニュー用クラス（ソース）](Source/CubePets/Private/GimmickBase.cpp)
 
 ---
 
