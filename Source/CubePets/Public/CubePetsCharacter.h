@@ -23,6 +23,8 @@ class CUBEPETS_API ACubePetsCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+	friend class UDebugMenuSubsystem;
+
 public:
 	// Sets default values for this character's properties
 	ACubePetsCharacter();
@@ -153,5 +155,12 @@ protected:
 	void CreateAction(const FInputActionValue& Value);
 	void LockRotation(const FInputActionValue& Value);
 	void UnlockRotation(const FInputActionValue& Value);
+
+protected:
+
+	// 無敵にするかどうか（デバッグ用）
+	bool bIsInvincible = false;
+		
+	
 
 };
