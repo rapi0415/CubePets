@@ -6,6 +6,7 @@
 #include "CubePetsPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameClearWidget.h"
+#include "CubePetsGameModeBase.h"
 
 void AGameClearItemBase::OnOverlapBegin(
 	UPrimitiveComponent* OverlappedComp,
@@ -46,6 +47,15 @@ void AGameClearItemBase::OnOverlapBegin(
 
 			// エフェクト表示
 			PlayEffects(OtherActor);
+
+			// BGMを止める
+			if (UWorld* World = GetWorld())
+			{
+				if (ACubePetsGameModeBase* GM = Cast<ACubePetsGameModeBase>(World->GetAuthGameMode()))
+				{
+					GM->StopStageBGM();
+				}
+			}
 		}
 	}
 }
