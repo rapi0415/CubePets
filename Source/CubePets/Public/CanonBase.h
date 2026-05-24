@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -34,7 +34,7 @@ protected:
 
 	void SearchForPlayer();
 
-	// ƒvƒŒƒCƒ„[‚ğŒŸ’m‚µ‚½‚Æ‚«‚ÉŒÄ‚Ño‚·ƒCƒxƒ“ƒgiBP‘¤‚ÅƒXƒ|[ƒ“ˆÊ’u‚È‚ÇŒˆ‚ß‚éj
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æ¤œçŸ¥ã—ãŸã¨ãã«å‘¼ã³å‡ºã™ã‚¤ãƒ™ãƒ³ãƒˆï¼ˆBPå´ã§ã‚¹ãƒãƒ¼ãƒ³ä½ç½®ãªã©æ±ºã‚ã‚‹ï¼‰
 	UFUNCTION(BlueprintImplementableEvent, Category="Canon")
 	void OnPlayerDetected();
 

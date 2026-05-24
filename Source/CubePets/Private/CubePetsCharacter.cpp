@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
@@ -19,7 +19,7 @@ ACubePetsCharacter::ACubePetsCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	// ƒJƒƒ‰İ’è
+	// ã‚«ãƒ¡ãƒ©è¨­å®š
 	mCameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	mCameraBoom->SetupAttachment(RootComponent);
 	mCameraBoom->bUsePawnControlRotation = true;
@@ -33,7 +33,7 @@ void ACubePetsCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	// EnhancedInput—p‚Ìˆ—
+	// EnhancedInputç”¨ã®å‡¦ç†
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
 		if (auto* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -44,7 +44,7 @@ void ACubePetsCharacter::BeginPlay()
 
 	UWorld* World = GetWorld();
 
-	// ” ‚ÌƒXƒ|[ƒ“—pˆ—i‚ ‚ç‚©‚¶‚ßg‚¤”‚¾‚¯ƒXƒ|[ƒ“‚µ‚Ä‚¨‚­j
+	// ç®±ã®ã‚¹ãƒãƒ¼ãƒ³ç”¨å‡¦ç†ï¼ˆã‚ã‚‰ã‹ã˜ã‚ä½¿ã†æ•°ã ã‘ã‚¹ãƒãƒ¼ãƒ³ã—ã¦ãŠãï¼‰
 	if (mCubePetsCubeClass != nullptr && World != nullptr)
 	{
 		mCubePetsCubeArray.Reserve(mMaxCube);
@@ -65,7 +65,7 @@ void ACubePetsCharacter::BeginPlay()
 		}
 	}
 
-	// ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‹L˜^‚ğŒ©‚Äƒ[ƒv‚·‚é
+	// ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆè¨˜éŒ²ã‚’è¦‹ã¦ãƒ¯ãƒ¼ãƒ—ã™ã‚‹
 	USaveGameInstanceSubsystem* SaveSubsystem = GetGameInstance()->GetSubsystem<USaveGameInstanceSubsystem>();
 
 	if (SaveSubsystem && !SaveSubsystem->GetCurrentCheckPoint().IsZero())
@@ -79,7 +79,7 @@ void ACubePetsCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// ‘«ê‚ª•Ï‚í‚Á‚½‚¾‚¯”­Œõ‚ğXV‚·‚é
+	// è¶³å ´ãŒå¤‰ã‚ã£ãŸæ™‚ã ã‘ç™ºå…‰ã‚’æ›´æ–°ã™ã‚‹
 	AActor* CurrentBase = GetMovementBaseActor(this);
 	if (CurrentBase != mLastPlayerBase)
 	{
@@ -109,7 +109,7 @@ void ACubePetsCharacter::UpdateOldestCubeGlow()
 {
 	bool bIsMaxSpawned = true;
 
-	// ” ‚ğ‘S•”o‚µØ‚Á‚Ä‚¢‚È‚¢‚È‚çI—¹
+	// ç®±ã‚’å…¨éƒ¨å‡ºã—åˆ‡ã£ã¦ã„ãªã„ãªã‚‰çµ‚äº†
 	for (ACubePetsCube* Cube : mCubePetsCubeArray)
 	{
 		if (Cube && !Cube->GetIsActive())
@@ -119,7 +119,7 @@ void ACubePetsCharacter::UpdateOldestCubeGlow()
 		}
 	}
 
-	// ‚¢‚Á‚½‚ñ‘S•”Œõ‚ç‚¹‚È‚¢‚æ‚¤‚É‚·‚é
+	// ã„ã£ãŸã‚“å…¨éƒ¨å…‰ã‚‰ã›ãªã„ã‚ˆã†ã«ã™ã‚‹
 	for (ACubePetsCube* Cube : mCubePetsCubeArray)
 	{
 		if (Cube)
@@ -128,10 +128,10 @@ void ACubePetsCharacter::UpdateOldestCubeGlow()
 		}
 	}
 
-	// o‚µØ‚Á‚Ä‚¢‚é‚È‚çŸ‚ÌŒó•â‚Ì” ‚ğŒõ‚ç‚¹‚é
+	// å‡ºã—åˆ‡ã£ã¦ã„ã‚‹ãªã‚‰æ¬¡ã®å€™è£œã®ç®±ã‚’å…‰ã‚‰ã›ã‚‹
 	if (bIsMaxSpawned)
 	{
-		// ƒvƒŒƒCƒ„[‚ªæ‚Á‚Ä‚¢‚é” ‚ÍƒXƒLƒbƒv‚µ‚ÄŒõ‚ç‚¹‚é
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒä¹—ã£ã¦ã„ã‚‹ç®±ã¯ã‚¹ã‚­ãƒƒãƒ—ã—ã¦å…‰ã‚‰ã›ã‚‹
 		AActor* PlayerBase = GetMovementBaseActor(this);
 		for (int32 i = 0; i < mMaxCube; ++i)
 		{
@@ -147,12 +147,12 @@ void ACubePetsCharacter::UpdateOldestCubeGlow()
 	}
 }
 
-// ƒ_ƒ[ƒW‚ğó‚¯‚½‚Æ‚«‚Ìˆ—
+// ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸã¨ãã®å‡¦ç†
 float ACubePetsCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
 
 #if !UE_BUILD_SHIPPING
-	// –³“Gó‘Ô‚È‚çƒ_ƒ[ƒW0‚ÅI—¹
+	// ç„¡æ•µçŠ¶æ…‹ãªã‚‰ãƒ€ãƒ¡ãƒ¼ã‚¸0ã§çµ‚äº†
 	if (bIsInvincible)
 	{
 		return 0.0f;
@@ -165,18 +165,18 @@ float ACubePetsCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dam
 	{
 		bIsDead = true;
 
-		// “ü—Í‚ğ–³Œø‚É‚·‚é
+		// å…¥åŠ›ã‚’ç„¡åŠ¹ã«ã™ã‚‹
 		if (APlayerController* PC = Cast<APlayerController>(GetController()))
 		{
 			DisableInput(PC);
 			PC->DisableInput(PC);
 		}
 
-		// ƒ‰ƒOƒh[ƒ‹‚É‚·‚é
+		// ãƒ©ã‚°ãƒ‰ãƒ¼ãƒ«ã«ã™ã‚‹
 		GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
 		GetMesh()->SetSimulatePhysics(true);
 
-		// BGM‚ğ~‚ß‚é
+		// BGMã‚’æ­¢ã‚ã‚‹
 		if (UWorld* World = GetWorld())
 		{
 			if (ACubePetsGameModeBase* GM = Cast<ACubePetsGameModeBase>(World->GetAuthGameMode()))
@@ -185,14 +185,14 @@ float ACubePetsCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dam
 			}
 		}
 
-		// ˆê’èŠÔŒã‚ÉƒtƒF[ƒhƒAƒEƒg‰‰oŠJn‚³‚¹‚é
+		// ä¸€å®šæ™‚é–“å¾Œã«ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆæ¼”å‡ºé–‹å§‹ã•ã›ã‚‹
 		GetWorldTimerManager().SetTimer(mRestartTimerHandle, this, &ACubePetsCharacter::BroadcastFadeOut, mRestartDelay, false);
 	}
 
 	return ActualDamage;
 }
 
-// ƒtƒF[ƒhƒAƒEƒg—p‚ÌƒfƒŠƒQ[ƒgA“o˜^‚³‚ê‚Ä‚¢‚éŠÖ”‚ğŒÄ‚Ño‚·
+// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆç”¨ã®ãƒ‡ãƒªã‚²ãƒ¼ãƒˆã€ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹é–¢æ•°ã‚’å‘¼ã³å‡ºã™
 void ACubePetsCharacter::BroadcastFadeOut()
 {
 	mOnFadeOutTriggered.Broadcast();
@@ -229,7 +229,7 @@ void ACubePetsCharacter::Look(const FInputActionValue& Value)
 
 void ACubePetsCharacter::JumpAction(const FInputActionValue& Value)
 {
-	// ƒ{ƒ^ƒ“‚ªˆê“x—£‚³‚ê‚Ä‚¢‚éê‡‚Ì‚İƒWƒƒƒ“ƒv‚·‚é
+	// ãƒœã‚¿ãƒ³ãŒä¸€åº¦é›¢ã•ã‚Œã¦ã„ã‚‹å ´åˆã®ã¿ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹
 	if (bIsJumpButtonReleased)
 	{
 		Jump();
@@ -247,7 +247,7 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 {
 	if (!mReticleClass || !mCubePetsCubeClass) return;
 
-	// ƒuƒƒbƒNƒŒƒeƒBƒNƒ‹¶¬’†‚Å‚È‚¯‚ê‚Î¶¬ˆ—
+	// ãƒ–ãƒ­ãƒƒã‚¯ãƒ¬ãƒ†ã‚£ã‚¯ãƒ«ç”Ÿæˆä¸­ã§ãªã‘ã‚Œã°ç”Ÿæˆå‡¦ç†
 	if(!bIsReticleExistence)
 	{
 		UWorld* World = GetWorld();
@@ -260,10 +260,10 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 
 			FVector SpawnLocation = GetActorLocation() + (GetActorForwardVector() * mSpawnOffset);
 
-			// ƒXƒ|[ƒ“
+			// ã‚¹ãƒãƒ¼ãƒ³
 			mCubeReticle = World->SpawnActor<ACubeReticle>(mReticleClass, SpawnLocation, GetActorRotation(), SpawnParams);
 
-			// ƒvƒŒƒCƒ„[‚ÉƒAƒ^ƒbƒ`‚·‚é
+			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ã‚¢ã‚¿ãƒƒãƒã™ã‚‹
 			if (mCubeReticle)
 			{
 				FAttachmentTransformRules AttachRules(EAttachmentRule::KeepWorld, true);
@@ -271,7 +271,7 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 			}
 			bIsReticleExistence = true;
 
-			// PlayerController‚É’Ê’m
+			// PlayerControllerã«é€šçŸ¥
 			ACubePetsPlayerController* PC = Cast<ACubePetsPlayerController>(GetController());
 			if (PC)
 			{
@@ -280,7 +280,7 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 
 		}
 	}
-	// ƒuƒƒbƒNƒŒƒeƒBƒNƒ‹¶¬’†‚Éƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½¨¶¬‹–‰Âó‘Ô‚È‚çƒuƒƒbƒN¶¬
+	// ãƒ–ãƒ­ãƒƒã‚¯ãƒ¬ãƒ†ã‚£ã‚¯ãƒ«ç”Ÿæˆä¸­ã«ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸâ†’ç”Ÿæˆè¨±å¯çŠ¶æ…‹ãªã‚‰ãƒ–ãƒ­ãƒƒã‚¯ç”Ÿæˆ
 	else
 	{
 		if (mCubeReticle && mCubeReticle->GetIsPermission())
@@ -289,16 +289,16 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 			FRotator SpawnRotation = mCubeReticle->GetActorRotation();
 
 
-			AActor* PlayerBase = GetMovementBaseActor(this); // ƒvƒŒƒCƒ„[‚ªæ‚Á‚Ä‚¢‚éƒAƒNƒ^[‚ğæ“¾
+			AActor* PlayerBase = GetMovementBaseActor(this); // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒä¹—ã£ã¦ã„ã‚‹ã‚¢ã‚¯ã‚¿ãƒ¼ã‚’å–å¾—
 
-			// ƒvƒŒƒCƒ„[‚ªæ‚Á‚Ä‚¢‚éƒuƒƒbƒN‚ÍŒó•â‚©‚çŠO‚µ‚ÄAƒuƒƒbƒN‚ğÄ¶¬‚·‚é
+			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒä¹—ã£ã¦ã„ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã¯å€™è£œã‹ã‚‰å¤–ã—ã¦ã€ãƒ–ãƒ­ãƒƒã‚¯ã‚’å†ç”Ÿæˆã™ã‚‹
 			for (int32 i = 0; i < mMaxCube; ++i)
 			{
-				ACubePetsCube* TargetCube = mCubePetsCubeArray[mNextIndex]; // Œó•â‚ğŒˆ‚ß‚é
+				ACubePetsCube* TargetCube = mCubePetsCubeArray[mNextIndex]; // å€™è£œã‚’æ±ºã‚ã‚‹
 
 				if (!TargetCube || TargetCube == PlayerBase)
 				{
-					mNextIndex = (mNextIndex + 1) % mMaxCube; // ƒvƒŒƒCƒ„[‚ªæ‚Á‚Ä‚¢‚½‚çŸ‚ÌŒó•â‚ÉˆÚ‚é
+					mNextIndex = (mNextIndex + 1) % mMaxCube; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒä¹—ã£ã¦ã„ãŸã‚‰æ¬¡ã®å€™è£œã«ç§»ã‚‹
 					continue;
 				}
 
@@ -307,22 +307,22 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 
 				mNextIndex = (mNextIndex + 1) % mMaxCube;
 
-				// ŸÁ‚¦‚éŒó•â‚Ì” ‚ª‚ ‚ê‚ÎŒõ‚ç‚¹‚é
+				// æ¬¡æ¶ˆãˆã‚‹å€™è£œã®ç®±ãŒã‚ã‚Œã°å…‰ã‚‰ã›ã‚‹
 				UpdateOldestCubeGlow();
 
 				break;
 			}
 
-			// Œø‰Ê‰¹‚ğ–Â‚ç‚·
+			// åŠ¹æœéŸ³ã‚’é³´ã‚‰ã™
 			PlayCreateEffects();
 			
-			// ƒŒƒeƒBƒNƒ‹‚ÍÁ‚·
+			// ãƒ¬ãƒ†ã‚£ã‚¯ãƒ«ã¯æ¶ˆã™
 			mCubeReticle->Destroy();
 			mCubeReticle = nullptr;
 
 			bIsReticleExistence = false;
 
-			// PlayerController‚É’Ê’miUI‚ÌƒeƒLƒXƒg‚ğXV‚·‚é‚½‚ßj
+			// PlayerControllerã«é€šçŸ¥ï¼ˆUIã®ãƒ†ã‚­ã‚¹ãƒˆã‚’æ›´æ–°ã™ã‚‹ãŸã‚ï¼‰
 			ACubePetsPlayerController* PC = Cast<ACubePetsPlayerController>(GetController());
 			if (PC)
 			{
@@ -334,7 +334,7 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 
 void ACubePetsCharacter::LockRotation(const FInputActionValue& Value)
 {
-	// Œü‚«‚ğŒÅ’è‚·‚é
+	// å‘ãã‚’å›ºå®šã™ã‚‹
 	UCharacterMovementComponent* MoveComp = GetCharacterMovement();
 	if (MoveComp)
 	{
@@ -344,7 +344,7 @@ void ACubePetsCharacter::LockRotation(const FInputActionValue& Value)
 
 void ACubePetsCharacter::UnlockRotation(const FInputActionValue& Value)
 {
-	// ƒ{ƒ^ƒ“‚ğ—£‚µ‚½‚çŒü‚«ŒÅ’è‰ğœ
+	// ãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸã‚‰å‘ãå›ºå®šè§£é™¤
 	UCharacterMovementComponent* MoveComp = GetCharacterMovement();
 	if (MoveComp)
 	{

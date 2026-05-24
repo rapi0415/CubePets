@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ControllGuideWidget.h"
@@ -11,7 +11,7 @@ void UControllGuideWidget::NativeConstruct()
 	Super::NativeConstruct();
 }
 
-// ” ‚Ì¶¬ƒKƒCƒhƒeƒLƒXƒg‚ÌXV—p
+// ç®±ã®ç”Ÿæˆã‚¬ã‚¤ãƒ‰ãƒ†ã‚­ã‚¹ãƒˆã®æ›´æ–°ç”¨
 void UControllGuideWidget::UpdateTextBlockCreate(bool bIsReticleExistence)
 {
 	FName NewTextID = bIsReticleExistence ? mTextCreate : mTextReady;
@@ -22,7 +22,7 @@ void UControllGuideWidget::UpdateTextBlockCreate(bool bIsReticleExistence)
 	}
 }
 
-// ƒ{ƒ^ƒ“ƒAƒCƒRƒ“‚ğƒL[ƒ{[ƒh—p‚Æƒpƒbƒh—p‚ÅØ‚è‘Ö‚¦‚é
+// ãƒœã‚¿ãƒ³ã‚¢ã‚¤ã‚³ãƒ³ã‚’ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ç”¨ã¨ãƒ‘ãƒƒãƒ‰ç”¨ã§åˆ‡ã‚Šæ›¿ãˆã‚‹
 void UControllGuideWidget::UpdateDeviceIcon(bool bIsGamepad)
 {
 	if (JumpButtonIconImage)

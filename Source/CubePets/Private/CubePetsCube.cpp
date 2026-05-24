@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "CubePetsCube.h"
@@ -33,13 +33,13 @@ void ACubePetsCube::Tick(float DeltaTime)
 
 }
 
-// —‰º‚µ‚Ä‚àÁ‚¦‚¸‚É”ñƒAƒNƒeƒBƒu‚É‚·‚é‚¾‚¯‚É‚·‚é
+// è½ä¸‹ã—ã¦ã‚‚æ¶ˆãˆãšã«éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã ã‘ã«ã™ã‚‹
 void ACubePetsCube::FellOutOfWorld(const UDamageType& dmgType)
 {
 	OnDeactivated();
 }
 
-// ‘¶İ‚µ‚Ä‚¢‚È‚¢ó‘Ô‚É‚·‚é
+// å­˜åœ¨ã—ã¦ã„ãªã„çŠ¶æ…‹ã«ã™ã‚‹
 void ACubePetsCube::OnDeactivated()
 {
 	SetActorHiddenInGame(true);
@@ -52,13 +52,13 @@ void ACubePetsCube::OnDeactivated()
 	bIsActive = false;
 }
 
-// ‘¶İ‚µ‚Ä‚¢‚éó‘Ô‚É‚·‚é
+// å­˜åœ¨ã—ã¦ã„ã‚‹çŠ¶æ…‹ã«ã™ã‚‹
 void ACubePetsCube::OnActivated(FVector SpawnLocation, FRotator SpawnRotation)
 {
-	SetActorLocation(SpawnLocation, false, nullptr, ETeleportType::TeleportPhysics); // ƒeƒŒƒ|[ƒg‚ÅˆÚ“®‚³‚¹‚é
+	SetActorLocation(SpawnLocation, false, nullptr, ETeleportType::TeleportPhysics); // ãƒ†ãƒ¬ãƒãƒ¼ãƒˆã§ç§»å‹•ã•ã›ã‚‹
 	SetActorRotation(SpawnRotation);
 
-	// ‘¬“x‚ğ0‚É‚µ‚Ä‚¨‚­
+	// é€Ÿåº¦ã‚’0ã«ã—ã¦ãŠã
 	UPrimitiveComponent* RootComp = Cast<UPrimitiveComponent>(GetRootComponent());
 	if (RootComp)
 	{
@@ -69,7 +69,7 @@ void ACubePetsCube::OnActivated(FVector SpawnLocation, FRotator SpawnRotation)
 	SetActorEnableCollision(true);
 	SetActorTickEnabled(true);
 
-	// •¨—‚ğON
+	// ç‰©ç†ã‚’ON
 	if (mStaticMesh)
 	{
 		mStaticMesh->SetSimulatePhysics(true);
@@ -90,12 +90,12 @@ void ACubePetsCube::SetGlow(bool bIsOldest)
 	{
 		if (bIsOldest)
 		{
-			// Œõ‚ç‚¹‚é
+			// å…‰ã‚‰ã›ã‚‹
 			mDynamicMaterial->SetScalarParameterValue(TEXT("GlowIntensity"), 1.0f);
 		}
 		else
 		{
-			// Œ³‚É–ß‚·
+			// å…ƒã«æˆ»ã™
 			mDynamicMaterial->SetScalarParameterValue(TEXT("GlowIntensity"), 0.0f);
 		}
 	}

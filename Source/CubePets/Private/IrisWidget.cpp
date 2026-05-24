@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "IrisWidget.h"
@@ -16,7 +16,7 @@ void UIrisWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
 
-	// ƒ_ƒCƒiƒ~ƒbƒNƒ}ƒeƒŠƒAƒ‹‚ğì¬
+	// ãƒ€ã‚¤ãƒŠãƒŸãƒƒã‚¯ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’ä½œæˆ
 	if (IrisImage)
 	{
 		mIrisMID = IrisImage->GetDynamicMaterial();
@@ -27,7 +27,7 @@ void UIrisWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
 
-	// AspectRatio‚ğŒvZ
+	// AspectRatioã‚’è¨ˆç®—
 	FVector2D LocalSize = MyGeometry.GetLocalSize();
 
 	if (LocalSize.X > 0 && LocalSize.Y > 0)
@@ -40,7 +40,7 @@ void UIrisWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 	}
 }
 
-// ƒAƒCƒŠƒXƒCƒ“‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶‚·‚é‚½‚ß‚ÌŠÖ”
+// ã‚¢ã‚¤ãƒªã‚¹ã‚¤ãƒ³ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å†ç”Ÿã™ã‚‹ãŸã‚ã®é–¢æ•°
 void UIrisWidget::StartIrisIn()
 {
 	
@@ -55,14 +55,14 @@ void UIrisWidget::StartIrisOut()
 {
 	if (IrisClose)
 	{
-		// ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI‚í‚Á‚½‚ç’Ê’m—p‚ÌŠÖ”‚ğŒÄ‚Ô‚½‚ß‚ÉƒoƒCƒ“ƒh
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã£ãŸã‚‰é€šçŸ¥ç”¨ã®é–¢æ•°ã‚’å‘¼ã¶ãŸã‚ã«ãƒã‚¤ãƒ³ãƒ‰
 		FWidgetAnimationDynamicEvent EndDelegate;
 		EndDelegate.BindDynamic(this, &UIrisWidget::BroadcastAnimationFinished);
 
 		UnbindFromAnimationFinished(IrisClose, EndDelegate);
 		BindToAnimationFinished(IrisClose, EndDelegate);
 
-		// ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ
 		PlayAnimation(IrisClose);
 	}
 }

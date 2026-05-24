@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "CheckPointActor.h"
@@ -46,10 +46,10 @@ void ACheckPointActor::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	// ÚG‚µ‚½‚Ì‚ªƒvƒŒƒCƒ„[‚©H
+	// æ¥è§¦ã—ãŸã®ãŒãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ï¼Ÿ
 	if (ACubePetsCharacter* PlayerCharacter = Cast<ACubePetsCharacter>(OtherActor))
 	{
-		// ƒZ[ƒuˆ—
+		// ã‚»ãƒ¼ãƒ–å‡¦ç†
 		USaveGameInstanceSubsystem* SaveSubsystem = GetGameInstance()->GetSubsystem<USaveGameInstanceSubsystem>();
 		SaveSubsystem->SetCurrentCheckPoint(GetActorLocation());
 
@@ -57,10 +57,10 @@ void ACheckPointActor::NotifyActorBeginOverlap(AActor* OtherActor)
 		SaveGame->SetCheckPointLocation(SaveSubsystem->GetCurrentCheckPoint());
 		UGameplayStatics::SaveGameToSlot(SaveGame, TEXT("Slot1"), 0);
 
-		// ƒGƒtƒFƒNƒg‚Æ‚©‚Ì•\¦
+		// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã¨ã‹ã®è¡¨ç¤º
 		PlayEffects();
 
-		// ƒvƒŒƒCƒ„[‚Ì“ªã‚ÉƒeƒLƒXƒg‚ğ•\¦
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é ­ä¸Šã«ãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤º
 		PlayerCharacter->ShowFloatingText();
 	}
 }

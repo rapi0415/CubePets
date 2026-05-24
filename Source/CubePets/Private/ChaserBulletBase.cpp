@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ChaserBulletBase.h"
@@ -12,11 +12,11 @@ AChaserBulletBase::AChaserBulletBase()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	// ƒXƒtƒBƒAƒRƒŠƒWƒ‡ƒ“
+	// ã‚¹ãƒ•ã‚£ã‚¢ã‚³ãƒªã‚¸ãƒ§ãƒ³
 	mSphereTrigger = CreateDefaultSubobject<USphereComponent>(TEXT("SphereTrigger"));
 	RootComponent = mSphereTrigger;
 
-	// ƒXƒ^ƒeƒBƒbƒNƒƒbƒVƒ…
+	// ã‚¹ã‚¿ãƒ†ã‚£ãƒƒã‚¯ãƒ¡ãƒƒã‚·ãƒ¥
 	mStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
 	mStaticMesh->SetupAttachment(RootComponent);
 }
@@ -41,19 +41,19 @@ void AChaserBulletBase::Tick(float DeltaTime)
 
 	if (PlayerPawn)
 	{
-		// ©•ª‚ÆƒvƒŒƒCƒ„[‚ÌŒ»İˆÊ’u‚ğæ“¾
+		// è‡ªåˆ†ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç¾åœ¨ä½ç½®ã‚’å–å¾—
 		FVector CurrentLocation = GetActorLocation();
 		FVector TargetLocation = PlayerPawn->GetActorLocation();
 
-		// ƒvƒŒƒCƒ„[‚ÖŒü‚©‚¤•ûŒü‚ğŒvZi’·‚³‚ğ1‚É³‹K‰»j
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¸å‘ã‹ã†æ–¹å‘ã‚’è¨ˆç®—ï¼ˆé•·ã•ã‚’1ã«æ­£è¦åŒ–ï¼‰
 		FVector Direction = (TargetLocation - CurrentLocation).GetSafeNormal();
 
-		// ˆÚ“®Œã‚ÌV‚µ‚¢ˆÊ’u‚ğŒvZ
+		// ç§»å‹•å¾Œã®æ–°ã—ã„ä½ç½®ã‚’è¨ˆç®—
 		FVector NewLocation = CurrentLocation + (Direction * mMoveSpeed * DeltaTime);
 
 		SetActorLocation(NewLocation);
 
-		// ƒvƒŒƒCƒ„[‚Ì‚Ù‚¤‚ğŒü‚©‚¹‚é
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã»ã†ã‚’å‘ã‹ã›ã‚‹
 		FRotator NewRotation = Direction.Rotation();
 		SetActorRotation(NewRotation);
 	}

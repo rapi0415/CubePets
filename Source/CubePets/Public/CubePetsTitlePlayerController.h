@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -22,7 +22,7 @@ protected:
 
 public:
 
-	// ƒ^ƒCƒgƒ‹‰æ–Ê—p
+	// ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ç”¨
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UTitleWidget> mTitleWidgetClass = nullptr;
 	

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -28,7 +28,7 @@ public:
 
 protected:
 
-	// ƒXƒCƒbƒ`‚ÌŒ©‚½–Ú
+	// ã‚¹ã‚¤ãƒƒãƒã®è¦‹ãŸç›®
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	TObjectPtr<UStaticMeshComponent> mStaticMesh = nullptr;
 

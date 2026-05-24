@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -31,11 +31,11 @@ public:
 
 protected:
 
-	// GAS‚ÌƒRƒAƒRƒ“ƒ|[ƒlƒ“ƒgiASCj
+	// GASã®ã‚³ã‚¢ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆï¼ˆASCï¼‰
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UAbilitySystemComponent> mAbilitySystemComponent = nullptr;
 
-	// ƒQ[ƒ€ŠJn‚É©“®•t—^‚·‚éƒAƒrƒŠƒeƒB
+	// ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã«è‡ªå‹•ä»˜ä¸ã™ã‚‹ã‚¢ãƒ“ãƒªãƒ†ã‚£
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Abilities")
 	TArray<TSubclassOf<UGameplayAbility>> mDefaultAbilities;
 

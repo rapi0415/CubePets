@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -9,7 +9,7 @@
 class UImage;
 class UWidgetAnimation;
 
-// ƒAƒjƒ[ƒVƒ‡ƒ“I—¹’Ê’m—p‚ÌƒfƒŠƒQ[ƒg
+// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³çµ‚äº†é€šçŸ¥ç”¨ã®ãƒ‡ãƒªã‚²ãƒ¼ãƒˆ
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFadeAnimationFinished);
 
 UCLASS()
@@ -19,11 +19,11 @@ class CUBEPETS_API UIrisWidget : public UUserWidget
 
 public:
 
-	// BP‘¤‚Ìƒp[ƒc‚Æ•R‚Ã‚¯‚é
+	// BPå´ã®ãƒ‘ãƒ¼ãƒ„ã¨ç´ã¥ã‘ã‚‹
 	UPROPERTY(Transient, meta = (BindWidget))
 	UImage* IrisImage;
 
-	// BP‘¤‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Æ•R‚Ã‚¯‚é
+	// BPå´ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã¨ç´ã¥ã‘ã‚‹
 	UPROPERTY(Transient, meta = (BindWidgetAnim))
 	UWidgetAnimation* IrisOpen;
 

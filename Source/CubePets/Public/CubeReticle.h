@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -27,7 +27,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 public:
-	// ¶¬‹–‰Â‚©‹Ö~‚©‚ğ•Ô‚·ŠÖ”
+	// ç”Ÿæˆè¨±å¯ã‹ç¦æ­¢ã‹ã‚’è¿”ã™é–¢æ•°
 	virtual bool GetIsPermission()
 	{
 		return bIsPermission;
@@ -47,7 +47,7 @@ protected:
 	UPROPERTY()
 	UMaterialInstanceDynamic* mDynamicMaterial = nullptr;
 
-	// ƒŒƒeƒBƒNƒ‹‚Ìó‘Ôi¶¬‹–‰Â‚©‹Ö~‚©j
+	// ãƒ¬ãƒ†ã‚£ã‚¯ãƒ«ã®çŠ¶æ…‹ï¼ˆç”Ÿæˆè¨±å¯ã‹ç¦æ­¢ã‹ï¼‰
 	bool bIsPermission = true;
 
 };

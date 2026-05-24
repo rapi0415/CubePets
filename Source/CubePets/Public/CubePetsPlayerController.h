@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -22,15 +22,15 @@ class CUBEPETS_API ACubePetsPlayerController : public APlayerController
 
 public:
 	
-	// ƒtƒF[ƒh‰‰o—p
+	// ãƒ•ã‚§ãƒ¼ãƒ‰æ¼”å‡ºç”¨
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
 	TSubclassOf<UIrisWidget> mIrisWidgetClass = nullptr;
 
-	// ‘€ìƒKƒCƒh—p
+	// æ“ä½œã‚¬ã‚¤ãƒ‰ç”¨
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
 	TSubclassOf<UControllGuideWidget> mControllGuideWidgetClass = nullptr;
 
-	// ƒ|[ƒY—p
+	// ãƒãƒ¼ã‚ºç”¨
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
 	TSubclassOf<UPauseWidget> mPauseWidgetClass = nullptr;
 
@@ -48,11 +48,11 @@ protected:
 
 protected:
 
-	// ƒtƒF[ƒhƒAƒEƒg‚ğÄ¶‚·‚éŠÖ”
+	// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã‚’å†ç”Ÿã™ã‚‹é–¢æ•°
 	UFUNCTION()
 	void HandleFadeOutNotification();
 	
-	// ƒŒƒxƒ‹‚Ì‘JˆÚ‚ğ‚·‚éŠÖ”
+	// ãƒ¬ãƒ™ãƒ«ã®é·ç§»ã‚’ã™ã‚‹é–¢æ•°
 	UFUNCTION()
 	void HandleLevelTransitionNotification();
 
@@ -72,21 +72,21 @@ public:
 
 private:
 
-	// ƒtƒF[ƒhƒEƒBƒWƒFƒbƒg
+	// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¦ã‚£ã‚¸ã‚§ãƒƒãƒˆ
 	UPROPERTY()
 	TObjectPtr<UIrisWidget> mCurrentIrisWidget = nullptr;
 
-	// ‘€ìƒKƒCƒhƒEƒBƒWƒFƒbƒg
+	// æ“ä½œã‚¬ã‚¤ãƒ‰ã‚¦ã‚£ã‚¸ã‚§ãƒƒãƒˆ
 	UPROPERTY()
 	TObjectPtr<UControllGuideWidget> mCurrentControllGuideWidget = nullptr;
 
-	// ƒ|[ƒYƒEƒBƒWƒFƒbƒg
+	// ãƒãƒ¼ã‚ºã‚¦ã‚£ã‚¸ã‚§ãƒƒãƒˆ
 	UPROPERTY()
 	TObjectPtr<UPauseWidget> mCurrentPauseWidget = nullptr;
 
 protected:
 
-	// ƒCƒ“ƒvƒbƒgŒn
+	// ã‚¤ãƒ³ãƒ—ãƒƒãƒˆç³»
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
 	TObjectPtr<UInputMappingContext> mSystemMappingContext;
 

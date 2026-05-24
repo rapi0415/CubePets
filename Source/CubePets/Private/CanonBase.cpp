@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "CanonBase.h"
@@ -30,7 +30,7 @@ void ACanonBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// 0.2•b‚²‚Æ‚ÉŠÖ”‚ðŽÀs
+	// 0.2ç§’ã”ã¨ã«é–¢æ•°ã‚’å®Ÿè¡Œ
 	GetWorldTimerManager().SetTimer(mSearchTimerHandle, this, &ACanonBase::SearchForPlayer, 0.2f, true);
 }
 
@@ -42,14 +42,14 @@ void ACanonBase::Tick(float DeltaTime)
 
 	if (PlayerPawn && mMeshTurret)
 	{
-		// Ž©•ª‚ÆƒvƒŒƒCƒ„[‚ÌŒ»ÝˆÊ’u‚ðŽæ“¾
+		// è‡ªåˆ†ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç¾åœ¨ä½ç½®ã‚’å–å¾—
 		FVector CurrentLocation = GetActorLocation();
 		FVector TargetLocation = PlayerPawn->GetActorLocation();
 
-		// ƒvƒŒƒCƒ„[‚ÖŒü‚©‚¤•ûŒü‚ðŒvŽZi’·‚³‚ð1‚É³‹K‰»j
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¸å‘ã‹ã†æ–¹å‘ã‚’è¨ˆç®—ï¼ˆé•·ã•ã‚’1ã«æ­£è¦åŒ–ï¼‰
 		FVector Direction = (TargetLocation - CurrentLocation).GetSafeNormal();
 
-		// ƒvƒŒƒCƒ„[‚Ì‚Ù‚¤‚ðŒü‚©‚¹‚éi–C‘ä‚¾‚¯j
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã»ã†ã‚’å‘ã‹ã›ã‚‹ï¼ˆç ²å°ã ã‘ï¼‰
 		FRotator CompleteRotation = Direction.Rotation();
 		FRotator NewRotation = FRotator(0.0f, CompleteRotation.Yaw, 0.0f);
 
@@ -61,24 +61,24 @@ void ACanonBase::SearchForPlayer()
 {
 	if (!mBoxTrigger) return;
 
-	// ”»’è‚ÉŽg‚¤box‚ÌŒ`ó‚ðì¬ (BoxTrigger‚ÌƒXƒP[ƒ‹‚É‡‚í‚¹‚é)
+	// åˆ¤å®šã«ä½¿ã†boxã®å½¢çŠ¶ã‚’ä½œæˆ (BoxTriggerã®ã‚¹ã‚±ãƒ¼ãƒ«ã«åˆã‚ã›ã‚‹)
 	FCollisionShape BoxShape = FCollisionShape::MakeBox(mBoxTrigger->GetScaledBoxExtent());
 
-	// ”»’è‚ÌƒNƒGƒŠƒpƒ‰ƒ[ƒ^Ý’è
+	// åˆ¤å®šã®ã‚¯ã‚¨ãƒªãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿è¨­å®š
 	FCollisionQueryParams Params;
-	Params.AddIgnoredActor(this); // Ž©•ªŽ©g‚Í–³Ž‹
+	Params.AddIgnoredActor(this); // è‡ªåˆ†è‡ªèº«ã¯ç„¡è¦–
 
-	// ŒŸõ‘ÎÛ‚ðPawn‚Ì‚Ý‚ÉŒÀ’è‚·‚éÝ’è
+	// æ¤œç´¢å¯¾è±¡ã‚’Pawnã®ã¿ã«é™å®šã™ã‚‹è¨­å®š
 	FCollisionObjectQueryParams ObjectParams;
 	ObjectParams.AddObjectTypesToQuery(ECC_Pawn);
 
-	// OverlapƒeƒXƒg‚ðŽÀs
+	// Overlapãƒ†ã‚¹ãƒˆã‚’å®Ÿè¡Œ
 	bool bIsOverlapping = GetWorld()->OverlapAnyTestByObjectType
 	(
-		mBoxTrigger->GetComponentLocation(), // ˆÊ’u
-		mBoxTrigger->GetComponentQuat(), // ‰ñ“]
-		ObjectParams, // ƒIƒuƒWƒFƒNƒgƒ^ƒCƒv
-		BoxShape, // Œ`ó
+		mBoxTrigger->GetComponentLocation(), // ä½ç½®
+		mBoxTrigger->GetComponentQuat(), // å›žè»¢
+		ObjectParams, // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚¿ã‚¤ãƒ—
+		BoxShape, // å½¢çŠ¶
 		Params
 	);
 

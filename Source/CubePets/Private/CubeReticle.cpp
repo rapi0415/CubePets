@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "CubeReticle.h"
@@ -28,7 +28,7 @@ void ACubeReticle::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// “®“Iƒ}ƒeƒŠƒAƒ‹‚ğì¬
+	// å‹•çš„ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’ä½œæˆ
 	if (mStaticMesh)
 	{
 		mDynamicMaterial = mStaticMesh->CreateDynamicMaterialInstance(0);
@@ -40,27 +40,27 @@ void ACubeReticle::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	// ˆÈ‰ºA•Ç‚ÉG‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Ì”»’è
+	// ä»¥ä¸‹ã€å£ã«è§¦ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®š
 	if (!mBoxTrigger || !mDynamicMaterial) return;
 
-	// ”»’è‚Ég‚¤box‚ÌŒ`ó‚ğì¬ (BoxTrigger‚ÌƒXƒP[ƒ‹‚É‡‚í‚¹‚é)
+	// åˆ¤å®šã«ä½¿ã†boxã®å½¢çŠ¶ã‚’ä½œæˆ (BoxTriggerã®ã‚¹ã‚±ãƒ¼ãƒ«ã«åˆã‚ã›ã‚‹)
 	FCollisionShape BoxShape = FCollisionShape::MakeBox(mBoxTrigger->GetScaledBoxExtent());
 
-	// ”»’è‚ÌƒNƒGƒŠƒpƒ‰ƒ[ƒ^İ’è
+	// åˆ¤å®šã®ã‚¯ã‚¨ãƒªãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿è¨­å®š
 	FCollisionQueryParams Params;
-	Params.AddIgnoredActor(this); // ©•ª©g‚Í–³‹
+	Params.AddIgnoredActor(this); // è‡ªåˆ†è‡ªèº«ã¯ç„¡è¦–
 
-	// OverlapƒeƒXƒg‚ğÀs
+	// Overlapãƒ†ã‚¹ãƒˆã‚’å®Ÿè¡Œ
 	bool bIsOverlapping = GetWorld()->OverlapAnyTestByChannel
 	(
-		mBoxTrigger->GetComponentLocation(), // ˆÊ’u
-		mBoxTrigger->GetComponentQuat(), // ‰ñ“]
-		ECC_Visibility, // ƒ`ƒƒƒ“ƒlƒ‹
-		BoxShape, // Œ`ó
+		mBoxTrigger->GetComponentLocation(), // ä½ç½®
+		mBoxTrigger->GetComponentQuat(), // å›è»¢
+		ECC_Visibility, // ãƒãƒ£ãƒ³ãƒãƒ«
+		BoxShape, // å½¢çŠ¶
 		Params
 	);
 
-	// Œ‹‰Ê‚É‰‚¶‚ÄF‚ğ•ÏX
+	// çµæœã«å¿œã˜ã¦è‰²ã‚’å¤‰æ›´
 	if (bIsOverlapping)
 	{
 		mDynamicMaterial->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor::Red);
@@ -72,7 +72,7 @@ void ACubeReticle::Tick(float DeltaTime)
 		mDynamicMaterial->SetVectorParameterValue(TEXT("BaseColor"), CubeColor);
 		bIsPermission = true;
 	}
-	// ‚±‚±‚Ü‚Åi•Ç‚ÉG‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Ì”»’èj
+	// ã“ã“ã¾ã§ï¼ˆå£ã«è§¦ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®šï¼‰
 
 }
 

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "KillVolume.h"
@@ -16,7 +16,7 @@ AKillVolume::AKillVolume()
 	mBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComponent"));
 	RootComponent = mBoxComponent;
 
-	// OverlapƒCƒxƒ“ƒg‚ðƒoƒCƒ“ƒh
+	// Overlapã‚¤ãƒ™ãƒ³ãƒˆã‚’ãƒã‚¤ãƒ³ãƒ‰
 	mBoxComponent->OnComponentBeginOverlap.AddDynamic(this, &AKillVolume::OnOverlapBegin);
 }
 

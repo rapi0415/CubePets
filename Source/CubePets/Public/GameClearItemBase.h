@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -41,7 +41,7 @@ protected:
 
 protected:
 
-	// UIŠÖ˜A
+	// UIé–¢é€£
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="UI")
 	TObjectPtr<UGameClearWidget> mCurrentGameClearWidget = nullptr;
 
@@ -50,7 +50,7 @@ protected:
 
 protected:
 
-	// ƒNƒŠƒAŒã‚É‘JˆÚ‚·‚éƒŒƒxƒ‹
+	// ã‚¯ãƒªã‚¢å¾Œã«é·ç§»ã™ã‚‹ãƒ¬ãƒ™ãƒ«
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="LevelTransition")
 	TSoftObjectPtr<UWorld> mTargetLevel = nullptr;
 

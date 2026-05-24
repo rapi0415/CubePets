@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "CubePetsTitlePlayerController.h"
@@ -10,7 +10,7 @@ void ACubePetsTitlePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ƒ^ƒCƒgƒ‹‰æ–Ê‚ğ•\¦
+	// ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã‚’è¡¨ç¤º
 	if (mTitleWidgetClass)
 	{
 		mCurrentTitleWidget = CreateWidget<UTitleWidget>(this, mTitleWidgetClass);
@@ -19,12 +19,12 @@ void ACubePetsTitlePlayerController::BeginPlay()
 		{
 			mCurrentTitleWidget->AddToViewport();
 
-			// UIê—p‚Ì“ü—Íƒ‚[ƒh‚É‚·‚é
+			// UIå°‚ç”¨ã®å…¥åŠ›ãƒ¢ãƒ¼ãƒ‰ã«ã™ã‚‹
 			FInputModeUIOnly InputMode;
 			SetInputMode(InputMode);
 
 			/*
-			// ƒXƒ^[ƒgƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚ÉŒÄ‚Ñ‚½‚¢ƒCƒxƒ“ƒg‚ğƒoƒCƒ“ƒh
+			// ã‚¹ã‚¿ãƒ¼ãƒˆãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã«å‘¼ã³ãŸã„ã‚¤ãƒ™ãƒ³ãƒˆã‚’ãƒã‚¤ãƒ³ãƒ‰
 			mCurrentTitleWidget->mOnStartButtonPressed.AddDynamic(this, &ACubePetsTitlePlayerController::HandleGameStartNotification);
 
 			// mCurrentTitleWidget->SetupInitialFocus();
@@ -32,11 +32,11 @@ void ACubePetsTitlePlayerController::BeginPlay()
 		}
 	}
 
-	// ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğ•\¦
+	// ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’è¡¨ç¤º
 	bShowMouseCursor = true;
 }
 
-// ƒQ[ƒ€ƒXƒ^[ƒg
+// ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆ
 void ACubePetsTitlePlayerController::HandleGameStartNotification()
 {
 	if (!mStartLevel.IsNull())

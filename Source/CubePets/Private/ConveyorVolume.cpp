@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "ConveyorVolume.h"
@@ -30,17 +30,17 @@ void AConveyorVolume::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// �z�񂪋�Ȃ牽�����Ȃ�
+	// 配列が空なら何もしない
 	if (mOverlappingActors.IsEmpty()) return;
 
 	FVector DeltaLocation = mConveyorVelocity * DeltaTime;
 
-	// ���X�g���̂��ׂẴA�N�^�[�𓮂���
+	// リスト内のすべてのアクターを動かす
 	for (AActor* ActorToMove : mOverlappingActors)
 	{
 		if (ActorToMove && ActorToMove->IsValidLowLevel())
 		{
-			// ���͕����I�u�W�F�N�g�Ȃ̂ő��x���㏑������`�œ�����
+			// 箱は物理オブジェクトなので速度を上書きする形で動かす
 			UPrimitiveComponent* PrimitiveComp = Cast<UPrimitiveComponent>(ActorToMove->GetRootComponent());
 
 			if (PrimitiveComp)
@@ -63,7 +63,7 @@ void AConveyorVolume::OnOverlapBegin(
 	const FHitResult& SweepResult
 )
 {
-	// Z���ŉ�]���Ȃ��悤�ɂ���
+	// Z軸で回転しないようにする
 	if (OtherComp)
 	{
 		FBodyInstance* BodyInst = OtherComp->GetBodyInstance();
@@ -74,7 +74,7 @@ void AConveyorVolume::OnOverlapBegin(
 		}
 	}
 
-	// �G�ꂽ�A�N�^�[��z��ɒǉ��i�����͏����j
+	// 触れたアクターを配列に追加（自分は除く）
 	if (OtherActor && OtherActor != this)
 	{
 		mOverlappingActors.AddUnique(OtherActor);
@@ -88,7 +88,7 @@ void AConveyorVolume::OnOverlapEnd(
 	int32 OtherBodyIndex
 )
 {
-	// Z����]�̃��b�N����������
+	// Z軸回転のロックを解除する
 	FBodyInstance* BodyInst = OtherComp->GetBodyInstance();
 	if (BodyInst)
 	{
@@ -96,7 +96,7 @@ void AConveyorVolume::OnOverlapEnd(
 		BodyInst->SetDOFLock(EDOFMode::SixDOF);
 	}
 
-	// �̈悩��o���A�N�^�[��z�񂩂珜�O
+	// 領域から出たアクターを配列から除外
 	if (OtherActor)
 	{
 		mOverlappingActors.Remove(OtherActor);

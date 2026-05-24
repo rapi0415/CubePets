@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -15,7 +15,7 @@ class ACubeReticle;
 class ACubePetsCube;
 class USoundBase;
 
-// ƒtƒF[ƒhƒAƒEƒgˆ——p‚ÌƒfƒŠƒQ[ƒg
+// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆå‡¦ç†ç”¨ã®ãƒ‡ãƒªã‚²ãƒ¼ãƒˆ
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnFadeOutTriggered);
 
 UCLASS()
@@ -42,7 +42,7 @@ public:
 
 protected:
 
-	// ƒJƒƒ‰—p
+	// ã‚«ãƒ¡ãƒ©ç”¨
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Camera")
 	TObjectPtr<USpringArmComponent> mCameraBoom;
 
@@ -51,7 +51,7 @@ protected:
 
 protected:
 	
-	// “ü—Í—p
+	// å…¥åŠ›ç”¨
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
 	TObjectPtr<UInputMappingContext> mDefaultMappingContext;
 
@@ -72,12 +72,12 @@ protected:
 
 protected:
 
-	// ƒWƒƒƒ“ƒv§Œä—p
+	// ã‚¸ãƒ£ãƒ³ãƒ—åˆ¶å¾¡ç”¨
 	bool bIsJumpButtonReleased = true;
 
 protected:
 
-	// ƒuƒƒbƒN¶¬—p
+	// ãƒ–ãƒ­ãƒƒã‚¯ç”Ÿæˆç”¨
 	UPROPERTY()
 	TObjectPtr<ACubeReticle> mCubeReticle = nullptr;
 
@@ -105,13 +105,13 @@ protected:
 
 protected:
 
-	// ƒuƒƒbƒN¶¬—p
+	// ãƒ–ãƒ­ãƒƒã‚¯ç”Ÿæˆç”¨
 	UFUNCTION()
 	void UpdateOldestCubeGlow();
 
 protected:
 
-	// ƒ_ƒ[ƒWˆ——p
+	// ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†ç”¨
 	virtual float TakeDamage
 	(
 		float DamageAmount, 
@@ -141,7 +141,7 @@ protected:
 
 public:
 
-	// ƒZ[ƒuˆ——p
+	// ã‚»ãƒ¼ãƒ–å‡¦ç†ç”¨
 	UFUNCTION(BlueprintImplementableEvent, Category="Save")
 	void ShowFloatingText();
 
@@ -160,10 +160,10 @@ protected:
 
 #if !UE_BUILD_SHIPPING
 	
-	// –³“G‚É‚·‚é‚©‚Ç‚¤‚©iƒfƒoƒbƒO—pj
+	// ç„¡æ•µã«ã™ã‚‹ã‹ã©ã†ã‹ï¼ˆãƒ‡ãƒãƒƒã‚°ç”¨ï¼‰
 	bool bIsInvincible = false;
 
-	// ” ‚ğ‘S•”Á‚·ŠÖ”iƒfƒoƒbƒO—pj
+	// ç®±ã‚’å…¨éƒ¨æ¶ˆã™é–¢æ•°ï¼ˆãƒ‡ãƒãƒƒã‚°ç”¨ï¼‰
 	void DeactivateAllCubes();
 
 #endif

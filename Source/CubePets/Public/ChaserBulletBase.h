@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -27,27 +27,27 @@ public:
 
 protected:
 
-	// ˆÚ“®‘¬“x
+	// ç§»å‹•é€Ÿåº¦
 	UPROPERTY(EditAnywhere, Category="Movement")
 	float mMoveSpeed = 300.0f;
 
 protected:
 
-	// Œ©‚½–Ú
+	// è¦‹ãŸç›®
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	TObjectPtr<UStaticMeshComponent> mStaticMesh = nullptr;
 
-	// ƒRƒŠƒWƒ‡ƒ“
+	// ã‚³ãƒªã‚¸ãƒ§ãƒ³
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	TObjectPtr<USphereComponent> mSphereTrigger = nullptr;
 
-	// ’N‚ªŒ‚‚Á‚½‚©‹L‰¯‚·‚é•Ï”
+	// èª°ãŒæ’ƒã£ãŸã‹è¨˜æ†¶ã™ã‚‹å¤‰æ•°
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Canon", meta = (ExposeOnSpawn = "true"))
 	TObjectPtr<AActor> mShooterActor = nullptr;
 
 protected:
 
-	// ÚG‚ÉŒÄ‚Î‚ê‚éŠÖ”
+	// æ¥è§¦æ™‚ã«å‘¼ã°ã‚Œã‚‹é–¢æ•°
 	UFUNCTION()
 	void OnOverlapBegin(
 		UPrimitiveComponent* OverlappedComp,

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -31,7 +31,7 @@ public:
 
 public:
 
-	// BP‘¤‚Ìƒ{ƒ^ƒ“‚Æ•R‚Ã‚¯‚é
+	// BPå´ã®ãƒœã‚¿ãƒ³ã¨ç´ã¥ã‘ã‚‹
 	// UPROPERTY(Transient, meta = (BindWidget), BlueprintReadOnly)
 	// UButton* StartButton;
 

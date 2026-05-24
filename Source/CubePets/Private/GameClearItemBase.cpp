@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "GameClearItemBase.h"
@@ -18,33 +18,33 @@ void AGameClearItemBase::OnOverlapBegin(
 {
 	if (OtherActor && OtherActor != this && !bIsCleared)
 	{
-		// ÚG‚µ‚½‚Ì‚ªƒvƒŒƒCƒ„[‚©H
+		// æ¥è§¦ã—ãŸã®ãŒãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ï¼Ÿ
 		if (ACubePetsCharacter* PlayerCharacter = Cast<ACubePetsCharacter>(OtherActor))
 		{
 			bIsCleared = true;
 
-			// “ü—Í‚ğ–³Œø‰»‚·‚é
+			// å…¥åŠ›ã‚’ç„¡åŠ¹åŒ–ã™ã‚‹
 			if (ACubePetsPlayerController* PC = Cast<ACubePetsPlayerController>(PlayerCharacter->GetController()))
 			{
 				PlayerCharacter->DisableInput(PC);
 				PC->DisableInput(PC);
 			}
 
-			// ƒƒbƒVƒ…‚ğ”ñ•\¦
+			// ãƒ¡ãƒƒã‚·ãƒ¥ã‚’éè¡¨ç¤º
 			if (mStaticMesh)
 			{
 				mStaticMesh->SetVisibility(false);
 			}
 
-			// ˆê’èŠÔŒã‚ÉƒQ[ƒ€ƒNƒŠƒAUI‚ğ•\¦
+			// ä¸€å®šæ™‚é–“å¾Œã«ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢UIã‚’è¡¨ç¤º
 			float DelayTimeUI = 2.0f;
 			GetWorld()->GetTimerManager().SetTimer(mClearTimerHandle, this, &AGameClearItemBase::ShowGameClearUI, DelayTimeUI, false);
 
-			// ‚³‚ç‚Éˆê’èŠÔŒã‚ÉƒtƒF[ƒhƒAƒEƒg‚µ‚Äƒ^ƒCƒgƒ‹‚É–ß‚é
+			// ã•ã‚‰ã«ä¸€å®šæ™‚é–“å¾Œã«ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã—ã¦ã‚¿ã‚¤ãƒˆãƒ«ã«æˆ»ã‚‹
 			float DelayTimeFade = 4.0f;
 			GetWorld()->GetTimerManager().SetTimer(mFadeOutTimerHandle, this, &AGameClearItemBase::StartFadeOut, DelayTimeFade, false);
 
-			// ƒGƒtƒFƒNƒg•\¦
+			// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè¡¨ç¤º
 			PlayEffects(OtherActor);
 		}
 	}
@@ -81,6 +81,6 @@ void AGameClearItemBase::StartFadeOut()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("‘JˆÚæ‚ÌƒŒƒxƒ‹‚ªİ’è‚³‚ê‚Ä‚¢‚È‚¢‚©APC‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½"));
+		UE_LOG(LogTemp, Error, TEXT("é·ç§»å…ˆã®ãƒ¬ãƒ™ãƒ«ãŒè¨­å®šã•ã‚Œã¦ã„ãªã„ã‹ã€PCã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸ"));
 	}
 }

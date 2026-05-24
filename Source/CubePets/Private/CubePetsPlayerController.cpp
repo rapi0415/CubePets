@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "CubePetsPlayerController.h"
@@ -16,7 +16,7 @@ bool ACubePetsPlayerController::InputKey(const FInputKeyParams& Params)
 {
 	bool bIsGamepadKey = Params.Key.IsGamepadKey();
 
-	// ‘O‰ñ‚Æˆá‚¤ƒfƒoƒCƒX‚ªg‚í‚ê‚½‚çUI‚ğXV‚·‚é
+	// å‰å›ã¨é•ã†ãƒ‡ãƒã‚¤ã‚¹ãŒä½¿ã‚ã‚ŒãŸã‚‰UIã‚’æ›´æ–°ã™ã‚‹
 	if (bIsGamepadKey != bIsUsingGamepad)
 	{
 		bIsUsingGamepad = bIsGamepadKey;
@@ -34,7 +34,7 @@ void ACubePetsPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ƒAƒCƒŠƒXƒCƒ“‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶‚·‚é
+	// ã‚¢ã‚¤ãƒªã‚¹ã‚¤ãƒ³ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å†ç”Ÿã™ã‚‹
 	if (mIrisWidgetClass)
 	{
 		mCurrentIrisWidget = CreateWidget<UIrisWidget>(this, mIrisWidgetClass);
@@ -45,16 +45,16 @@ void ACubePetsPlayerController::BeginPlay()
 
 			mCurrentIrisWidget->StartIrisIn();
 
-			// ƒŠƒXƒ^[ƒg—p‚ÌŠÖ”‚ğƒoƒCƒ“ƒh‚µ‚Ä‚¨‚­
+			// ãƒªã‚¹ã‚¿ãƒ¼ãƒˆç”¨ã®é–¢æ•°ã‚’ãƒã‚¤ãƒ³ãƒ‰ã—ã¦ãŠã
 			mCurrentIrisWidget->mOnFadeAnimationFinished.AddDynamic(this, &ACubePetsPlayerController::HandleLevelTransitionNotification);
 		}
 	}
 
-	// ‰Šú‰»ˆ—
+	// åˆæœŸåŒ–å‡¦ç†
 	FInputModeGameOnly InputMode;
 	SetInputMode(InputMode);
 
-	// ‘€ìƒKƒCƒh‚ÌUI‚ğ•\¦
+	// æ“ä½œã‚¬ã‚¤ãƒ‰ã®UIã‚’è¡¨ç¤º
 	if (mControllGuideWidgetClass)
 	{
 		mCurrentControllGuideWidget = CreateWidget<UControllGuideWidget>(this, mControllGuideWidgetClass);
@@ -65,7 +65,7 @@ void ACubePetsPlayerController::BeginPlay()
 		}
 	}
 
-	// EnhancedInput—p‚Ìˆ—
+	// EnhancedInputç”¨ã®å‡¦ç†
 	if (ULocalPlayer* LocalPlayer = GetLocalPlayer())
 	{
 		if (auto* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
@@ -79,10 +79,10 @@ void ACubePetsPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	// ‘€ì‘ÎÛ‚ª©•ª‚ÌCharacter‚©ƒ`ƒFƒbƒN‚·‚é
+	// æ“ä½œå¯¾è±¡ãŒè‡ªåˆ†ã®Characterã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹
 	if (ACubePetsCharacter* CubePetsChar = Cast<ACubePetsCharacter>(InPawn))
 	{
-		// Character‚ÌƒfƒŠƒQ[ƒg‚É©•ª‚ÌŠÖ”‚ğƒoƒCƒ“ƒh
+		// Characterã®ãƒ‡ãƒªã‚²ãƒ¼ãƒˆã«è‡ªåˆ†ã®é–¢æ•°ã‚’ãƒã‚¤ãƒ³ãƒ‰
 		CubePetsChar->mOnFadeOutTriggered.AddDynamic(this, &ACubePetsPlayerController::HandleFadeOutNotification);
 	}
 
@@ -96,7 +96,7 @@ void ACubePetsPlayerController::HandleFadeOutNotification()
 
 void ACubePetsPlayerController::HandleLevelTransitionNotification()
 {
-	// ƒŒƒxƒ‹‚Ì‘JˆÚ
+	// ãƒ¬ãƒ™ãƒ«ã®é·ç§»
 	if(!mTargetLevelName.IsNone())
 	{
 		UGameplayStatics::OpenLevel(this, mTargetLevelName);
@@ -105,17 +105,17 @@ void ACubePetsPlayerController::HandleLevelTransitionNotification()
 
 void ACubePetsPlayerController::RequestLevelTransition(FName TargetLevelName)
 {
-	// ƒŒƒxƒ‹–¼‚ğİ’è
+	// ãƒ¬ãƒ™ãƒ«åã‚’è¨­å®š
 	mTargetLevelName = TargetLevelName;
 
-	// ƒtƒF[ƒhƒAƒEƒg‚ğÄ¶
+	// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã‚’å†ç”Ÿ
 	if (mCurrentIrisWidget)
 	{
 		mCurrentIrisWidget->StartIrisOut();
 	}
 }
 
-// ƒŒƒeƒBƒNƒ‹‚Ì—L–³‚ª•Ï‚í‚Á‚½‚ÉƒvƒŒƒCƒ„[‚©‚çŒÄ‚ñ‚Å‚à‚ç‚¤ŠÖ”AƒEƒBƒWƒFƒbƒg‚ÌƒeƒLƒXƒgƒuƒƒbƒN‚ğXV
+// ãƒ¬ãƒ†ã‚£ã‚¯ãƒ«ã®æœ‰ç„¡ãŒå¤‰ã‚ã£ãŸæ™‚ã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰å‘¼ã‚“ã§ã‚‚ã‚‰ã†é–¢æ•°ã€ã‚¦ã‚£ã‚¸ã‚§ãƒƒãƒˆã®ãƒ†ã‚­ã‚¹ãƒˆãƒ–ãƒ­ãƒƒã‚¯ã‚’æ›´æ–°
 void ACubePetsPlayerController::NotifyReticleStateChanged(bool bReticleExistence)
 {
 	if (mCurrentControllGuideWidget)
@@ -124,7 +124,7 @@ void ACubePetsPlayerController::NotifyReticleStateChanged(bool bReticleExistence
 	}
 }
 
-// ƒ|[ƒYØ‚è‘Ö‚¦
+// ãƒãƒ¼ã‚ºåˆ‡ã‚Šæ›¿ãˆ
 void ACubePetsPlayerController::TogglePause()
 {
 	UWorld* World = GetWorld();
@@ -138,7 +138,7 @@ void ACubePetsPlayerController::TogglePause()
 		SetInputMode(FInputModeGameAndUI());
 		bShowMouseCursor = true;
 
-		// UI‚ğ•\¦
+		// UIã‚’è¡¨ç¤º
 		if (mPauseWidgetClass && mCurrentPauseWidget == nullptr)
 		{
 			mCurrentPauseWidget = CreateWidget<UPauseWidget>(this, mPauseWidgetClass);
@@ -153,7 +153,7 @@ void ACubePetsPlayerController::TogglePause()
 		SetInputMode(FInputModeGameOnly());
 		bShowMouseCursor = false;
 
-		// UI‚ğ”jŠü
+		// UIã‚’ç ´æ£„
 		if (mCurrentPauseWidget)
 		{
 			mCurrentPauseWidget->RemoveFromParent();

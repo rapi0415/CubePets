@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -23,13 +23,13 @@ protected:
 
 protected:
 
-	// BGMÄ¶—pƒRƒ“ƒ|[ƒlƒ“ƒg
+	// BGMå†ç”Ÿç”¨ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	UPROPERTY(BlueprintReadWrite, Category="Audio")
 	TObjectPtr<UAudioComponent> mBGMAudioComponent = nullptr;
 
 public:
 
-	// BGM’â~—pŠÖ”
+	// BGMåœæ­¢ç”¨é–¢æ•°
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Audio")
 	void StopTitleBGM();
 };

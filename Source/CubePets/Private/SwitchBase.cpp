@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "SwitchBase.h"
@@ -11,7 +11,7 @@ ASwitchBase::ASwitchBase()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	// ƒXƒCƒbƒ`‚ÌŒ©‚½–Ú
+	// ã‚¹ã‚¤ãƒƒãƒã®è¦‹ãŸç›®
 	mStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
 	RootComponent = mStaticMesh;
 
@@ -26,14 +26,14 @@ void ASwitchBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// BoxTrigger‚ª‰½‚©‚ÉG‚ê‚½‚çOnOverlapBegin‚ğŒÄ‚Ô‚æ‚¤‚ÉƒoƒCƒ“ƒhi“¯—l‚ÉOverlapEnd‚àj
+	// BoxTriggerãŒä½•ã‹ã«è§¦ã‚ŒãŸã‚‰OnOverlapBeginã‚’å‘¼ã¶ã‚ˆã†ã«ãƒã‚¤ãƒ³ãƒ‰ï¼ˆåŒæ§˜ã«OverlapEndã‚‚ï¼‰
 	if (mBoxTrigger)
 	{
 		mBoxTrigger->OnComponentBeginOverlap.AddDynamic(this, &ASwitchBase::OnOverlapBegin);
 		mBoxTrigger->OnComponentEndOverlap.AddDynamic(this, &ASwitchBase::OnOverlapEnd);
 	}
 
-	// “®“Iƒ}ƒeƒŠƒAƒ‹‚ğì¬
+	// å‹•çš„ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’ä½œæˆ
 	if (mStaticMesh)
 	{
 		mDynamicMaterial = mStaticMesh->CreateDynamicMaterialInstance(0);
@@ -57,7 +57,7 @@ void ASwitchBase::OnOverlapBegin(
 	const FHitResult& SweepResult
 )
 {
-	// ƒXƒCƒbƒ`‹N“®Aˆ—‚ÍBP‚Å’è‹`
+	// ã‚¹ã‚¤ãƒƒãƒèµ·å‹•ã€å‡¦ç†ã¯BPã§å®šç¾©
 	if (OtherActor && OtherActor != this)
 	{
 		if (mTargetActor)
@@ -66,7 +66,7 @@ void ASwitchBase::OnOverlapBegin(
 		}
 	}
 
-	// F‚ğ•Ï‚¦‚é
+	// è‰²ã‚’å¤‰ãˆã‚‹
 	if (mDynamicMaterial)
 	{
 		mDynamicMaterial->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor::Red);
@@ -81,7 +81,7 @@ void ASwitchBase::OnOverlapEnd(
 	int32 OtherBodyIndex
 )
 {
-	// ƒXƒCƒbƒ`‰ğœAˆ—‚ÍBP‚Å’è‹`
+	// ã‚¹ã‚¤ãƒƒãƒè§£é™¤ã€å‡¦ç†ã¯BPã§å®šç¾©
 	if (OtherActor && OtherActor != this)
 	{
 		if (mTargetActor)
@@ -90,7 +90,7 @@ void ASwitchBase::OnOverlapEnd(
 		}
 	}
 
-	// F‚ğ•Ï‚¦‚é
+	// è‰²ã‚’å¤‰ãˆã‚‹
 	if (mDynamicMaterial)
 	{
 		FLinearColor DefaultColor = FLinearColor(0.4f, 0.4f, 0.4f, 0.0f);

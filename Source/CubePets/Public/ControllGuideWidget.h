@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -24,7 +24,7 @@ protected:
 	
 public:
 
-	// ƒWƒƒƒ“ƒvƒ{ƒ^ƒ“
+	// ã‚¸ãƒ£ãƒ³ãƒ—ãƒœã‚¿ãƒ³
 	UPROPERTY(meta = (BindWidget))
 	UImage* JumpButtonIconImage = nullptr;
 
@@ -34,7 +34,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Icons")
 	UTexture2D* mJumpGamepadIcon = nullptr;
 
-	// ¶¬ƒ{ƒ^ƒ“
+	// ç”Ÿæˆãƒœã‚¿ãƒ³
 	UPROPERTY(meta = (BindWidget))
 	UImage* CreateButtonIconImage = nullptr;
 
@@ -44,7 +44,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Icons")
 	UTexture2D* mCreateGamepadIcon;
 
-	// Œü‚«ŒÅ’èƒ{ƒ^ƒ“
+	// å‘ãå›ºå®šãƒœã‚¿ãƒ³
 	UPROPERTY(meta = (BindWidget))
 	UImage* LockRotButtonIconImage = nullptr;
 
@@ -54,7 +54,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Icons")
 	UTexture2D* mLockRotGamepadIcon = nullptr;
 
-	// ” ‚Ì¶¬ƒKƒCƒhƒeƒLƒXƒg
+	// ç®±ã®ç”Ÿæˆã‚¬ã‚¤ãƒ‰ãƒ†ã‚­ã‚¹ãƒˆ
 	UPROPERTY(meta = (BindWidget))
 	UCSVTextBlock* TextBlockCreate = nullptr;
 
