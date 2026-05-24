@@ -26,37 +26,37 @@ public:
 
 	// ジャンプボタン
 	UPROPERTY(meta = (BindWidget))
-	UImage* JumpButtonIconImage = nullptr;
+	TObjectPtr<UImage> JumpButtonIconImage = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Icons")
-	UTexture2D* mJumpKeyboardIcon = nullptr;
+	TObjectPtr<UTexture2D> mJumpKeyboardIcon = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Icons")
-	UTexture2D* mJumpGamepadIcon = nullptr;
+	TObjectPtr<UTexture2D> mJumpGamepadIcon = nullptr;
 
 	// 生成ボタン
 	UPROPERTY(meta = (BindWidget))
-	UImage* CreateButtonIconImage = nullptr;
+	TObjectPtr<UImage> CreateButtonIconImage = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Icons")
-	UTexture2D* mCreateKeyboardIcon = nullptr;
+	TObjectPtr<UTexture2D> mCreateKeyboardIcon = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Icons")
-	UTexture2D* mCreateGamepadIcon;
+	TObjectPtr<UTexture2D> mCreateGamepadIcon = nullptr;
 
 	// 向き固定ボタン
 	UPROPERTY(meta = (BindWidget))
-	UImage* LockRotButtonIconImage = nullptr;
+	TObjectPtr<UImage> LockRotButtonIconImage = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Icons")
-	UTexture2D* mLockRotKeyboardIcon = nullptr;
+	TObjectPtr<UTexture2D> mLockRotKeyboardIcon = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Icons")
-	UTexture2D* mLockRotGamepadIcon = nullptr;
+	TObjectPtr<UTexture2D> mLockRotGamepadIcon = nullptr;
 
 	// 箱の生成ガイドテキスト
 	UPROPERTY(meta = (BindWidget))
-	UCSVTextBlock* TextBlockCreate = nullptr;
+	TObjectPtr<UCSVTextBlock> TextBlockCreate = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Text")
 	FName mTextReady;
@@ -65,7 +65,6 @@ public:
 	FName mTextCreate;
 
 	void UpdateTextBlockCreate(bool bIsReticleExistence);
-
 	void UpdateDeviceIcon(bool bIsGamepad);
 
 };

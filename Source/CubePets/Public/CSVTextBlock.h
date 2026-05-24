@@ -28,7 +28,7 @@ class CUBEPETS_API UCSVTextBlock : public UTextBlock
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="CSV Data")
-	UDataTable* DataTable;
+	TObjectPtr<UDataTable> DataTable = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="CSV Data")
 	FName CSVRowName;

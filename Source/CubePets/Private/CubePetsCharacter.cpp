@@ -1,10 +1,10 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
+#include "CubePetsCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "CubePetsCharacter.h"
 #include "CubeReticle.h"
 #include "CubePetsCube.h"
 #include "Kismet/GameplayStatics.h"

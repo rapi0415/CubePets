@@ -21,14 +21,14 @@ public:
 
 	// BP側のパーツと紐づける
 	UPROPERTY(Transient, meta = (BindWidget))
-	UImage* IrisImage;
+	TObjectPtr<UImage> IrisImage;
 
 	// BP側のアニメーションと紐づける
 	UPROPERTY(Transient, meta = (BindWidgetAnim))
-	UWidgetAnimation* IrisOpen;
+	TObjectPtr<UWidgetAnimation> IrisOpen;
 
 	UPROPERTY(Transient, meta = (BindWidgetAnim))
-	UWidgetAnimation* IrisClose;
+	TObjectPtr<UWidgetAnimation> IrisClose;
 
 	UFUNCTION(BlueprintCallable, Category="Iris")
 	void StartIrisIn();
@@ -49,15 +49,12 @@ protected:
 protected:
 
 	virtual void NativeConstruct() override;
-
-protected:
-
 	virtual void NativeOnInitialized() override;
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
 protected:
 
 	UPROPERTY()
-	UMaterialInstanceDynamic* mIrisMID;
+	TObjectPtr<UMaterialInstanceDynamic> mIrisMID;
 	
 };

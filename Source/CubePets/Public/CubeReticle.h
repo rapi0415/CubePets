@@ -37,15 +37,15 @@ protected:
 
 	// StaticMesh
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Component")
-	UStaticMeshComponent* mStaticMesh = nullptr;
+	TObjectPtr<UStaticMeshComponent> mStaticMesh = nullptr;
 
 	// BoxTrigger
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Component")
-	UBoxComponent* mBoxTrigger = nullptr;
+	TObjectPtr<UBoxComponent> mBoxTrigger = nullptr;
 
 	// DynamicMaterialInstance
 	UPROPERTY()
-	UMaterialInstanceDynamic* mDynamicMaterial = nullptr;
+	TObjectPtr<UMaterialInstanceDynamic> mDynamicMaterial = nullptr;
 
 	// レティクルの状態（生成許可か禁止か）
 	bool bIsPermission = true;

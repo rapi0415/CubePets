@@ -11,13 +11,10 @@
 AKillVolume::AKillVolume()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	mBoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComponent"));
 	RootComponent = mBoxComponent;
-
-	// Overlapイベントをバインド
-	mBoxComponent->OnComponentBeginOverlap.AddDynamic(this, &AKillVolume::OnOverlapBegin);
 }
 
 // Called when the game starts or when spawned
@@ -25,6 +22,11 @@ void AKillVolume::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// Overlapイベントをバインド
+	if (mBoxComponent)
+	{
+		mBoxComponent->OnComponentBeginOverlap.AddDynamic(this, &AKillVolume::OnOverlapBegin);
+	}
 }
 
 // Called every frame

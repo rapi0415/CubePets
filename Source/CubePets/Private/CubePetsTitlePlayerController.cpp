@@ -22,13 +22,6 @@ void ACubePetsTitlePlayerController::BeginPlay()
 			// UI専用の入力モードにする
 			FInputModeUIOnly InputMode;
 			SetInputMode(InputMode);
-
-			/*
-			// スタートボタンを押したときに呼びたいイベントをバインド
-			mCurrentTitleWidget->mOnStartButtonPressed.AddDynamic(this, &ACubePetsTitlePlayerController::HandleGameStartNotification);
-
-			// mCurrentTitleWidget->SetupInitialFocus();
-			*/
 		}
 	}
 
@@ -36,12 +29,3 @@ void ACubePetsTitlePlayerController::BeginPlay()
 	bShowMouseCursor = true;
 }
 
-// ゲームスタート
-void ACubePetsTitlePlayerController::HandleGameStartNotification()
-{
-	if (!mStartLevel.IsNull())
-	{
-		UGameplayStatics::OpenLevelBySoftObjectPtr(this, mStartLevel);
-		UE_LOG(LogTemp, Warning, TEXT("GameStart"));
-	}
-}

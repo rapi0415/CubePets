@@ -75,9 +75,7 @@ void AGameClearItemBase::ShowGameClearUI()
 				mCurrentGameClearWidget->StartFadeIn();
 			}
 		}
-
 	}
-
 }
 
 void AGameClearItemBase::StartFadeOut()

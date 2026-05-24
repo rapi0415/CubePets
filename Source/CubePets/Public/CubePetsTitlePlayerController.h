@@ -27,16 +27,6 @@ public:
 	TSubclassOf<UTitleWidget> mTitleWidgetClass = nullptr;
 	
 	UPROPERTY()
-	UTitleWidget* mCurrentTitleWidget = nullptr;
-
-protected:
-
-	UPROPERTY(EditAnywhere, Category="Level Transition")
-	TSoftObjectPtr<UWorld> mStartLevel = nullptr;
-
-protected:
-
-	UFUNCTION()
-	void HandleGameStartNotification();
+	TObjectPtr<UTitleWidget> mCurrentTitleWidget = nullptr;
 
 };

@@ -49,6 +49,6 @@ protected:
 
 	// BoxTrigger
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	UBoxComponent* mBoxTrigger = nullptr;
+	TObjectPtr<UBoxComponent> mBoxTrigger = nullptr;
 	
 };
