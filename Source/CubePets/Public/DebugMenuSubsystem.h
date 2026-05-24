@@ -21,10 +21,12 @@ public:
 	virtual TStatId GetStatId() const override;
 	virtual bool IsTickable() const override;
 
+#if !UE_BUILD_SHIPPING
 	void RenderPlayerMenu();
 
-protected:
+	void WarpToLocation(FVector TargetLocation);
+	void RenderStageMenu();
 
-	bool bIsMenuVisible = false;
-	
+	void RenderSystemMenu();
+#endif
 };

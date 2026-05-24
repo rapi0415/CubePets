@@ -158,9 +158,15 @@ protected:
 
 protected:
 
+#if !UE_BUILD_SHIPPING
+	
 	// 無敵にするかどうか（デバッグ用）
 	bool bIsInvincible = false;
-		
+
+	// 箱を全部消す関数（デバッグ用）
+	void DeactivateAllCubes();
+
+#endif
 	
 
 };

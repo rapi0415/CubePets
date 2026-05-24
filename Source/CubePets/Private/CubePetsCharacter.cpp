@@ -150,6 +150,15 @@ void ACubePetsCharacter::UpdateOldestCubeGlow()
 // ダメージを受けたときの処理
 float ACubePetsCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
+
+#if !UE_BUILD_SHIPPING
+	// 無敵状態ならダメージ0で終了
+	if (bIsInvincible)
+	{
+		return 0.0f;
+	}
+#endif
+
 	float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 
 	if (ActualDamage > 0.0f && !bIsDead)
@@ -342,4 +351,17 @@ void ACubePetsCharacter::UnlockRotation(const FInputActionValue& Value)
 		MoveComp->bOrientRotationToMovement = true;
 	}
 }
+
+#if !UE_BUILD_SHIPPING
+void ACubePetsCharacter::DeactivateAllCubes()
+{
+	for (ACubePetsCube* Cube : mCubePetsCubeArray)
+	{
+		if (IsValid(Cube))
+		{
+			Cube->OnDeactivated();
+		}
+	}
+}
+#endif
 
