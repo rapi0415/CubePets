@@ -14,4 +14,8 @@ class CUBEPETS_API ACubePetsPlayerCameraManager : public APlayerCameraManager
 {
 	GENERATED_BODY()
 	
+public:
+	
+	ACubePetsPlayerCameraManager();
+
 };
