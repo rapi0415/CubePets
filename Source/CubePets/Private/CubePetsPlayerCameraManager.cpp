@@ -5,7 +5,4 @@
 
 ACubePetsPlayerCameraManager::ACubePetsPlayerCameraManager()
 {
-	bEnableFading = true;
-	FadeAmount = 1.0f;
-	FadeColor = FLinearColor::Black;
 }

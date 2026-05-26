@@ -73,13 +73,6 @@ void ACubePetsPlayerController::BeginPlay()
 			Subsystem->AddMappingContext(mSystemMappingContext, 10);
 		}
 	}
-
-	// 開幕に画面を真っ黒にしているので解除する
-	APlayerCameraManager* CameraManager = PlayerCameraManager;
-	if (CameraManager)
-	{
-		CameraManager->StartCameraFade(1.0f, 0.0f, 0.5f, FLinearColor::Black, true, false);
-	}
 }
 
 void ACubePetsPlayerController::OnPossess(APawn* InPawn)
