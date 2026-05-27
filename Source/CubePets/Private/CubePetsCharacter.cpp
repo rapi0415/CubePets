@@ -16,7 +16,6 @@
 // Sets default values
 ACubePetsCharacter::ACubePetsCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	// カメラ設定
@@ -28,12 +27,11 @@ ACubePetsCharacter::ACubePetsCharacter()
 	mFollowCamera->SetupAttachment(mCameraBoom);
 }
 
-// Called when the game starts or when spawned
 void ACubePetsCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	// EnhancedInput用の処理
+	// EnhancedInput用の処理（入力マッピングの登録）
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
 		if (auto* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -44,7 +42,7 @@ void ACubePetsCharacter::BeginPlay()
 
 	UWorld* World = GetWorld();
 
-	// 箱のスポーン用処理（あらかじめ使う数だけスポーンしておく）
+	// 箱のスポーン用処理：オブジェクトプールの構築（あらかじめ使う数だけスポーンして非アクティブにしておく）
 	if (mCubePetsCubeClass != nullptr && World != nullptr)
 	{
 		mCubePetsCubeArray.Reserve(mMaxCube);
@@ -74,7 +72,6 @@ void ACubePetsCharacter::BeginPlay()
 	}
 }
 
-// Called every frame
 void ACubePetsCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -105,6 +102,7 @@ void ACubePetsCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	}
 }
 
+// 次に消える箱を光らせる関数
 void ACubePetsCharacter::UpdateOldestCubeGlow()
 {
 	bool bIsMaxSpawned = true;
@@ -152,7 +150,7 @@ float ACubePetsCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dam
 {
 
 #if !UE_BUILD_SHIPPING
-	// 無敵状態ならダメージ0で終了
+	// 無敵状態ならダメージ0で終了（デバッグ用）
 	if (bIsInvincible)
 	{
 		return 0.0f;
@@ -247,7 +245,7 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 {
 	if (!mReticleClass || !mCubePetsCubeClass) return;
 
-	// ブロックレティクル生成中でなければ生成処理
+	// --状態1：箱の生成の準備-- ブロックレティクル生成中でなければ、まずレティクルを生成
 	if(!bIsReticleExistence)
 	{
 		UWorld* World = GetWorld();
@@ -271,7 +269,7 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 			}
 			bIsReticleExistence = true;
 
-			// PlayerControllerに通知
+			// PlayerControllerに通知（操作ガイド用テキスト更新のため）
 			ACubePetsPlayerController* PC = Cast<ACubePetsPlayerController>(GetController());
 			if (PC)
 			{
@@ -280,7 +278,7 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 
 		}
 	}
-	// ブロックレティクル生成中にボタンを押した→生成許可状態ならブロック生成
+	// --状態2：実際の箱の生成-- ブロックレティクル生成中にボタンを押した→生成許可状態ならブロック生成
 	else
 	{
 		if (mCubeReticle && mCubeReticle->GetIsPermission())
@@ -298,13 +296,14 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 
 				if (!TargetCube || TargetCube == PlayerBase)
 				{
-					mNextIndex = (mNextIndex + 1) % mMaxCube; // プレイヤーが乗っていたら次の候補に移る
+					mNextIndex = (mNextIndex + 1) % mMaxCube; // プレイヤーが乗っていたら次の候補に移る（候補がnullptrだったときも）
 					continue;
 				}
 
 				TargetCube->OnDeactivated();
 				TargetCube->OnActivated(SpawnLocation, SpawnRotation);
 
+				// mNextIndexを1個繰り上げ
 				mNextIndex = (mNextIndex + 1) % mMaxCube;
 
 				// 次消える候補の箱があれば光らせる
@@ -322,7 +321,7 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 
 			bIsReticleExistence = false;
 
-			// PlayerControllerに通知（UIのテキストを更新するため）
+			// PlayerControllerに通知（操作ガイド用テキストを更新するため）
 			ACubePetsPlayerController* PC = Cast<ACubePetsPlayerController>(GetController());
 			if (PC)
 			{
@@ -353,6 +352,7 @@ void ACubePetsCharacter::UnlockRotation(const FInputActionValue& Value)
 }
 
 #if !UE_BUILD_SHIPPING
+// すべての箱を消す関数（デバッグ用）
 void ACubePetsCharacter::DeactivateAllCubes()
 {
 	for (ACubePetsCube* Cube : mCubePetsCubeArray)

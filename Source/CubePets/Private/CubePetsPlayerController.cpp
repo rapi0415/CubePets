@@ -50,7 +50,7 @@ void ACubePetsPlayerController::BeginPlay()
 		}
 	}
 
-	// 初期化処理
+	// インプットモード初期化処理
 	FInputModeGameOnly InputMode;
 	SetInputMode(InputMode);
 
@@ -65,7 +65,7 @@ void ACubePetsPlayerController::BeginPlay()
 		}
 	}
 
-	// EnhancedInput用の処理
+	// EnhancedInput用の処理（入力マッピングの登録）
 	if (ULocalPlayer* LocalPlayer = GetLocalPlayer())
 	{
 		if (auto* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
@@ -82,7 +82,7 @@ void ACubePetsPlayerController::OnPossess(APawn* InPawn)
 	// 操作対象が自分のCharacterかチェックする
 	if (ACubePetsCharacter* CubePetsChar = Cast<ACubePetsCharacter>(InPawn))
 	{
-		// Characterのデリゲートに自分の関数をバインド
+		// Characterのデリゲートに自分の関数をバインド（リスタート用）
 		CubePetsChar->mOnFadeOutTriggered.AddDynamic(this, &ACubePetsPlayerController::HandleFadeOutNotification);
 	}
 

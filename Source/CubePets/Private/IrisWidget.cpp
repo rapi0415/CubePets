@@ -28,6 +28,7 @@ void UIrisWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 	Super::NativeTick(MyGeometry, InDeltaTime);
 
 	// AspectRatioを計算
+	// Initializedのタイミングに計算だとウィンドウサイズが上手く取得できない場合があるのでTickで計算する（途中でウィンドウサイズを変えても大丈夫なようにする意図もある）
 	FVector2D LocalSize = MyGeometry.GetLocalSize();
 
 	if (LocalSize.X > 0 && LocalSize.Y > 0)
@@ -43,11 +44,9 @@ void UIrisWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 // アイリスインのアニメーションを再生するための関数
 void UIrisWidget::StartIrisIn()
 {
-	
 	if (IrisOpen)
 	{
 		PlayAnimation(IrisOpen);
-		UE_LOG(LogTemp, Warning, TEXT("Play IrisOpen"));
 	}
 }
 
