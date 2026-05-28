@@ -73,12 +73,6 @@ void ACubePetsCube::OnActivated(FVector SpawnLocation, FRotator SpawnRotation)
 	if (mStaticMesh)
 	{
 		mStaticMesh->SetSimulatePhysics(true);
-
-		/*
-		FVector LaunchDirection = GetActorForwardVector() + FVector(0.0f, 0.0f ,0.5f);
-		LaunchDirection.Normalize();
-		mStaticMesh->AddImpulse(LaunchDirection * 100000.0f);
-		*/
 	}
 
 	bIsActive = true;

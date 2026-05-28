@@ -26,14 +26,12 @@ void ASwitchBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// BoxTriggerが何かに触れたらOnOverlapBeginを呼ぶようにバインド（同様にOverlapEndも）
 	if (mBoxTrigger)
 	{
 		mBoxTrigger->OnComponentBeginOverlap.AddDynamic(this, &ASwitchBase::OnOverlapBegin);
 		mBoxTrigger->OnComponentEndOverlap.AddDynamic(this, &ASwitchBase::OnOverlapEnd);
 	}
 
-	// 動的マテリアルを作成
 	if (mStaticMesh)
 	{
 		mDynamicMaterial = mStaticMesh->CreateDynamicMaterialInstance(0);

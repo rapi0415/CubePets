@@ -18,6 +18,7 @@ void UCSVTextBlock::SynchronizeProperties()
 	}
 }
 
+// 動的に表示するテキストIDを変えたいときに使う
 void UCSVTextBlock::UpdateTextID(FName NewTextID)
 {
 	if (DataTable && !CSVRowName.IsNone())

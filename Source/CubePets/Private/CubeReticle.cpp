@@ -40,7 +40,7 @@ void ACubeReticle::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	// 以下、壁に触れているかどうかの判定
+	// --以下、壁に触れているかどうかの判定--
 	if (!mBoxTrigger || !mDynamicMaterial) return;
 
 	// 判定に使うboxの形状を作成 (BoxTriggerのスケールに合わせる)
@@ -50,13 +50,12 @@ void ACubeReticle::Tick(float DeltaTime)
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this); // 自分自身は無視
 
-	// Overlapテストを実行
 	bool bIsOverlapping = GetWorld()->OverlapAnyTestByChannel
 	(
-		mBoxTrigger->GetComponentLocation(), // 位置
-		mBoxTrigger->GetComponentQuat(), // 回転
-		ECC_Visibility, // チャンネル
-		BoxShape, // 形状
+		mBoxTrigger->GetComponentLocation(),
+		mBoxTrigger->GetComponentQuat(),
+		ECC_Visibility,
+		BoxShape,
 		Params
 	);
 
@@ -72,7 +71,7 @@ void ACubeReticle::Tick(float DeltaTime)
 		mDynamicMaterial->SetVectorParameterValue(TEXT("BaseColor"), CubeColor);
 		bIsPermission = true;
 	}
-	// ここまで（壁に触れているかどうかの判定）
+	// --ここまで（壁に触れているかどうかの判定）--
 
 }
 

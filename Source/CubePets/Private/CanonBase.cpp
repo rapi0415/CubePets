@@ -30,7 +30,7 @@ void ACanonBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// 0.2秒ごとに関数を実行
+	// 0.2秒ごとにプレイヤーが射程圏内にいるか探知する
 	GetWorldTimerManager().SetTimer(mSearchTimerHandle, this, &ACanonBase::SearchForPlayer, 0.2f, true);
 }
 
@@ -68,17 +68,16 @@ void ACanonBase::SearchForPlayer()
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this); // 自分自身は無視
 
-	// 検索対象をPawnのみに限定する設定
+	// 検索対象をPawnのみに限定する
 	FCollisionObjectQueryParams ObjectParams;
 	ObjectParams.AddObjectTypesToQuery(ECC_Pawn);
 
-	// Overlapテストを実行
 	bool bIsOverlapping = GetWorld()->OverlapAnyTestByObjectType
 	(
-		mBoxTrigger->GetComponentLocation(), // 位置
-		mBoxTrigger->GetComponentQuat(), // 回転
-		ObjectParams, // オブジェクトタイプ
-		BoxShape, // 形状
+		mBoxTrigger->GetComponentLocation(),
+		mBoxTrigger->GetComponentQuat(),
+		ObjectParams,
+		BoxShape,
 		Params
 	);
 

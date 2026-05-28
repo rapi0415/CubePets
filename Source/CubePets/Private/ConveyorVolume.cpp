@@ -30,7 +30,7 @@ void AConveyorVolume::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// 配列が空なら何もしない
+	// 乗ってるオブジェクトが何もないなら何もしない
 	if (mOverlappingActors.IsEmpty()) return;
 
 	FVector DeltaLocation = mConveyorVelocity * DeltaTime;

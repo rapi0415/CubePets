@@ -46,10 +46,9 @@ void ACheckPointActor::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	// 接触したのがプレイヤーか？
+	// 接触したのがプレイヤーならチェックポイントの座標をセーブする
 	if (ACubePetsCharacter* PlayerCharacter = Cast<ACubePetsCharacter>(OtherActor))
 	{
-		// セーブ処理
 		USaveGameInstanceSubsystem* SaveSubsystem = GetGameInstance()->GetSubsystem<USaveGameInstanceSubsystem>();
 		SaveSubsystem->SetCurrentCheckPoint(GetActorLocation());
 
@@ -57,10 +56,9 @@ void ACheckPointActor::NotifyActorBeginOverlap(AActor* OtherActor)
 		SaveGame->SetCheckPointLocation(SaveSubsystem->GetCurrentCheckPoint());
 		UGameplayStatics::SaveGameToSlot(SaveGame, TEXT("Slot1"), 0);
 
-		// エフェクトとかの表示
 		PlayEffects();
 
-		// プレイヤーの頭上にテキストを表示
+		// プレイヤーの頭上にセーブしたことを示すテキストを表示
 		PlayerCharacter->ShowFloatingText();
 	}
 }

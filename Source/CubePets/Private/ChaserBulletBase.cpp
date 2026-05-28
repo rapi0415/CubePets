@@ -69,6 +69,7 @@ void AChaserBulletBase::OnOverlapBegin(
 	const FHitResult& SweepResult
 )
 {
+	// プレイヤーに接触したらダメージを与える、壁などに接触したら消える
 	if (OtherActor && OtherActor != this && OtherActor != mShooterActor)
 	{
 		if (OtherComp && OtherComp->GetCollisionResponseToChannel(ECC_Pawn) == ECR_Block)
