@@ -63,12 +63,12 @@ C++コード内でのアセット参照（SE・エフェクト・UIアニメー�
 
 ## 主なソースコードへのリンク
 
-- [プレイヤーキャラクタークラス（ヘッダー）](Source/CubePets/Public/CubePetsCharacter.h)
-- [プレイヤーキャラクタークラス（ソース）](Source/CubePets/Private/CubePetsCharacter.cpp)
-- [ギミックのベースとなるクラス（ヘッダー）](Source/CubePets/Public/GimmickBase.h)
-- [ギミックのベースとなるクラス（ソース）](Source/CubePets/Private/GimmickBase.cpp)
-- [デバッグメニュー用クラス（ヘッダー）](Source/CubePets/Public/DebugMenuSubsystem.h)
-- [デバッグメニュー用クラス（ソース）](Source/CubePets/Private/DebugMenuSubsystem.cpp)
+- [プレイヤーキャラクタークラス（ヘッダー）](Source/CubePets/Public/Characters/CubePetsCharacter.h)
+- [プレイヤーキャラクタークラス（ソース）](Source/CubePets/Private/Characters/CubePetsCharacter.cpp)
+- [ギミックのベースとなるクラス（ヘッダー）](Source/CubePets/Public/Gimmicks/GimmickBase.h)
+- [ギミックのベースとなるクラス（ソース）](Source/CubePets/Private/Gimmicks/GimmickBase.cpp)
+- [デバッグメニュー用クラス（ヘッダー）](Source/CubePets/Public/Subsystems/DebugMenuSubsystem.h)
+- [デバッグメニュー用クラス（ソース）](Source/CubePets/Private/Subsystems/DebugMenuSubsystem.cpp)
 
 ---
 
