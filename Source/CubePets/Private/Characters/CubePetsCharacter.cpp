@@ -196,6 +196,22 @@ void ACubePetsCharacter::BroadcastFadeOut()
 	mOnFadeOutTriggered.Broadcast();
 }
 
+void ACubePetsCharacter::PlayCreateEffects()
+{
+	// もし、PlayCreateEffectsに共通処理を入れたくなったときにBlueprintImplementableEventだと
+	// BP側をすべて修正することになり地獄
+	
+	// こんな感じにネイティブ関数でラップするだけで保守性が向上する
+	// ここはエフェクト出すだけだからそんな恩恵ないけど、ACanonBase::OnPlayerDetectedみたいなロジックに直結する部分は
+	// こうしておくと後々効いてくる
+	
+	// ちなみに、BlueprintNativeEventを使うのもひとつの手だけど、BPで明示的に親関数呼ぶ必要があり、
+	// これを忘れるとC++のコードが呼ばれなくなる（もしくは意図的に呼ばれないという可能性もある）
+	// なので、こっちのテクニックのほうが必ずC++を通過するという安心感がある
+	
+	K2_PlayCreateEffects();
+}
+
 void ACubePetsCharacter::Move(const FInputActionValue& Value)
 {
 	FVector2D MovementVector = Value.Get<FVector2D>();

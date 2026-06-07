@@ -135,9 +135,11 @@ public:
 	FOnFadeOutTriggered mOnFadeOutTriggered;
 
 protected:
-
-	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
+	
 	void PlayCreateEffects();
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Effects", DisplayName="PlayCreateEffects")
+	void K2_PlayCreateEffects();
 
 public:
 
