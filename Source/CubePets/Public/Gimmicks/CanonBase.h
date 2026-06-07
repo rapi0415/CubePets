@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GimmickBase.h"
+#include "GimmickCannonInterface.h"
 #include "CanonBase.generated.h"
 
 class UBoxComponent;
@@ -12,7 +13,9 @@ class UBoxComponent;
  * 
  */
 UCLASS()
-class CUBEPETS_API ACanonBase : public AGimmickBase
+class CUBEPETS_API ACanonBase 
+	: public AGimmickBase
+	, public IGimmickCannonInterface
 {
 	GENERATED_BODY()
 
@@ -27,6 +30,15 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+public:
+	
+	FTransform GetBulletSpawnPointTransform() const override;
+	
+protected:
+	
+	UFUNCTION(BlueprintImplementableEvent, DisplayName="GetBulletSpawnPointTransform")
+	FTransform K2_GetBulletSpawnPointTransform() const;
 
 protected:
 
