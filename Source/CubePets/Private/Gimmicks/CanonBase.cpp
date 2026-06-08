@@ -57,6 +57,11 @@ void ACanonBase::Tick(float DeltaTime)
 	}
 }
 
+FTransform ACanonBase::GetBulletSpawnPointTransform() const
+{
+	return BP_GetBulletSpawnPointTransform();
+}
+
 void ACanonBase::SearchForPlayer()
 {
 	if (!mBoxTrigger) return;
