@@ -94,7 +94,7 @@ void ACubePetsCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	{
 		EnhancedInputComponent->BindAction(mMoveAction, ETriggerEvent::Triggered, this, &ACubePetsCharacter::Move);
 		EnhancedInputComponent->BindAction(mLookAction, ETriggerEvent::Triggered, this, &ACubePetsCharacter::Look);
-		EnhancedInputComponent->BindAction(mJumpAction, ETriggerEvent::Triggered, this, &ACubePetsCharacter::JumpAction);
+		EnhancedInputComponent->BindAction(mJumpAction, ETriggerEvent::Started, this, &ACubePetsCharacter::JumpAction);
 		EnhancedInputComponent->BindAction(mJumpAction, ETriggerEvent::Completed, this, &ACubePetsCharacter::StopJumpAction);
 		EnhancedInputComponent->BindAction(mCreateAction, ETriggerEvent::Triggered, this, &ACubePetsCharacter::CreateAction);
 		EnhancedInputComponent->BindAction(mLockRotationAction, ETriggerEvent::Triggered, this, &ACubePetsCharacter::LockRotation);
@@ -234,17 +234,20 @@ void ACubePetsCharacter::Look(const FInputActionValue& Value)
 void ACubePetsCharacter::JumpAction(const FInputActionValue& Value)
 {
 	// ボタンが一度離されている場合のみジャンプする
+	/*
 	if (bIsJumpButtonReleased)
 	{
 		Jump();
 		bIsJumpButtonReleased = false;
 	}
+	*/
+	Jump();
 }
 
 void ACubePetsCharacter::StopJumpAction(const FInputActionValue& Value)
 {
 	StopJumping();
-	bIsJumpButtonReleased = true;
+	// bIsJumpButtonReleased = true;
 }
 
 void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
