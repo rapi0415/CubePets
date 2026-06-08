@@ -67,6 +67,6 @@ protected:
 
 protected:
 
-	UPROPERTY()
+	UPROPERTY(Transient)
 	TObjectPtr<UMaterialInstanceDynamic> mDynamicMaterial = nullptr;
 };

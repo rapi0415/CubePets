@@ -73,15 +73,15 @@ public:
 private:
 
 	// フェードウィジェット
-	UPROPERTY()
+	UPROPERTY(Transient)
 	TObjectPtr<UIrisWidget> mCurrentIrisWidget = nullptr;
 
 	// 操作ガイドウィジェット
-	UPROPERTY()
+	UPROPERTY(Transient)
 	TObjectPtr<UControllGuideWidget> mCurrentControllGuideWidget = nullptr;
 
 	// ポーズウィジェット
-	UPROPERTY()
+	UPROPERTY(Transient)
 	TObjectPtr<UPauseWidget> mCurrentPauseWidget = nullptr;
 
 protected:

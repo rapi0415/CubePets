@@ -26,7 +26,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TSubclassOf<UTitleWidget> mTitleWidgetClass = nullptr;
 	
-	UPROPERTY()
+	UPROPERTY(Transient)
 	TObjectPtr<UTitleWidget> mCurrentTitleWidget = nullptr;
 
 };

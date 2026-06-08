@@ -33,7 +33,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Conveyor")
 	FVector mConveyorVelocity;
 
-	UPROPERTY()
+	UPROPERTY(Transient)
 	TArray<AActor*> mOverlappingActors;
 
 	UFUNCTION()

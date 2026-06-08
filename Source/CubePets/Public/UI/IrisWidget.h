@@ -20,7 +20,7 @@ class CUBEPETS_API UIrisWidget : public UUserWidget
 public:
 
 	// BP側のパーツと紐づける
-	UPROPERTY(Transient, meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UImage> IrisImage;
 
 	// BP側のアニメーションと紐づける
@@ -54,7 +54,7 @@ protected:
 
 protected:
 
-	UPROPERTY()
+	UPROPERTY(Transient)
 	TObjectPtr<UMaterialInstanceDynamic> mIrisMID;
 	
 };

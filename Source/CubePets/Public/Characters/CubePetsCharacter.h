@@ -73,12 +73,12 @@ protected:
 protected:
 
 	// ジャンプ制御用
-	bool bIsJumpButtonReleased = true;
+	// bool bIsJumpButtonReleased = true;
 
 protected:
 
 	// ブロック生成用
-	UPROPERTY()
+	UPROPERTY(Transient)
 	TObjectPtr<ACubeReticle> mCubeReticle = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="CubePets")
@@ -92,7 +92,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="CubePets")
 	int32 mMaxCube = 5;
 
-	UPROPERTY()
+	UPROPERTY(Transient)
 	TArray<TObjectPtr<ACubePetsCube>> mCubePetsCubeArray;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CubePets")
@@ -100,7 +100,7 @@ protected:
 
 	int32 mNextIndex = 0;
 
-	UPROPERTY()
+	UPROPERTY(Transient)
 	TObjectPtr<AActor> mLastPlayerBase = nullptr;
 
 protected:
