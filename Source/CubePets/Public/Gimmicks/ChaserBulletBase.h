@@ -58,7 +58,11 @@ protected:
 		const FHitResult& SweepResult
 	);
 
-	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
+protected:
+
 	void PlayEffects();
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
+	void BP_PlayEffects();
 
 };

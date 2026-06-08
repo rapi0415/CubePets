@@ -57,3 +57,8 @@ void AKillVolume::OnOverlapBegin
 	}
 }
 
+void AKillVolume::PlayEffects(AActor* TargetActor)
+{
+	BP_PlayEffects(TargetActor);
+}
+

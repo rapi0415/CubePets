@@ -37,7 +37,11 @@ protected:
 
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
-	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
+protected:
+
 	void PlayEffects();
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
+	void BP_PlayEffects();
 
 };

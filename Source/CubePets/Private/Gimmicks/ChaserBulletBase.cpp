@@ -86,3 +86,9 @@ void AChaserBulletBase::OnOverlapBegin(
 	}
 }
 
+void AChaserBulletBase::PlayEffects()
+{
+	BP_PlayEffects();
+}
+
+

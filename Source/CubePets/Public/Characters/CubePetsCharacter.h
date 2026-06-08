@@ -136,8 +136,11 @@ public:
 
 protected:
 
-	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
+	// 箱の生成時のエフェクト生成用
 	void PlayCreateEffects();
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
+	void BP_PlayCreateEffects();
 
 public:
 

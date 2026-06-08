@@ -196,6 +196,12 @@ void ACubePetsCharacter::BroadcastFadeOut()
 	mOnFadeOutTriggered.Broadcast();
 }
 
+// 生成時のエフェクト生成用関数（共通処理を後で入れることを想定してネイティブ関数でラップする）
+void ACubePetsCharacter::PlayCreateEffects()
+{
+	BP_PlayCreateEffects();
+}
+
 void ACubePetsCharacter::Move(const FInputActionValue& Value)
 {
 	FVector2D MovementVector = Value.Get<FVector2D>();

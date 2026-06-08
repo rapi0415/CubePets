@@ -63,3 +63,8 @@ void ACheckPointActor::NotifyActorBeginOverlap(AActor* OtherActor)
 	}
 }
 
+void ACheckPointActor::PlayEffects()
+{
+	BP_PlayEffects();
+}
+

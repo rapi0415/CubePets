@@ -29,8 +29,10 @@ protected:
 
 protected:
 
-	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
 	void PlayEffects(AActor* TargetActor);
+
+	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
+	void BP_PlayEffects(AActor* TargetActor);
 
 protected:
 

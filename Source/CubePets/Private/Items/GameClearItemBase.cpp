@@ -45,6 +45,7 @@ void AGameClearItemBase::OnOverlapBegin(
 			float DelayTimeFade = 4.0f;
 			GetWorld()->GetTimerManager().SetTimer(mFadeOutTimerHandle, this, &AGameClearItemBase::StartFadeOut, DelayTimeFade, false);
 
+			// エフェクト再生
 			PlayEffects(OtherActor);
 
 			// BGMを止める
@@ -90,4 +91,9 @@ void AGameClearItemBase::StartFadeOut()
 	{
 		UE_LOG(LogTemp, Error, TEXT("遷移先のレベルが設定されていないか、PCの取得に失敗しました"));
 	}
+}
+
+void AGameClearItemBase::PlayEffects(AActor* TargetActor)
+{
+	BP_PlayEffects(TargetActor);
 }
