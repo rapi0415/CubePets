@@ -21,6 +21,10 @@ public:
 	virtual TStatId GetStatId() const override;
 	virtual bool IsTickable() const override;
 
+protected:
+
+	virtual bool ShouldCreateSubsystem(UObject* Outer) const override;
+
 #if !UE_BUILD_SHIPPING
 	void RenderPlayerMenu();
 

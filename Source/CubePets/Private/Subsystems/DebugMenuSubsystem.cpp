@@ -69,6 +69,20 @@ bool UDebugMenuSubsystem::IsTickable() const
 #endif
 }
 
+bool UDebugMenuSubsystem::ShouldCreateSubsystem(UObject* Outer) const
+{
+	if (!Super::ShouldCreateSubsystem(Outer))
+	{
+		return false;
+	}
+
+#if !UE_BUILD_SHIPPING
+	return true;
+#else
+	return false;
+#endif
+}
+
 #if !UE_BUILD_SHIPPING
 void UDebugMenuSubsystem::RenderPlayerMenu()
 {
