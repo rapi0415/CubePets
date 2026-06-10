@@ -6,6 +6,7 @@
 #include "UI/GameClearWidget.h"
 #include "System/InGame/CubePetsPlayerController.h"
 #include "System/InGame/CubePetsGameModeBase.h"
+#include "Subsystems/GameProgressionSubsystem.h"
 #include "Kismet/GameplayStatics.h"
 
 void AGameClearItemBase::OnOverlapBegin(
@@ -54,6 +55,17 @@ void AGameClearItemBase::OnOverlapBegin(
 				if (ACubePetsGameModeBase* GM = Cast<ACubePetsGameModeBase>(World->GetAuthGameMode()))
 				{
 					GM->StopStageBGM();
+				}
+			}
+
+			// ステージをクリア済みにする
+			UGameInstance* GameInstance = GetGameInstance();
+			if (GameInstance)
+			{
+				UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+				if (ProgressionSubsystem)
+				{
+					ProgressionSubsystem->UnLockNextStage(mStageIndex);
 				}
 			}
 		}

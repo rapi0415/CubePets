@@ -6,6 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "StageSelectWidget.generated.h"
 
+class UCSVTextBlock;
+
 /**
  * 
  */
@@ -39,5 +41,13 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="UI")
 	void SelectCurrentLevel();
+
+protected:
+
+	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
+	TObjectPtr<UCSVTextBlock> TextBlockStageNum = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="UI|Text")
+	TArray<FName> mStageNumTextArray;
 
 };

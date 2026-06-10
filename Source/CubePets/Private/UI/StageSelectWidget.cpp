@@ -2,6 +2,7 @@
 
 
 #include "UI/StageSelectWidget.h"
+#include "Subsystems/GameProgressionSubsystem.h"
 #include "Kismet/GameplayStatics.h"
 
 void UStageSelectWidget::OnIndexChanged(UTexture2D* NewTexture)
@@ -13,16 +14,27 @@ void UStageSelectWidget::ChangeIndex(int32 Direction)
 {
 	if (mImageArray.Num() == 0) return;
 
-	// Indexを更新、ループするようにする
-	mCurrentIndex += Direction;
+	// Subsystemからステージクリア状況を取得してその範囲でIndexを更新
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			int32 TargetIndex = mCurrentIndex + Direction;
 
-	if (mCurrentIndex >= mImageArray.Num())
-	{
-		mCurrentIndex = 0;
-	}
-	else if (mCurrentIndex < 0)
-	{
-		mCurrentIndex = mImageArray.Num() - 1;
+			if (TargetIndex > ProgressionSubsystem->GetMaxUnlockedStageIndex())
+			{
+				return;
+			}
+
+			if (TargetIndex < 0)
+			{
+				return;
+			}
+
+			mCurrentIndex = TargetIndex;
+		}
 	}
 
 	// 画像を取得する

@@ -44,7 +44,7 @@ protected:
 protected:
 
 	// UI関連
-	UPROPERTY(Transient, EditAnywhere, BlueprintReadOnly, Category="UI")
+	UPROPERTY(Transient, BlueprintReadOnly, Category="UI")
 	TObjectPtr<UGameClearWidget> mCurrentGameClearWidget = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="UI")
@@ -60,5 +60,10 @@ protected:
 
 	void ShowGameClearUI();
 	void StartFadeOut();
+
+protected:
+
+	UPROPERTY(EditAnywhere, Category="Stage")
+	int32 mStageIndex = 0;
 
 };
