@@ -13,3 +13,12 @@ Pause_Title,タイトルに戻る
 Pause_Quit,ゲーム終了
 Game_Clear,ゲームクリア！
 Game_Save,セーブ！
+Stage_01,ステージ1
+Stage_02,ステージ2
+Stage_03,ステージ3
+Stage_04,ステージ4
+Stage_05,ステージ5
+Stage_06,ステージ6
+Stage_07,ステージ7
+Stage_08,ステージ8
+Select_CollectMedal,集めたメダル：{n} / {m}

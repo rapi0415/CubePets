@@ -63,6 +63,7 @@ protected:
 
 protected:
 
+	// 配置するステージのNo.
 	UPROPERTY(EditAnywhere, Category="Stage")
 	int32 mStageIndex = 0;
 
