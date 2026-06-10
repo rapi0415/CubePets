@@ -42,4 +42,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UpdateTextID(FName NewTextID);
 
+public:
+
+	UFUNCTION(BlueprintCallable, Category="CSV Data")
+	void UpdateTextWithTwoInts(FName NewTextID, int32 Value1, int32 Value2);
+
 };

@@ -50,4 +50,18 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="UI|Text")
 	TArray<FName> mStageNumTextArray;
 
+protected:
+
+	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
+	TObjectPtr<UCSVTextBlock> TextBlockMedalCount = nullptr;
+
+public:
+
+	UFUNCTION(BlueprintCallable, Category="UI")
+	void UpdateMedalText();
+
+protected:
+
+	virtual void NativeConstruct() override;
+
 };

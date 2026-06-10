@@ -3,7 +3,15 @@
 
 #include "UI/StageSelectWidget.h"
 #include "Subsystems/GameProgressionSubsystem.h"
+#include "UI/CSVTextBlock.h"
 #include "Kismet/GameplayStatics.h"
+
+void UStageSelectWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	UpdateMedalText();
+}
 
 void UStageSelectWidget::OnIndexChanged(UTexture2D* NewTexture)
 {
@@ -53,5 +61,23 @@ void UStageSelectWidget::SelectCurrentLevel()
 	if (mLevelNameArray.IsValidIndex(mCurrentIndex))
 	{
 		UGameplayStatics::OpenLevel(this, mLevelNameArray[mCurrentIndex]);
+	}
+}
+
+void UStageSelectWidget::UpdateMedalText()
+{
+	if (!TextBlockMedalCount) return;
+
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			int32 Value1 = ProgressionSubsystem->GetCurrentMedalCount(mCurrentIndex);
+			int32 Value2 = ProgressionSubsystem->GetTotalMedal(mCurrentIndex);
+
+			TextBlockMedalCount->UpdateTextWithTwoInts(TEXT("Select_CollectMedal"), Value1, Value2);
+		}
 	}
 }

@@ -17,6 +17,7 @@ class CUBEPETS_API UCubePetsGameSettings : public UDeveloperSettings
 	
 public:
 
+	// データテーブルをセットするためのプロパティ
 	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category="Medal")
 	FSoftObjectPath mMedalDataTablePath;
 };
