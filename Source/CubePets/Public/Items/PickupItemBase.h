@@ -45,4 +45,18 @@ protected:
 		const FHitResult& SweepResult
 	);
 
+protected:
+
+	// エフェクト類の再生用
+	virtual void PlayEffects(AActor* TargetActor);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Effects")
+	void BP_PlayEffects(AActor* TargetActor);
+
+protected:
+
+	// 配置するステージのNo.
+	UPROPERTY(EditAnywhere, Category = "Stage")
+	int32 mStageIndex = 0;
+
 };

@@ -2,6 +2,7 @@
 
 
 #include "Items/PickupItemBase.h"
+#include "Characters/CubePetsCharacter.h"
 #include "Components/BoxComponent.h"
 
 // Sets default values
@@ -45,5 +46,28 @@ void APickupItemBase::OnOverlapBegin(
 	const FHitResult& SweepResult
 )
 {
+	if (OtherActor && OtherActor != this)
+	{
+		// 接触したのがプレイヤーか？
+		if (ACubePetsCharacter* PlayerCharacter = Cast<ACubePetsCharacter>(OtherActor))
+		{
+			// エフェクト再生
+			if (mStaticMesh->IsVisible())
+			{
+				PlayEffects(OtherActor);
+			}
+
+			// メッシュを非表示
+			if (mStaticMesh)
+			{
+				mStaticMesh->SetVisibility(false);
+			}
+		}
+	}
+}
+
+void APickupItemBase::PlayEffects(AActor* TargetActor)
+{
+	BP_PlayEffects(TargetActor);
 }
 

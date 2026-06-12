@@ -7,7 +7,7 @@
 #include "CubePetsPlayerController.generated.h"
 
 class UIrisWidget;
-class UControllGuideWidget;
+class UGameHUDWidget;
 class UInputAction;
 class UInputMappingContext;
 class UPauseWidget;
@@ -26,9 +26,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
 	TSubclassOf<UIrisWidget> mIrisWidgetClass = nullptr;
 
-	// 操作ガイド用
+	// HUD用
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
-	TSubclassOf<UControllGuideWidget> mControllGuideWidgetClass = nullptr;
+	TSubclassOf<UGameHUDWidget> mGameHUDWidgetClass = nullptr;
 
 	// ポーズ用
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI")
@@ -76,9 +76,9 @@ private:
 	UPROPERTY(Transient)
 	TObjectPtr<UIrisWidget> mCurrentIrisWidget = nullptr;
 
-	// 操作ガイドウィジェット
+	// HUDウィジェット
 	UPROPERTY(Transient)
-	TObjectPtr<UControllGuideWidget> mCurrentControllGuideWidget = nullptr;
+	TObjectPtr<UGameHUDWidget> mCurrentGameHUDWidget = nullptr;
 
 	// ポーズウィジェット
 	UPROPERTY(Transient)

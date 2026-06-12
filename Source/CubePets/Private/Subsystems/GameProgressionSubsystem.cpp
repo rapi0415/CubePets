@@ -30,6 +30,7 @@ void UGameProgressionSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
+	// 各ステージのメダル総数を取得するためにデータテーブルを取得する
 	const UCubePetsGameSettings* Settings = GetDefault<UCubePetsGameSettings>();
 	if (Settings && Settings->mMedalDataTablePath.IsValid())
 	{

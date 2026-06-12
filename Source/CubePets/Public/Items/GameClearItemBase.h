@@ -29,13 +29,6 @@ protected:
 
 protected:
 
-	void PlayEffects(AActor* TargetActor);
-
-	UFUNCTION(BlueprintImplementableEvent, Category="Effects")
-	void BP_PlayEffects(AActor* TargetActor);
-
-protected:
-
 	FTimerHandle mClearTimerHandle;
 	FTimerHandle mFadeOutTimerHandle;
 
@@ -60,11 +53,5 @@ protected:
 
 	void ShowGameClearUI();
 	void StartFadeOut();
-
-protected:
-
-	// 配置するステージのNo.
-	UPROPERTY(EditAnywhere, Category="Stage")
-	int32 mStageIndex = 0;
 
 };

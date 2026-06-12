@@ -4,8 +4,9 @@
 #include "System/InGame/CubePetsPlayerController.h"
 #include "Characters/CubePetsCharacter.h"
 #include "UI/IrisWidget.h"
-#include "UI/ControllGuideWidget.h"
+#include "UI/GameHUDWidget.h"
 #include "UI/PauseWidget.h"
+#include "UI/ControllGuideWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/PlayerInput.h"
@@ -21,9 +22,9 @@ bool ACubePetsPlayerController::InputKey(const FInputKeyParams& Params)
 	{
 		bIsUsingGamepad = bIsGamepadKey;
 
-		if (mCurrentControllGuideWidget)
+		if (mCurrentGameHUDWidget)
 		{
-			mCurrentControllGuideWidget->UpdateDeviceIcon(bIsUsingGamepad);
+			mCurrentGameHUDWidget->UpdateDeviceIcon(bIsUsingGamepad);
 		}
 	}
 
@@ -54,14 +55,14 @@ void ACubePetsPlayerController::BeginPlay()
 	FInputModeGameOnly InputMode;
 	SetInputMode(InputMode);
 
-	// 操作ガイドのUIを表示
-	if (mControllGuideWidgetClass)
+	// HUDを表示
+	if (mGameHUDWidgetClass)
 	{
-		mCurrentControllGuideWidget = CreateWidget<UControllGuideWidget>(this, mControllGuideWidgetClass);
+		mCurrentGameHUDWidget = CreateWidget<UGameHUDWidget>(this, mGameHUDWidgetClass);
 
-		if (mCurrentControllGuideWidget)
+		if (mCurrentGameHUDWidget)
 		{
-			mCurrentControllGuideWidget->AddToViewport();
+			mCurrentGameHUDWidget->AddToViewport();
 		}
 	}
 
@@ -118,9 +119,9 @@ void ACubePetsPlayerController::RequestLevelTransition(FName TargetLevelName)
 // レティクルの有無が変わった時にプレイヤーから呼んでもらう関数、ウィジェットのテキストブロックを更新
 void ACubePetsPlayerController::NotifyReticleStateChanged(bool bReticleExistence)
 {
-	if (mCurrentControllGuideWidget)
+	if (mCurrentGameHUDWidget)
 	{
-		mCurrentControllGuideWidget->UpdateTextBlockCreate(bReticleExistence);
+		mCurrentGameHUDWidget->UpdateTextBlockCreate(bReticleExistence);
 	}
 }
 

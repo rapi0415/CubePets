@@ -5,10 +5,23 @@
 #include "Subsystems/GameProgressionSubsystem.h"
 #include "UI/CSVTextBlock.h"
 #include "Kismet/GameplayStatics.h"
+#include "UI/StageStatusWidget.h"
 
 void UStageSelectWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+
+	// Subsystemから今のステージ番号を取得して更新（ステージから戻ってきたときに遊んでたステージから開始させるため）
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			int32 StageIndex = ProgressionSubsystem->GetCurrentStageIndex();
+			ChangeIndex(StageIndex); // 最初は0なのでステージ番号を足せばいい
+		}
+	}
 
 	UpdateMedalText();
 }
@@ -42,6 +55,9 @@ void UStageSelectWidget::ChangeIndex(int32 Direction)
 			}
 
 			mCurrentIndex = TargetIndex;
+
+			// Subsystemにも記憶させておく（インゲームとかで取得したい）
+			ProgressionSubsystem->SetCurrentStageIndex(mCurrentIndex);
 		}
 	}
 
@@ -74,10 +90,11 @@ void UStageSelectWidget::UpdateMedalText()
 		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
 		if (ProgressionSubsystem)
 		{
-			int32 Value1 = ProgressionSubsystem->GetCurrentMedalCount(mCurrentIndex);
-			int32 Value2 = ProgressionSubsystem->GetTotalMedal(mCurrentIndex);
+			int32 Value1 = ProgressionSubsystem->GetCurrentMedalCount();
+			int32 Value2 = ProgressionSubsystem->GetTotalMedal();
 
 			TextBlockMedalCount->UpdateTextWithTwoInts(TEXT("Select_CollectMedal"), Value1, Value2);
 		}
 	}
 }
+

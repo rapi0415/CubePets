@@ -23,6 +23,8 @@ void AGameClearItemBase::OnOverlapBegin(
 		// 接触したのがプレイヤーか？
 		if (ACubePetsCharacter* PlayerCharacter = Cast<ACubePetsCharacter>(OtherActor))
 		{
+			Super::OnOverlapBegin(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, FromSweep, SweepResult);
+
 			bIsCleared = true;
 
 			// 入力を無効化する
@@ -32,12 +34,6 @@ void AGameClearItemBase::OnOverlapBegin(
 				PC->DisableInput(PC);
 			}
 
-			// メッシュを非表示
-			if (mStaticMesh)
-			{
-				mStaticMesh->SetVisibility(false);
-			}
-
 			// 一定時間後にゲームクリアUIを表示
 			float DelayTimeUI = 2.0f;
 			GetWorld()->GetTimerManager().SetTimer(mClearTimerHandle, this, &AGameClearItemBase::ShowGameClearUI, DelayTimeUI, false);
@@ -45,9 +41,6 @@ void AGameClearItemBase::OnOverlapBegin(
 			// さらに一定時間後にフェードアウトしてタイトルに戻る
 			float DelayTimeFade = 4.0f;
 			GetWorld()->GetTimerManager().SetTimer(mFadeOutTimerHandle, this, &AGameClearItemBase::StartFadeOut, DelayTimeFade, false);
-
-			// エフェクト再生
-			PlayEffects(OtherActor);
 
 			// BGMを止める
 			if (UWorld* World = GetWorld())
@@ -105,7 +98,3 @@ void AGameClearItemBase::StartFadeOut()
 	}
 }
 
-void AGameClearItemBase::PlayEffects(AActor* TargetActor)
-{
-	BP_PlayEffects(TargetActor);
-}
