@@ -42,6 +42,7 @@ void UGameProgressionSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 		int32 NumStages = mStageDataTable->GetRowNames().Num();
 		mCurrentMedalCountArray.Init(0, NumStages);
 		mCurrentUsedCubeCountArray.Init(0, NumStages);
+		mRecordCubeCountArray.Init(100, NumStages); // 最小値を記録していきたいので初期値は大きい値にする
 	}
 
 }

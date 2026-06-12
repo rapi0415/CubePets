@@ -128,6 +128,10 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Cube")
 	TArray<int32> mCurrentUsedCubeCountArray;
 
+	// 使った箱の数（各ステージの最高記録保持用）
+	UPROPERTY(BlueprintReadOnly, Category = "Cube")
+	TArray<int32> mRecordCubeCountArray;
+
 public:
 
 	// get 使った箱の数を取得する関数
@@ -167,6 +171,25 @@ public:
 			// 使った箱の数が変わったことを通知する
 			OnUsedCubeCountChanged.Broadcast();
 		}
+	}
+
+	// 使った箱の最高記録を取得する関数
+	UFUNCTION(BlueprintCallable, Category = "CUbe")
+	int32 GetRecordCubeCount()
+	{
+		if (mRecordCubeCountArray.IsValidIndex(mCurrentStageIndex))
+		{
+			return mRecordCubeCountArray[mCurrentStageIndex];
+		}
+		return 0;
+	}
+
+	// 使った箱の最高記録を更新する関数
+	UFUNCTION(BlueprintCallable, Category = "Cube")
+	void UpdateRecordCubeCount()
+	{
+		int32& Record = mRecordCubeCountArray[mCurrentStageIndex];
+		Record = FMath::Min(Record, mCurrentUsedCubeCountArray[mCurrentStageIndex]);
 	}
 
 public:

@@ -52,13 +52,21 @@ protected:
 
 protected:
 
+	// テキストブロック（集めたメダル）
 	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
 	TObjectPtr<UCSVTextBlock> TextBlockMedalCount = nullptr;
+
+	// テキストブロック（使った箱）
+	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
+	TObjectPtr<UCSVTextBlock> TextBlockCubeCount = nullptr;
 
 public:
 
 	UFUNCTION(BlueprintCallable, Category="UI")
 	void UpdateMedalText();
+
+	UFUNCTION(BlueprintCallable, Category="UI")
+	void UpdateCubeText();
 
 protected:
 

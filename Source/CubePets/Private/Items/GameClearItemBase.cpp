@@ -51,14 +51,18 @@ void AGameClearItemBase::OnOverlapBegin(
 				}
 			}
 
-			// ステージをクリア済みにする
+			// ステージ情報更新
 			UGameInstance* GameInstance = GetGameInstance();
 			if (GameInstance)
 			{
 				UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
 				if (ProgressionSubsystem)
 				{
+					// ステージをクリア済みにして次のステージを解放
 					ProgressionSubsystem->UnLockNextStage(mStageIndex);
+
+					// 使った箱の最高記録を更新
+					ProgressionSubsystem->UpdateRecordCubeCount();
 				}
 			}
 		}

@@ -48,7 +48,17 @@ void UCSVTextBlock::UpdateTextWithTwoInts(FName NewTextID, int32 Value1, int32 V
 			FText BaseText = Row->SystemText;
 			
 			FFormatOrderedArguments Args;
-			Args.Add(FText::AsNumber(Value1));
+
+			// 使った箱の最高記録用の処理。100のときにハイフン（-）で表示したい（初回だけ100で以降は99でキャップされる） 
+			if (Value1 == 100)
+			{
+				Args.Add(FText::FromString(TEXT("-")));
+			}
+			else
+			{
+				Args.Add(FText::AsNumber(Value1));
+			}
+			
 			Args.Add(FText::AsNumber(Value2));
 
 			SetText(FText::Format(BaseText, Args));

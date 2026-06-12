@@ -24,6 +24,7 @@ void UStageSelectWidget::NativeConstruct()
 	}
 
 	UpdateMedalText();
+	UpdateCubeText();
 }
 
 void UStageSelectWidget::OnIndexChanged(UTexture2D* NewTexture)
@@ -94,6 +95,24 @@ void UStageSelectWidget::UpdateMedalText()
 			int32 Value2 = ProgressionSubsystem->GetTotalMedal();
 
 			TextBlockMedalCount->UpdateTextWithTwoInts(TEXT("Select_CollectMedal"), Value1, Value2);
+		}
+	}
+}
+
+void UStageSelectWidget::UpdateCubeText()
+{
+	if (!TextBlockCubeCount) return;
+
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			int32 Value1 = ProgressionSubsystem->GetRecordCubeCount();
+			int32 Value2 = ProgressionSubsystem->GetTotalCube();
+
+			TextBlockCubeCount->UpdateTextWithTwoInts(TEXT("Select_UsedCubes"), Value1, Value2);
 		}
 	}
 }
