@@ -12,6 +12,7 @@
 #include "System/InGame/CubePetsPlayerController.h"
 #include "Subsystems/SaveGameInstanceSubsystem.h"
 #include "System/InGame/CubePetsGameModeBase.h"
+#include "Subsystems/GameProgressionSubsystem.h"
 
 // Sets default values
 ACubePetsCharacter::ACubePetsCharacter()
@@ -69,6 +70,17 @@ void ACubePetsCharacter::BeginPlay()
 	if (SaveSubsystem && !SaveSubsystem->GetCurrentCheckPoint().IsZero())
 	{
 		SetActorLocation(SaveSubsystem->GetCurrentCheckPoint(), false, nullptr, ETeleportType::TeleportPhysics);
+	}
+
+	// Subsystemの持つ「箱を使った数」をリセット
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			ProgressionSubsystem->ResetUsedCubeCount();
+		}
 	}
 }
 
@@ -317,6 +329,17 @@ void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)
 
 				// 次消える候補の箱があれば光らせる
 				UpdateOldestCubeGlow();
+
+				// Subsystemの持つ「箱を使った数」を更新
+				UGameInstance* GameInstance = GetGameInstance();
+				if (GameInstance)
+				{
+					UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+					if (ProgressionSubsystem)
+					{
+						ProgressionSubsystem->AddUsedCubeCount();
+					}
+				}
 
 				break;
 			}

@@ -18,13 +18,24 @@ class CUBEPETS_API UStageStatusWidget : public UUserWidget
 
 protected:
 
+	// 集めたメダルテキスト
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UCSVTextBlock> TextBlockMedalCount = nullptr;
+
+	// 使った箱テキスト
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	TObjectPtr<UCSVTextBlock> TextBlockCubeCount = nullptr;
+
+public:
+
+	// 集めたメダルテキスト更新用
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void UpdateMedalText();
 
 public:
 
 	UFUNCTION(BlueprintCallable, Category = "UI")
-	void UpdateMedalText();
+	void UpdateCubeText();
 
 protected:
 

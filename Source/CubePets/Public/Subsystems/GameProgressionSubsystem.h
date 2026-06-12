@@ -8,9 +8,10 @@
 #include "GameProgressionSubsystem.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMedalCountChanged);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnUsedCubeCountChanged);
 
 USTRUCT(BlueprintType)
-struct FMedalData : public FTableRowBase
+struct FStageData : public FTableRowBase
 {
 	GENERATED_BODY()
 
@@ -19,6 +20,10 @@ public:
 	// メダルの総数（ステージ毎）
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Medal")
 	int32 mTotalMedal = 0;
+
+	// 箱の使用目標数（ステージ毎）
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Cube")
+	int32 mTotalCube = 0;
 };
 /**
  * 
@@ -31,20 +36,24 @@ class CUBEPETS_API UGameProgressionSubsystem : public UGameInstanceSubsystem
 public:
 
 	FOnMedalCountChanged OnMedalCountChanged;
+	FOnUsedCubeCountChanged OnUsedCubeCountChanged;
 
 protected:
 
+	// 解放されているステージの総数
 	UPROPERTY(BlueprintReadOnly, Category="Stage")
 	int32 mMaxUnlockedStageIndex = 0;
 
 public:
 
+	// get（ステージの総数）
 	UFUNCTION(BlueprintCallable, Category="Stage")
 	int32 GetMaxUnlockedStageIndex()
 	{
 		return mMaxUnlockedStageIndex;
 	}
 
+	// 次のステージを解放する
 	UFUNCTION(BlueprintCallable, Category="Stage")
 	void UnLockNextStage(int32 ClearedStageIndex);
 
@@ -78,7 +87,7 @@ protected:
 
 public:
 
-	// 集めたメダルの数を取得する関数
+	// get 集めたメダルの数を取得する関数
 	UFUNCTION(BlueprintCallable, Category="Medal")
 	int32 GetCurrentMedalCount()
 	{
@@ -89,7 +98,7 @@ public:
 		return 0;
 	}
 
-	// 集めたメダルの数を更新する関数
+	// add 集めたメダルの数を更新する関数
 	UFUNCTION(BlueprintCallable, Category="Medal")
 	void AddMedalCount(int32 StageIndex)
 	{
@@ -103,20 +112,82 @@ public:
 		}
 	}
 
+public:
+
 	// ステージのメダル総数をデータテーブルから取得する関数
 	UFUNCTION(BlueprintCallable, Category="Medal")
 	int32 GetTotalMedal()
 	{
-		const FMedalData* Row = GetMedalDataByIndex(mCurrentStageIndex);
+		const FStageData* Row = GetStageDataByIndex(mCurrentStageIndex);
 		return Row ? Row->mTotalMedal : 0;
 	}
 
 protected:
 
-	UPROPERTY()
-	TObjectPtr<UDataTable> mMedalDataTable;
+	// 使った箱の数（ステージ毎）
+	UPROPERTY(BlueprintReadOnly, Category = "Cube")
+	TArray<int32> mCurrentUsedCubeCountArray;
 
-	const FMedalData* GetMedalDataByIndex(int32 Index) const;
+public:
+
+	// get 使った箱の数を取得する関数
+	UFUNCTION(BlueprintCallable, Category = "Cube")
+	int32 GetCurrentUsedCubeCount()
+	{
+		if (mCurrentUsedCubeCountArray.IsValidIndex(mCurrentStageIndex))
+		{
+			return mCurrentUsedCubeCountArray[mCurrentStageIndex];
+		}
+		return 0;
+	}
+
+	// add 使った箱の数を+1する関数
+	UFUNCTION(BlueprintCallable, Category = "Cube")
+	void AddUsedCubeCount()
+	{
+		if (mCurrentUsedCubeCountArray.IsValidIndex(mCurrentStageIndex))
+		{
+			// 使った箱+1（99で止めておく）
+			int32& Count = mCurrentUsedCubeCountArray[mCurrentStageIndex];
+			Count = FMath::Min(Count + 1, 99);
+
+			// 使った箱の数が変わったことを通知する
+			OnUsedCubeCountChanged.Broadcast();
+		}
+	}
+
+	// 使った箱の数をリセットする関数
+	UFUNCTION(BlueprintCallable, Category="Cube")
+	void ResetUsedCubeCount()
+	{
+		if (mCurrentUsedCubeCountArray.IsValidIndex(mCurrentStageIndex))
+		{
+			mCurrentUsedCubeCountArray[mCurrentStageIndex] = 0;
+
+			// 使った箱の数が変わったことを通知する
+			OnUsedCubeCountChanged.Broadcast();
+		}
+	}
+
+public:
+
+	// ステージの箱使用目標数をデータテーブルから取得する関数
+	UFUNCTION(BlueprintCallable, Category="Cube")
+	int32 GetTotalCube()
+	{
+		const FStageData* Row = GetStageDataByIndex(mCurrentStageIndex);
+		return Row ? Row->mTotalCube : 0;
+	}
+
+protected:
+
+	// データテーブル
+	UPROPERTY()
+	TObjectPtr<UDataTable> mStageDataTable;
+
+	const FStageData* GetStageDataByIndex(int32 Index) const;
+
+protected:
 
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 };

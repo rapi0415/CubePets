@@ -10,8 +10,9 @@ void UStageStatusWidget::NativeConstruct()
 	Super::NativeConstruct();
 
 	UpdateMedalText();
+	UpdateCubeText();
 
-	// Subsystemのイベントをバインドする（メダルテキストを更新するため）
+	// Subsystemのイベントをバインドする（テキストを更新するため）
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
@@ -19,6 +20,7 @@ void UStageStatusWidget::NativeConstruct()
 		if (ProgressionSubsystem)
 		{
 			ProgressionSubsystem->OnMedalCountChanged.AddDynamic(this, &UStageStatusWidget::UpdateMedalText);
+			ProgressionSubsystem->OnUsedCubeCountChanged.AddDynamic(this, &UStageStatusWidget::UpdateCubeText);
 		}
 	}
 }
@@ -38,6 +40,25 @@ void UStageStatusWidget::UpdateMedalText()
 			int32 Value2 = ProgressionSubsystem->GetTotalMedal();
 
 			TextBlockMedalCount->UpdateTextWithTwoInts(TEXT("Select_CollectMedal"), Value1, Value2);
+		}
+	}
+}
+
+// 使った箱テキストの更新用
+void UStageStatusWidget::UpdateCubeText()
+{
+	if (!TextBlockCubeCount) return;
+
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			int32 Value1 = ProgressionSubsystem->GetCurrentUsedCubeCount();
+			int32 Value2 = ProgressionSubsystem->GetTotalCube();
+
+			TextBlockCubeCount->UpdateTextWithTwoInts(TEXT("Select_UsedCubes"), Value1, Value2);
 		}
 	}
 }

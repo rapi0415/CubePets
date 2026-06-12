@@ -12,12 +12,12 @@ void UGameProgressionSubsystem::UnLockNextStage(int32 ClearedStageIndex)
 	}
 }
 
-const FMedalData* UGameProgressionSubsystem::GetMedalDataByIndex(int32 Index) const
+const FStageData* UGameProgressionSubsystem::GetStageDataByIndex(int32 Index) const
 {
-	if (!mMedalDataTable) return nullptr;
+	if (!mStageDataTable) return nullptr;
 
-	TArray<FMedalData*> AllRows;
-	mMedalDataTable->GetAllRows<FMedalData>(TEXT(""), AllRows);
+	TArray<FStageData*> AllRows;
+	mStageDataTable->GetAllRows<FStageData>(TEXT(""), AllRows);
 
 	if (AllRows.IsValidIndex(Index))
 	{
@@ -30,17 +30,18 @@ void UGameProgressionSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
-	// 各ステージのメダル総数を取得するためにデータテーブルを取得する
+	// データテーブルを取得して、メダル総数と箱使用目標数の配列を初期化する
 	const UCubePetsGameSettings* Settings = GetDefault<UCubePetsGameSettings>();
 	if (Settings && Settings->mMedalDataTablePath.IsValid())
 	{
-		mMedalDataTable = Cast<UDataTable>(Settings->mMedalDataTablePath.TryLoad());
+		mStageDataTable = Cast<UDataTable>(Settings->mMedalDataTablePath.TryLoad());
 	}
 
-	if (mMedalDataTable)
+	if (mStageDataTable)
 	{
-		int32 NumStages = mMedalDataTable->GetRowNames().Num();
+		int32 NumStages = mStageDataTable->GetRowNames().Num();
 		mCurrentMedalCountArray.Init(0, NumStages);
+		mCurrentUsedCubeCountArray.Init(0, NumStages);
 	}
 
 }
