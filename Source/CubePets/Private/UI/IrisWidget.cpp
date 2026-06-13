@@ -46,6 +46,13 @@ void UIrisWidget::StartIrisIn()
 {
 	if (IrisOpen)
 	{
+		// アニメーションが終わったら通知用の関数を呼ぶためにバインド
+		FWidgetAnimationDynamicEvent EndDelegate;
+		EndDelegate.BindDynamic(this, &UIrisWidget::OnIrisInAnimationFinished);
+
+		UnbindFromAnimationFinished(IrisOpen, EndDelegate);
+		BindToAnimationFinished(IrisOpen, EndDelegate);
+
 		PlayAnimation(IrisOpen);
 	}
 }
@@ -56,17 +63,21 @@ void UIrisWidget::StartIrisOut()
 	{
 		// アニメーションが終わったら通知用の関数を呼ぶためにバインド
 		FWidgetAnimationDynamicEvent EndDelegate;
-		EndDelegate.BindDynamic(this, &UIrisWidget::BroadcastAnimationFinished);
+		EndDelegate.BindDynamic(this, &UIrisWidget::OnIrisOutAnimationFinished);
 
 		UnbindFromAnimationFinished(IrisClose, EndDelegate);
 		BindToAnimationFinished(IrisClose, EndDelegate);
 
-		// アニメーション再生
 		PlayAnimation(IrisClose);
 	}
 }
 
-void UIrisWidget::BroadcastAnimationFinished()
+void UIrisWidget::OnIrisOutAnimationFinished()
 {
-	mOnFadeAnimationFinished.Broadcast();
+	mOnIrisOutFinished.Broadcast();
+}
+
+void UIrisWidget::OnIrisInAnimationFinished()
+{
+	mOnIrisInFinished.Broadcast();
 }

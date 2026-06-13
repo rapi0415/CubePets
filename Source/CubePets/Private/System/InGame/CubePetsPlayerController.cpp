@@ -47,7 +47,7 @@ void ACubePetsPlayerController::BeginPlay()
 			mCurrentIrisWidget->StartIrisIn();
 
 			// リスタート用の関数をバインドしておく
-			mCurrentIrisWidget->mOnFadeAnimationFinished.AddDynamic(this, &ACubePetsPlayerController::HandleLevelTransitionNotification);
+			mCurrentIrisWidget->mOnIrisOutFinished.AddDynamic(this, &ACubePetsPlayerController::HandleLevelTransitionNotification);
 		}
 	}
 

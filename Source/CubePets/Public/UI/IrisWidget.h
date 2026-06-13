@@ -39,12 +39,18 @@ public:
 public:
 
 	UPROPERTY(BlueprintAssignable, Category="Events")
-	FOnFadeAnimationFinished mOnFadeAnimationFinished;
+	FOnFadeAnimationFinished mOnIrisOutFinished;
+
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FOnFadeAnimationFinished mOnIrisInFinished;
 
 protected:
 
 	UFUNCTION()
-	void BroadcastAnimationFinished();
+	void OnIrisOutAnimationFinished();
+
+	UFUNCTION()
+	void OnIrisInAnimationFinished();
 
 protected:
 
