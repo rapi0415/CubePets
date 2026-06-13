@@ -122,6 +122,33 @@ public:
 		return Row ? Row->mTotalMedal : 0;
 	}
 
+public:
+
+	// 獲得済みのメダルのIDを保存する辞書
+	UPROPERTY(BlueprintReadOnly, Category = "Medal")
+	TMap<FName, bool> mCollectedMedalMap;
+
+	// メダルがすでに獲得済みかチェックする関数
+	UFUNCTION(BlueprintCallable, Category = "Medal")
+	bool IsMedalAlreadyCollected(FName MedalID) const
+	{
+		if (mCollectedMedalMap.Contains(MedalID))
+		{
+			return mCollectedMedalMap[MedalID];
+		}
+		return false;
+	}
+
+	// メダルを獲得済みにする関数
+	UFUNCTION(BlueprintCallable, Category = "Medal")
+	void SetMedalCollected(FName MedalID)
+	{
+		if (!MedalID.IsNone())
+		{
+			mCollectedMedalMap.Add(MedalID, true);
+		}
+	}
+
 protected:
 
 	// 使った箱の数（ステージ毎）

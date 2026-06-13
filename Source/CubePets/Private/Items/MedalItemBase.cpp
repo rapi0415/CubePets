@@ -5,6 +5,27 @@
 #include "Characters/CubePetsCharacter.h"
 #include "Subsystems/GameProgressionSubsystem.h"
 
+void AMedalItemBase::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// Subsystem‚ðŽæ“¾
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			// Šl“¾’n–¡‚©‚Ç‚¤‚©’²‚×‚ÄAŠl“¾Ï‚Ý‚È‚çÁ‚·
+			if (ProgressionSubsystem->IsMedalAlreadyCollected(mMedalID))
+			{
+				Destroy();
+				return;
+			}
+		}
+	}
+}
+
 void AMedalItemBase::OnOverlapBegin
 (
 	UPrimitiveComponent* OverlappedComp,
@@ -33,8 +54,12 @@ void AMedalItemBase::OnOverlapBegin
 				{
 					// ƒXƒe[ƒW”Ô†‚ð“`‚¦‚ÄA‚»‚ÌƒXƒe[ƒW‚ÌŠl“¾ƒƒ_ƒ‹”‚É+1‚·‚é
 					ProgressionSubsystem->AddMedalCount(mStageIndex);
+
+					// Ž©•ª‚Ìƒƒ_ƒ‹ID‚ð“`‚¦‚ÄŽ«‘‚ÉuŠl“¾Ï‚Ýv‚Æ‚µ‚Ä“o˜^‚·‚é
+					ProgressionSubsystem->SetMedalCollected(mMedalID);
 				}
 			}
 		}
 	}
+	Destroy();
 }

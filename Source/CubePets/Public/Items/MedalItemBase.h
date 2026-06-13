@@ -13,6 +13,10 @@ UCLASS()
 class CUBEPETS_API AMedalItemBase : public APickupItemBase
 {
 	GENERATED_BODY()
+
+protected:
+
+	virtual void BeginPlay() override;
 	
 protected:
 
@@ -28,5 +32,10 @@ protected:
 protected:
 
 	bool bIsPickuped = false;
+
+protected:
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Stage")
+	FName mMedalID;
 
 };
