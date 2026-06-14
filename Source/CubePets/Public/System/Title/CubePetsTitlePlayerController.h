@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "InputActionValue.h"
 #include "CubePetsTitlePlayerController.generated.h"
 
 class UTitleScreenWidget;
@@ -12,6 +13,24 @@ class UIrisWidget;
 class UInputAction;
 class UInputMappingContext;
 
+UENUM(BlueprintType)
+enum class ETitleState : uint8
+{
+	PRE_TITLE,
+	MAIN_TITLE,
+	NONE
+};
+
+UENUM(BlueprintType)
+enum class ETitleMenuItem : uint8
+{
+	START,
+	LOAD,
+	JAPANESE,
+	ENGLISH,
+	SHOP,
+	QUIT
+};
 /**
  * 
  */
@@ -24,7 +43,7 @@ protected:
 
 	virtual void BeginPlay() override;
 
-public:
+protected:
 
 	// タイトル画面用
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
@@ -56,17 +75,59 @@ protected:
 
 	// インプット系
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-	TObjectPtr<UInputMappingContext> mPreTitleMappingContext = nullptr;
+	TObjectPtr<UInputMappingContext> mTitleMappingContext = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	TObjectPtr<UInputAction> mConfirmAction = nullptr;
 
-	UFUNCTION(BlueprintCallable, Category = "Pause")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	TObjectPtr<UInputAction> mUpDownAction = nullptr;
+
+	// 決定ボタン関連
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	void OnPressConfirm();
+
+	ETitleState mCurrentTitleState = ETitleState::PRE_TITLE;
+
+	void HandlePreTitleConfirm();
+	void HandleMainTitleConfirm();
+
+	void OnMenuConfirmed(ETitleMenuItem ChosenItem);
+
+	void StartGame();
+
+	// 上下ボタン
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void OnPressUpDown(const FInputActionValue& Value);
 
 	virtual void SetupInputComponent() override;
 
 	bool bIsStarted = false;
+
+protected:
+
+	UFUNCTION()
+	void WarpTo();
+
+	FName mTargetLevelName;
+
+protected:
+
+	UFUNCTION()
+	void ChangeTitleStateToMainTitle();
+
+public:
+
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void ChangeIndex(int32 Direction);
+
+protected:
+
+	UPROPERTY(BlueprintReadOnly, Category = "UI")
+	int32 mCurrentIndex = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
+	int32 mMaxIndex = 5;
 
 protected:
 

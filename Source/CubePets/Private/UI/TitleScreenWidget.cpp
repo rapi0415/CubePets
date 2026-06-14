@@ -18,42 +18,30 @@ void UTitleScreenWidget::StartAppearanceDecoration()
 	}
 }
 
-void UTitleScreenWidget::SetIMC()
+void UTitleScreenWidget::StartTextStartConfirmed()
 {
-	BP_SetIMC();
+	if (TextStartConfirmed)
+	{
+		// テキストの点滅アニメーション（ループ再生）
+		PlayAnimation(TextStartConfirmed, 0.0f, 0, EUMGSequencePlayMode::Forward, 1.0f, false);
+	}
 }
 
 void UTitleScreenWidget::OnTitleAnimationFinished()
 {
-	// アニメーションが終わったらIMCをバインド
-	SetIMC();
-
 	// テキストのフォーカスも行いたいのでOnIndexChangedを呼び出す
-	OnIndexChanged();
+	OnIndexChanged(0);
+
+	// バインドしている関数を呼ぶ（TitlePlayerControllerの状態遷移）
+	mOnAnimationFinished.Broadcast();
 }
 
-void UTitleScreenWidget::OnIndexChanged()
+void UTitleScreenWidget::OnIndexChanged(int32 Index)
 {
-	BP_OnIndexChanged();
+	BP_OnIndexChanged(Index);
 }
 
-void UTitleScreenWidget::ChangeIndex(int32 Direction)
-{
-	int32 TargetIndex = mCurrentIndex + Direction;
 
-	if (TargetIndex > mMaxIndex)
-	{
-		return;
-	}
 
-	if (TargetIndex < 0)
-	{
-		return;
-	}
-
-	mCurrentIndex = TargetIndex;
-
-	OnIndexChanged();
-}
 
 

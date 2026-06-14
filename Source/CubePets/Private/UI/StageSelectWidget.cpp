@@ -11,6 +11,7 @@ void UStageSelectWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+	/*
 	// Subsystemから今のステージ番号を取得して更新（ステージから戻ってきたときに遊んでたステージから開始させるため）
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
@@ -22,16 +23,18 @@ void UStageSelectWidget::NativeConstruct()
 			ChangeIndex(StageIndex); // 最初は0なのでステージ番号を足せばいい
 		}
 	}
+	*/
 
 	UpdateMedalText();
 	UpdateCubeText();
 }
 
-void UStageSelectWidget::OnIndexChanged(UTexture2D* NewTexture)
+void UStageSelectWidget::OnIndexChanged(int32 Index)
 {
-	BP_OnIndexChanged(NewTexture);
+	BP_OnIndexChanged(Index);
 }
 
+/*
 void UStageSelectWidget::ChangeIndex(int32 Direction)
 {
 	if (mImageArray.Num() == 0) return;
@@ -72,7 +75,9 @@ void UStageSelectWidget::ChangeIndex(int32 Direction)
 		OnIndexChanged(mImageArray[mCurrentIndex].LoadSynchronous());
 	}
 }
+*/
 
+/*
 void UStageSelectWidget::SelectCurrentLevel()
 {
 	if (mLevelNameArray.IsValidIndex(mCurrentIndex))
@@ -80,6 +85,7 @@ void UStageSelectWidget::SelectCurrentLevel()
 		UGameplayStatics::OpenLevel(this, mLevelNameArray[mCurrentIndex]);
 	}
 }
+*/
 
 void UStageSelectWidget::UpdateMedalText()
 {

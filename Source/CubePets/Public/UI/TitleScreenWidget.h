@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "System/Title/CubePetsTitlePlayerController.h"
 #include "TitleScreenWidget.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAnimationFinished);
 /**
  * 
  */
@@ -20,42 +22,30 @@ public:
 	UPROPERTY(Transient, meta = (BindWidgetAnim))
 	TObjectPtr<UWidgetAnimation> AppearanceDecoration;
 
+	UPROPERTY(Transient, meta = (BindWidgetAnim))
+	TObjectPtr<UWidgetAnimation> TextStartConfirmed;
+
 	// アニメーションを再生する関数
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 	void StartAppearanceDecoration();
 
-public:
-
-	// 自分にMappingContextをバインドする関数
-	void SetIMC();
-
-	UFUNCTION(BlueprintImplementableEvent, Category = "Input")
-	void BP_SetIMC();
+	UFUNCTION(BlueprintCallable, Category = "Animation")
+	void StartTextStartConfirmed();
 	
 protected:
 
 	UFUNCTION()
 	void OnTitleAnimationFinished();
 
-protected:
+public:
 
-	void OnIndexChanged();
+	void OnIndexChanged(int32 Index);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "UI")
-	void BP_OnIndexChanged();
+	void BP_OnIndexChanged(int32 Index);
 
 public:
 
-	UFUNCTION(BlueprintCallable, Category = "UI")
-	void ChangeIndex(int32 Direction);
-
-protected:
-
-	UPROPERTY(BlueprintReadOnly, Category = "UI")
-	int32 mCurrentIndex = 0;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
-	int32 mMaxIndex = 5;
-
+	FOnAnimationFinished mOnAnimationFinished;
 
 };

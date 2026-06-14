@@ -21,19 +21,22 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="UI")
 	TArray<TSoftObjectPtr<UTexture2D>> mImageArray;
 
+	/*
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="UI")
 	TArray<FName> mLevelNameArray;
 
 	UPROPERTY(BlueprintReadOnly, Category="UI")
 	int32 mCurrentIndex = 0;
+	*/
 
-protected:
+public:
 
-	void OnIndexChanged(UTexture2D* NewTexture);
+	void OnIndexChanged(int32 Index);
 
 	UFUNCTION(BlueprintImplementableEvent, Category="UI")
-	void BP_OnIndexChanged(UTexture2D* NewTexture);
+	void BP_OnIndexChanged(int32 Index);
 
+	/*
 public:
 
 	UFUNCTION(BlueprintCallable, Category="UI")
@@ -41,6 +44,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="UI")
 	void SelectCurrentLevel();
+
+	*/
 
 protected:
 
