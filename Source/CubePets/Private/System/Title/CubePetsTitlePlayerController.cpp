@@ -9,6 +9,7 @@
 #include "Components/Button.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Subsystems/CubePetsInputDeviceSubsystem.h"
 
 void ACubePetsTitlePlayerController::BeginPlay()
 {
@@ -224,6 +225,7 @@ bool ACubePetsTitlePlayerController::InputKey(const FInputKeyParams& Params)
 	bool bIsGamepadKey = Params.Key.IsGamepadKey();
 
 	// 前回と違うデバイスが使われたらUIを更新する
+	/*
 	if (bIsGamepadKey != bIsUsingGamepad)
 	{
 		bIsUsingGamepad = bIsGamepadKey;
@@ -231,6 +233,17 @@ bool ACubePetsTitlePlayerController::InputKey(const FInputKeyParams& Params)
 		if (mCurrentPreTitleWidget)
 		{
 			mCurrentPreTitleWidget->UpdateDeviceIcon(bIsUsingGamepad);
+		}
+	}
+	*/
+
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UCubePetsInputDeviceSubsystem* Subsystem = GameInstance->GetSubsystem<UCubePetsInputDeviceSubsystem>();
+		if (Subsystem)
+		{
+			Subsystem->NotifyDeviceChanged(bIsGamepadKey);
 		}
 	}
 

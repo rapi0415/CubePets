@@ -16,11 +16,15 @@ class CUBEPETS_API UPreTitleWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	
+
+	/*
 public:
 
 	// 開始ボタン
+	
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UImage> ConfirmButtonIconImage = nullptr;
+	
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI|Icons")
 	TObjectPtr<UTexture2D> mConfirmKeyboardIcon = nullptr;
@@ -31,5 +35,5 @@ public:
 public:
 
 	void UpdateDeviceIcon(bool bIsGamepad);
-
+	*/
 };

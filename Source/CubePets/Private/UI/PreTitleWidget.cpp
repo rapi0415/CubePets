@@ -5,6 +5,7 @@
 #include "Components/Image.h"
 
 // ボタンアイコンをキーボード用とパッド用で切り替える
+/*
 void UPreTitleWidget::UpdateDeviceIcon(bool bIsGamepad)
 {
 	if (ConfirmButtonIconImage)
@@ -17,3 +18,4 @@ void UPreTitleWidget::UpdateDeviceIcon(bool bIsGamepad)
 		}
 	}
 }
+*/
