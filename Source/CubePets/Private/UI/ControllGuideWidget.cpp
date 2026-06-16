@@ -23,6 +23,7 @@ void UControllGuideWidget::UpdateTextBlockCreate(bool bIsReticleExistence)
 }
 
 // ボタンアイコンをキーボード用とパッド用で切り替える
+/*
 void UControllGuideWidget::UpdateDeviceIcon(bool bIsGamepad)
 {
 	if (JumpButtonIconImage)
@@ -39,3 +40,4 @@ void UControllGuideWidget::UpdateDeviceIcon(bool bIsGamepad)
 		}
 	}
 }
+*/

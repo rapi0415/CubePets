@@ -26,3 +26,6 @@ Select_UsedCubes,使った箱：{0} / {1}
 Title_Pre,Press
 Title_Name,CUBE DOG!
 Title_Shop,ショップ
+Select_Decide,決定
+Select_Change,ステージ変更
+Select_Title,タイトルに戻る

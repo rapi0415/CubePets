@@ -4,6 +4,7 @@
 #include "UI/GameHUDWidget.h"
 #include "UI/ControllGuideWidget.h"
 
+/*
 void UGameHUDWidget::UpdateDeviceIcon(bool bIsGamepad)
 {
 	if (ControlGuide)
@@ -15,6 +16,7 @@ void UGameHUDWidget::UpdateDeviceIcon(bool bIsGamepad)
 		}
 	}
 }
+*/
 
 void UGameHUDWidget::UpdateTextBlockCreate(bool bIsReticleExistence)
 {

@@ -64,6 +64,13 @@ protected:
 
 protected:
 
+	// ボタンアイコン切り替え用
+	virtual bool InputKey(const FInputKeyParams& Params) override;
+
+	bool bIsUsingGamepad = false;
+
+protected:
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
 	TArray<FName> mLevelNameArray;
 

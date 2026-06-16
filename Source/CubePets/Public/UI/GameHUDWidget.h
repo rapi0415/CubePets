@@ -28,8 +28,10 @@ protected:
 public:
 
 	// ControlGuide‚ÌŠÖ”‚ğŒÄ‚Ño‚·‚½‚ß‚ÌŠÖ”
+	/*
 	UFUNCTION(BlueprintCallable, Category="UI")
 	void UpdateDeviceIcon(bool bIsGamepad);
+	*/
 
 	UFUNCTION(BlueprintCallable, Category="UI")
 	void UpdateTextBlockCreate(bool bIsReticleExistence);

@@ -25,6 +25,7 @@ protected:
 public:
 
 	// ジャンプボタン
+	/*
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UImage> JumpButtonIconImage = nullptr;
 
@@ -53,6 +54,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Icons")
 	TObjectPtr<UTexture2D> mLockRotGamepadIcon = nullptr;
+	*/
 
 	// 箱の生成ガイドテキスト
 	UPROPERTY(meta = (BindWidget))
@@ -65,6 +67,7 @@ public:
 	FName mTextCreate;
 
 	void UpdateTextBlockCreate(bool bIsReticleExistence);
-	void UpdateDeviceIcon(bool bIsGamepad);
+	
+	//void UpdateDeviceIcon(bool bIsGamepad);
 
 };

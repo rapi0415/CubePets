@@ -8,6 +8,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Kismet/GameplayStatics.h"
 #include "Subsystems/GameProgressionSubsystem.h"
+#include "Subsystems/CubePetsInputDeviceSubsystem.h"
 
 void ACubePetsSelectPlayerController::BeginPlay()
 {
@@ -66,6 +67,23 @@ void ACubePetsSelectPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(mConfirmAction, ETriggerEvent::Triggered, this, &ACubePetsSelectPlayerController::OnPressConfirm);
 		EnhancedInputComponent->BindAction(mLeftRightAction, ETriggerEvent::Triggered, this, &ACubePetsSelectPlayerController::OnPressLeftRight);
 	}
+}
+
+bool ACubePetsSelectPlayerController::InputKey(const FInputKeyParams& Params)
+{
+	bool bIsGamepadKey = Params.Key.IsGamepadKey();
+
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UCubePetsInputDeviceSubsystem* Subsystem = GameInstance->GetSubsystem<UCubePetsInputDeviceSubsystem>();
+		if (Subsystem)
+		{
+			Subsystem->NotifyDeviceChanged(bIsGamepadKey);
+		}
+	}
+
+	return Super::InputKey(Params);
 }
 
 void ACubePetsSelectPlayerController::OnPressConfirm()
