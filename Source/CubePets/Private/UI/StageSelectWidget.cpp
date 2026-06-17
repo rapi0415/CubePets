@@ -29,9 +29,19 @@ void UStageSelectWidget::NativeConstruct()
 	UpdateCubeText();
 }
 
-void UStageSelectWidget::OnIndexChanged(int32 Index)
+/*
+void UStageSelectWidget::StartDecideRightArrow()
 {
-	BP_OnIndexChanged(Index);
+	if (DecideRightArrow)
+	{
+		PlayAnimation(DecideRightArrow);
+	}
+}
+*/
+
+void UStageSelectWidget::OnIndexChanged(int32 Index, int32 MaxIndex, EStageClearState ClearState)
+{
+	BP_OnIndexChanged(Index, MaxIndex, ClearState);
 }
 
 /*

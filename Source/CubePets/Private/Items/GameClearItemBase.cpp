@@ -63,6 +63,9 @@ void AGameClearItemBase::OnOverlapBegin(
 
 					// 使った箱の最高記録を更新
 					ProgressionSubsystem->UpdateRecordCubeCount();
+
+					// ステージをクリア済みにする（完全クリアかどうかはSubsystem側で判定してもらう）
+					ProgressionSubsystem->UpdateCurrentStageClearState(mStageIndex);
 				}
 			}
 		}

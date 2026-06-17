@@ -9,6 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Subsystems/GameProgressionSubsystem.h"
 #include "Subsystems/CubePetsInputDeviceSubsystem.h"
+#include "Subsystems/StageClearState.h"
 
 void ACubePetsSelectPlayerController::BeginPlay()
 {
@@ -41,6 +42,9 @@ void ACubePetsSelectPlayerController::BeginPlay()
 
 			// 状態遷移用の関数をバインドしておく
 			mCurrentIrisWidget->mOnIrisInFinished.AddDynamic(this, &ACubePetsSelectPlayerController::OnFinishIrisIn);
+
+			// フェードアウト終了したときに呼びたい関数もバインドしておく
+			mCurrentIrisWidget->mOnIrisOutFinished.AddDynamic(this, &ACubePetsSelectPlayerController::OnFinishIrisOut);
 		}
 	}
 
@@ -64,8 +68,9 @@ void ACubePetsSelectPlayerController::SetupInputComponent()
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent))
 	{
-		EnhancedInputComponent->BindAction(mConfirmAction, ETriggerEvent::Triggered, this, &ACubePetsSelectPlayerController::OnPressConfirm);
+		EnhancedInputComponent->BindAction(mDecideAction, ETriggerEvent::Triggered, this, &ACubePetsSelectPlayerController::OnPressDecide);
 		EnhancedInputComponent->BindAction(mLeftRightAction, ETriggerEvent::Triggered, this, &ACubePetsSelectPlayerController::OnPressLeftRight);
+		EnhancedInputComponent->BindAction(mCancelAction, ETriggerEvent::Triggered, this, &ACubePetsSelectPlayerController::OnPressCancel);
 	}
 }
 
@@ -86,15 +91,30 @@ bool ACubePetsSelectPlayerController::InputKey(const FInputKeyParams& Params)
 	return Super::InputKey(Params);
 }
 
-void ACubePetsSelectPlayerController::OnPressConfirm()
+void ACubePetsSelectPlayerController::OnPressDecide()
 {
 	// アイリスインが終わるまで操作禁止
 	if (!bIsIrisInFinished) return;
 
-	OpenCurrentLevel();
+	// ステージ決定、フェードアウトして遷移する
+	mNextDestination = ENextDestination::STAGE;
+	if (mCurrentIrisWidget)
+	{
+		mCurrentIrisWidget->StartIrisOut();
+	}
 }
 
-void ACubePetsSelectPlayerController::OpenCurrentLevel()
+// タイトルに遷移するための関数
+void ACubePetsSelectPlayerController::TransitionToTitle()
+{
+	if (!mTitleLevelName.IsNone())
+	{
+		UGameplayStatics::OpenLevel(this, mTitleLevelName);
+	}
+}
+
+// ステージに遷移するための関数
+void ACubePetsSelectPlayerController::TransitionToStage()
 {
 	if (mLevelNameArray.IsValidIndex(mCurrentIndex))
 	{
@@ -122,8 +142,9 @@ void ACubePetsSelectPlayerController::ChangeIndex(int32 Direction)
 		if (ProgressionSubsystem)
 		{
 			int32 TargetIndex = mCurrentIndex + Direction;
+			int32 MaxIndex = ProgressionSubsystem->GetMaxUnlockedStageIndex();
 
-			if (TargetIndex > ProgressionSubsystem->GetMaxUnlockedStageIndex())
+			if (TargetIndex > MaxIndex)
 			{
 				return;
 			}
@@ -137,16 +158,51 @@ void ACubePetsSelectPlayerController::ChangeIndex(int32 Direction)
 
 			// Subsystemにも記憶させておく（インゲームとかで取得したい）
 			ProgressionSubsystem->SetCurrentStageIndex(mCurrentIndex);
+
+			// Subsystemからステージクリア状況をもらう
+			EStageClearState ClearState = ProgressionSubsystem->GetCurrentStageClearState(mCurrentIndex);
+
+			// ウィジェットにIndexが変わったことを知らせる（Subsystemから値を持って来たいので条件式の中に入れている）
+			if (mCurrentStageSelectWidget)
+			{
+				mCurrentStageSelectWidget->OnIndexChanged(mCurrentIndex, MaxIndex, ClearState);
+			}
 		}
 	}
+}
 
-	if (mCurrentStageSelectWidget)
+void ACubePetsSelectPlayerController::OnPressCancel()
+{
+	// アイリスインが終わるまで操作禁止
+	if (!bIsIrisInFinished) return;
+
+	// タイトルに戻る、フェードアウトして遷移する
+	mNextDestination = ENextDestination::TITLE;
+	if (mCurrentIrisWidget)
 	{
-		mCurrentStageSelectWidget->OnIndexChanged(mCurrentIndex);
+		mCurrentIrisWidget->StartIrisOut();
 	}
 }
 
 void ACubePetsSelectPlayerController::OnFinishIrisIn()
 {
 	bIsIrisInFinished = true;
+}
+
+void ACubePetsSelectPlayerController::OnFinishIrisOut()
+{
+	switch (mNextDestination)
+	{
+	case ENextDestination::TITLE:
+		TransitionToTitle();
+		break;
+
+	case ENextDestination::STAGE:
+		TransitionToStage();
+		break;
+
+	default:
+		break;
+	}
+	mNextDestination = ENextDestination::NONE;
 }

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Engine/DataTable.h"
+#include "StageClearState.h"
 #include "GameProgressionSubsystem.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMedalCountChanged);
@@ -25,6 +26,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Cube")
 	int32 mTotalCube = 0;
 };
+
+/*
+UENUM(BlueprintType)
+enum class EStageClearState : uint8
+{
+	NotCleared,
+	Cleared,
+	FullyCleared,
+};
+*/
+
 /**
  * 
  */
@@ -37,6 +49,27 @@ public:
 
 	FOnMedalCountChanged OnMedalCountChanged;
 	FOnUsedCubeCountChanged OnUsedCubeCountChanged;
+
+protected:
+
+	// ステージのクリア状況管理用配列
+	TArray<EStageClearState> mStageClearStates;
+
+public:
+
+	// 指定されたステージのクリア状況を返す関数
+	UFUNCTION()
+	EStageClearState GetCurrentStageClearState(int32 Index)
+	{
+		if (mStageClearStates.IsValidIndex(Index))
+		{
+			return mStageClearStates[Index];
+		}
+		return EStageClearState::NotCleared;
+	}
+
+	UFUNCTION()
+	void UpdateCurrentStageClearState(int32 Index);
 
 protected:
 

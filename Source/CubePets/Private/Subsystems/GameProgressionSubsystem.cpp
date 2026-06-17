@@ -4,6 +4,18 @@
 #include "Subsystems/GameProgressionSubsystem.h"
 #include "System/StageSelect/CubePetsGameSettings.h"
 
+void UGameProgressionSubsystem::UpdateCurrentStageClearState(int32 Index)
+{
+	// 呼ばれた時点でそのステージはクリア済みと判定
+	// 集めたメダルと使った箱を達成してるか確認してStateを変更
+	if (mStageClearStates.IsValidIndex(Index))
+	{
+		mStageClearStates[Index] = EStageClearState::Cleared;
+
+
+	}
+}
+
 void UGameProgressionSubsystem::UnLockNextStage(int32 ClearedStageIndex)
 {
 	if (ClearedStageIndex == mMaxUnlockedStageIndex)
@@ -30,7 +42,7 @@ void UGameProgressionSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
-	// データテーブルを取得して、メダル総数と箱使用目標数の配列を初期化する
+	// データテーブルを取得して、配列を初期化する
 	const UCubePetsGameSettings* Settings = GetDefault<UCubePetsGameSettings>();
 	if (Settings && Settings->mMedalDataTablePath.IsValid())
 	{
@@ -40,9 +52,11 @@ void UGameProgressionSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	if (mStageDataTable)
 	{
 		int32 NumStages = mStageDataTable->GetRowNames().Num();
+
 		mCurrentMedalCountArray.Init(0, NumStages);
 		mCurrentUsedCubeCountArray.Init(0, NumStages);
 		mRecordCubeCountArray.Init(100, NumStages); // 最小値を記録していきたいので初期値は大きい値にする
+		mStageClearStates.Init(EStageClearState::NotCleared, NumStages);
 	}
 
 }

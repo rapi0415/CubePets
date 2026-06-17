@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Subsystems/StageClearState.h"
 #include "StageSelectWidget.generated.h"
 
 class UCSVTextBlock;
@@ -31,10 +32,10 @@ protected:
 
 public:
 
-	void OnIndexChanged(int32 Index);
+	void OnIndexChanged(int32 Index, int32 MaxIndex, EStageClearState ClearState);
 
 	UFUNCTION(BlueprintImplementableEvent, Category="UI")
-	void BP_OnIndexChanged(int32 Index);
+	void BP_OnIndexChanged(int32 Index, int32 MaxIndex, EStageClearState ClearState);
 
 	/*
 public:
@@ -76,5 +77,19 @@ public:
 protected:
 
 	virtual void NativeConstruct() override;
+
+/*
+protected:
+
+	// アニメーション
+	UPROPERTY(Transient, meta = (BindWidgetAnim))
+	TObjectPtr<UWidgetAnimation> DecideRightArrow;
+
+public:
+
+	// アニメーションを再生する関数
+	UFUNCTION(BlueprintCallable, Category = "Animation")
+	void StartDecideRightArrow();
+	*/
 
 };

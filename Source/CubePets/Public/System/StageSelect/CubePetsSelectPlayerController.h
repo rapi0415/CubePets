@@ -12,6 +12,14 @@ class UIrisWidget;
 class UInputAction;
 class UInputMappingContext;
 
+UENUM(BlueprintType)
+enum class ENextDestination : uint8
+{
+	NONE,
+	TITLE,
+	STAGE,
+};
+
 /**
  * 
  */
@@ -47,18 +55,25 @@ protected:
 	TObjectPtr<UInputMappingContext> mSelectMappingContext = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-	TObjectPtr<UInputAction> mConfirmAction = nullptr;
+	TObjectPtr<UInputAction> mDecideAction = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	TObjectPtr<UInputAction> mLeftRightAction = nullptr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	TObjectPtr<UInputAction> mCancelAction = nullptr;
+
 	// 決定ボタン関連
 	UFUNCTION(BlueprintCallable, Category = "Input")
-	void OnPressConfirm();
+	void OnPressDecide();
 
 	// 左右ボタン関連
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void OnPressLeftRight(const FInputActionValue& Value);
+
+	// キャンセルボタン関連
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void OnPressCancel();
 
 	virtual void SetupInputComponent() override;
 
@@ -71,7 +86,10 @@ protected:
 
 protected:
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Level")
+	FName mTitleLevelName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Level")
 	TArray<FName> mLevelNameArray;
 
 	UPROPERTY(BlueprintReadOnly, Category = "UI")
@@ -79,16 +97,27 @@ protected:
 
 public:
 
-	UFUNCTION(BlueprintCallable, Category = "UI")
-	void OpenCurrentLevel();
+	UFUNCTION(BlueprintCallable, Category = "Level")
+	void TransitionToTitle();
+
+	UFUNCTION(BlueprintCallable, Category = "Level")
+	void TransitionToStage();
 
 	UFUNCTION(BlueprintCallable, Category = "UI")
 	void ChangeIndex(int32 Direction);
 
 protected:
 
+	UPROPERTY()
+	ENextDestination mNextDestination = ENextDestination::NONE;
+
+protected:
+
 	UFUNCTION()
 	void OnFinishIrisIn();
+
+	UFUNCTION()
+	void OnFinishIrisOut();
 
 protected:
 
