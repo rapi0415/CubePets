@@ -162,10 +162,14 @@ void ACubePetsSelectPlayerController::ChangeIndex(int32 Direction)
 			// Subsystemからステージクリア状況をもらう
 			EStageClearState ClearState = ProgressionSubsystem->GetCurrentStageClearState(mCurrentIndex);
 
+			// Subsystemからメダル獲得、使った箱の達成状況をもらう
+			bool MedalFlag = ProgressionSubsystem->IsCompleteMedal();
+			bool CubeFlag = ProgressionSubsystem->IsCompleteUsedCubes();
+
 			// ウィジェットにIndexが変わったことを知らせる（Subsystemから値を持って来たいので条件式の中に入れている）
 			if (mCurrentStageSelectWidget)
 			{
-				mCurrentStageSelectWidget->OnIndexChanged(mCurrentIndex, MaxIndex, ClearState);
+				mCurrentStageSelectWidget->OnIndexChanged(mCurrentIndex, MaxIndex, ClearState, MedalFlag, CubeFlag);
 			}
 		}
 	}

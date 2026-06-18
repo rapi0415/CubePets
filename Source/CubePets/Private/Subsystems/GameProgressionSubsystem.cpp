@@ -12,7 +12,13 @@ void UGameProgressionSubsystem::UpdateCurrentStageClearState(int32 Index)
 	{
 		mStageClearStates[Index] = EStageClearState::Cleared;
 
+		bool MedalFlag = IsCompleteMedal();
+		bool CubeFlag = IsCompleteUsedCubes();
 
+		if (MedalFlag && CubeFlag)
+		{
+			mStageClearStates[Index] = EStageClearState::FullyCleared;
+		}
 	}
 }
 
@@ -59,4 +65,30 @@ void UGameProgressionSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 		mStageClearStates.Init(EStageClearState::NotCleared, NumStages);
 	}
 
+}
+
+bool UGameProgressionSubsystem::IsCompleteMedal()
+{
+	int32 MedalCount = GetCurrentMedalCount();
+	int32 MedalMax = GetTotalMedal();
+
+	if (MedalCount == MedalMax)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool UGameProgressionSubsystem::IsCompleteUsedCubes()
+{
+	int32 CubeCount = GetRecordCubeCount();
+	int32 CubeMax = GetTotalCube();
+
+	if (CubeCount <= CubeMax)
+	{
+		return true;
+	}
+
+	return false;
 }

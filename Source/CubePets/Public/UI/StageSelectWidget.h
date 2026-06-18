@@ -32,10 +32,10 @@ protected:
 
 public:
 
-	void OnIndexChanged(int32 Index, int32 MaxIndex, EStageClearState ClearState);
+	void OnIndexChanged(int32 Index, int32 MaxIndex, EStageClearState ClearState, bool MedalFlag, bool CubeFlag);
 
 	UFUNCTION(BlueprintImplementableEvent, Category="UI")
-	void BP_OnIndexChanged(int32 Index, int32 MaxIndex, EStageClearState ClearState);
+	void BP_OnIndexChanged(int32 Index, int32 MaxIndex, EStageClearState ClearState, bool MedalFlag, bool CubeFlag);
 
 	/*
 public:

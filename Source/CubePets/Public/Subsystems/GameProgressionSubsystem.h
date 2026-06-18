@@ -273,4 +273,15 @@ protected:
 protected:
 
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+
+public:
+	
+	// メダル獲得を達成しているかどうか返す関数
+	UFUNCTION()
+	bool IsCompleteMedal();
+
+	// 使った箱を達成しているかどうか返す関数
+	UFUNCTION()
+	bool IsCompleteUsedCubes();
+
 };

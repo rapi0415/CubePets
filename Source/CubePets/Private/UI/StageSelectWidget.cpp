@@ -39,9 +39,9 @@ void UStageSelectWidget::StartDecideRightArrow()
 }
 */
 
-void UStageSelectWidget::OnIndexChanged(int32 Index, int32 MaxIndex, EStageClearState ClearState)
+void UStageSelectWidget::OnIndexChanged(int32 Index, int32 MaxIndex, EStageClearState ClearState, bool MedalFlag, bool CubeFlag)
 {
-	BP_OnIndexChanged(Index, MaxIndex, ClearState);
+	BP_OnIndexChanged(Index, MaxIndex, ClearState, MedalFlag, CubeFlag);
 }
 
 /*
