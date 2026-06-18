@@ -59,7 +59,7 @@ void AMedalItemBase::OnOverlapBegin
 					ProgressionSubsystem->SetMedalCollected(mMedalID);
 				}
 			}
+			Destroy();
 		}
 	}
-	Destroy();
 }

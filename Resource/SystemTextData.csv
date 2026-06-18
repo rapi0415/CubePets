@@ -22,7 +22,7 @@ Stage_06,ステージ6
 Stage_07,ステージ7
 Stage_08,ステージ8
 Select_CollectMedal,集めたメダル：{0} / {1}
-Select_UsedCubes,使った箱：{0} / {1}
+Select_UsedCubes,使った箱：{0} / 目標：{1}
 Title_Pre,Press
 Title_Name,CUBE DOG!
 Title_Shop,ショップ
