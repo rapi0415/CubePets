@@ -66,6 +66,9 @@ void ACubePetsSelectPlayerController::BeginPlay()
 		{
 			int32 Index = ProgressionSubsystem->GetCurrentStageIndex();
 			ChangeIndex(Index);
+
+			// ƒZ[ƒu‚·‚é
+			ProgressionSubsystem->SaveProgress();
 		}
 	}
 }

@@ -95,6 +95,7 @@ protected:
 	void OnMenuConfirmed(ETitleMenuItem ChosenItem);
 
 	void StartGame();
+	void LoadGame();
 
 	// 上下ボタン
 	UFUNCTION(BlueprintCallable, Category = "Input")
@@ -122,12 +123,21 @@ public:
 	void ChangeIndex(int32 Direction);
 
 protected:
-
+	
+	// メニュー操作用
 	UPROPERTY(BlueprintReadOnly, Category = "UI")
 	int32 mCurrentIndex = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
 	int32 mMaxIndex = 5;
+
+	TArray<int32> mSelectableIndices;
+
+	int32 mCurrentPos = 0;
+
+	// セーブデータの有無
+	bool bHasSaveData = false;
+
 
 protected:
 

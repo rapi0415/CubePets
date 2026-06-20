@@ -57,6 +57,11 @@ protected:
 
 public:
 
+	// Subsystemが持っている情報をリセットする関数
+	void ResetProgress();
+
+public:
+
 	// 指定されたステージのクリア状況を返す関数
 	UFUNCTION()
 	EStageClearState GetCurrentStageClearState(int32 Index)
@@ -283,5 +288,21 @@ public:
 	// 使った箱を達成しているかどうか返す関数
 	UFUNCTION()
 	bool IsCompleteUsedCubes();
+
+public:
+	
+	// セーブ
+	UFUNCTION()
+	void SaveProgress();
+
+	// ロード
+	UFUNCTION()
+	void LoadProgress();
+
+	// セーブデータがあるか確かめる関数
+	UFUNCTION(BlueprintCallable, Category = "SaveData")
+	bool IsExistenceSaveData();
+
+	static const FString mSaveSlotName;
 
 };

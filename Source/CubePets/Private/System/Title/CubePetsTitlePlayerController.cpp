@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Subsystems/CubePetsInputDeviceSubsystem.h"
+#include "Subsystems/GameProgressionSubsystem.h"
 
 void ACubePetsTitlePlayerController::BeginPlay()
 {
@@ -37,6 +38,12 @@ void ACubePetsTitlePlayerController::BeginPlay()
 		if (mCurrentIrisWidget)
 		{
 			mCurrentIrisWidget->AddToViewport(10);
+
+			// （アイリスイン）タイトル画面開始アニメーション用の関数をバインドしておく
+			mCurrentIrisWidget->mOnIrisInFinished.AddDynamic(this, &ACubePetsTitlePlayerController::PlayDecorationPartsAnimation);
+
+			// （アイリスアウト）ステージ遷移用の関数をバインドしておく
+			mCurrentIrisWidget->mOnIrisOutFinished.AddDynamic(this, &ACubePetsTitlePlayerController::WarpTo);
 		}
 	}
 
@@ -56,6 +63,17 @@ void ACubePetsTitlePlayerController::BeginPlay()
 		if (auto* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
 		{
 			Subsystem->AddMappingContext(mTitleMappingContext, 10);
+		}
+	}
+
+	// セーブデータ存在確認
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* Subsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (Subsystem)
+		{
+			bHasSaveData = Subsystem->IsExistenceSaveData();
 		}
 	}
 }
@@ -101,9 +119,6 @@ void ACubePetsTitlePlayerController::HandlePreTitleConfirm()
 	if (mCurrentIrisWidget)
 	{
 		mCurrentIrisWidget->StartIrisIn();
-
-		// タイトル画面開始アニメーション用の関数をバインドしておく
-		mCurrentIrisWidget->mOnIrisInFinished.AddDynamic(this, &ACubePetsTitlePlayerController::PlayDecorationPartsAnimation);
 	}
 }
 
@@ -124,7 +139,10 @@ void ACubePetsTitlePlayerController::OnMenuConfirmed(ETitleMenuItem ChosenItem)
 		break;
 
 	case ETitleMenuItem::LOAD:
+
+		LoadGame();
 		break;
+
 	case ETitleMenuItem::JAPANESE:
 		break;
 	case ETitleMenuItem::ENGLISH:
@@ -147,9 +165,6 @@ void ACubePetsTitlePlayerController::StartGame()
 	// フェードアウトアニメーション
 	if (mCurrentIrisWidget)
 	{
-		// ステージ遷移用の関数をバインドしておく
-		mCurrentIrisWidget->mOnIrisOutFinished.AddDynamic(this, &ACubePetsTitlePlayerController::WarpTo);
-
 		mCurrentIrisWidget->StartIrisOut();
 	}
 
@@ -157,6 +172,50 @@ void ACubePetsTitlePlayerController::StartGame()
 	if (mCurrentTitleWidget)
 	{
 		mCurrentTitleWidget->StartTextStartConfirmed();
+	}
+
+	// ニューゲームなのでSubsystemの情報をリセット
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* Subsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (Subsystem)
+		{
+			Subsystem->ResetProgress();
+		}
+	}
+}
+
+void ACubePetsTitlePlayerController::LoadGame()
+{
+	// ロードゲームなのでSubsystemに情報をロード
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* Subsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (Subsystem)
+		{
+			// セーブデータがないなら何もせずに終了
+			if (!Subsystem->IsExistenceSaveData()) return;
+
+			Subsystem->LoadProgress();
+		}
+	}
+
+	mCurrentTitleState = ETitleState::NONE;
+
+	mTargetLevelName = TEXT("PL_Select");
+
+	// フェードアウトアニメーション
+	if (mCurrentIrisWidget)
+	{
+		mCurrentIrisWidget->StartIrisOut();
+	}
+
+	// テキスト点滅アニメーション
+	if (mCurrentTitleWidget)
+	{
+		mCurrentTitleWidget->StartTextLoadConfirmed();
 	}
 }
 
@@ -203,19 +262,19 @@ void ACubePetsTitlePlayerController::ChangeTitleStateToMainTitle()
 
 void ACubePetsTitlePlayerController::ChangeIndex(int32 Direction)
 {
-	int32 TargetIndex = mCurrentIndex + Direction;
-
-	if (TargetIndex > mMaxIndex)
+	// セーブデータの有無によってIndexを変えたい
+	if (bHasSaveData)
 	{
-		return;
+		mSelectableIndices = { 0, 1, 2, 3, 4, 5 };
+	}
+	else
+	{
+		mSelectableIndices = { 0, 2, 3, 4, 5 }; // セーブデータがないときは 1番 = Load を除く
 	}
 
-	if (TargetIndex < 0)
-	{
-		return;
-	}
+	mCurrentPos = FMath::Clamp(mCurrentPos + Direction, 0, mSelectableIndices.Num() - 1);
 
-	mCurrentIndex = TargetIndex;
+	mCurrentIndex = mSelectableIndices[mCurrentPos];
 
 	mCurrentTitleWidget->OnIndexChanged(mCurrentIndex);
 }
@@ -223,19 +282,6 @@ void ACubePetsTitlePlayerController::ChangeIndex(int32 Direction)
 bool ACubePetsTitlePlayerController::InputKey(const FInputKeyParams& Params)
 {
 	bool bIsGamepadKey = Params.Key.IsGamepadKey();
-
-	// 前回と違うデバイスが使われたらUIを更新する
-	/*
-	if (bIsGamepadKey != bIsUsingGamepad)
-	{
-		bIsUsingGamepad = bIsGamepadKey;
-
-		if (mCurrentPreTitleWidget)
-		{
-			mCurrentPreTitleWidget->UpdateDeviceIcon(bIsUsingGamepad);
-		}
-	}
-	*/
 
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)

@@ -3,8 +3,8 @@ Guide_Jump,ジャンプ
 Guide_CreateReady,箱の生成準備
 Guide_Create,箱の生成
 Guide_LockRotation,向き固定
-Title_Start,スタート
-Title_Load,ロード
+Title_Start,はじめから
+Title_Load,つづきから
 Title_Quit,終了
 Title_Japanese,日本語
 Title_English,英語

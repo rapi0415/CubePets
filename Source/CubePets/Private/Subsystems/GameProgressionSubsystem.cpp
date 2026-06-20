@@ -3,6 +3,34 @@
 
 #include "Subsystems/GameProgressionSubsystem.h"
 #include "System/StageSelect/CubePetsGameSettings.h"
+#include "System/InGame/CubePetsSaveGame.h"
+#include "Kismet/GameplayStatics.h"
+
+const FString UGameProgressionSubsystem::mSaveSlotName = TEXT("PlayerProgress");
+
+void UGameProgressionSubsystem::ResetProgress()
+{
+	mMaxUnlockedStageIndex = 0; // 解放済みステージ数
+	mCurrentStageIndex = 0; // 現在のステージ番号
+	mCollectedMedalMap.Empty(); // メダルの獲得情報
+
+	// データテーブルを取得して、配列を初期化する
+	const UCubePetsGameSettings* Settings = GetDefault<UCubePetsGameSettings>();
+	if (Settings && Settings->mMedalDataTablePath.IsValid())
+	{
+		mStageDataTable = Cast<UDataTable>(Settings->mMedalDataTablePath.TryLoad());
+	}
+
+	if (mStageDataTable)
+	{
+		int32 NumStages = mStageDataTable->GetRowNames().Num();
+
+		mCurrentMedalCountArray.Init(0, NumStages);
+		mCurrentUsedCubeCountArray.Init(0, NumStages);
+		mRecordCubeCountArray.Init(100, NumStages); // 最小値を記録していきたいので初期値は大きい値にする
+		mStageClearStates.Init(EStageClearState::NotCleared, NumStages);
+	}
+}
 
 void UGameProgressionSubsystem::UpdateCurrentStageClearState(int32 Index)
 {
@@ -48,23 +76,7 @@ void UGameProgressionSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
-	// データテーブルを取得して、配列を初期化する
-	const UCubePetsGameSettings* Settings = GetDefault<UCubePetsGameSettings>();
-	if (Settings && Settings->mMedalDataTablePath.IsValid())
-	{
-		mStageDataTable = Cast<UDataTable>(Settings->mMedalDataTablePath.TryLoad());
-	}
-
-	if (mStageDataTable)
-	{
-		int32 NumStages = mStageDataTable->GetRowNames().Num();
-
-		mCurrentMedalCountArray.Init(0, NumStages);
-		mCurrentUsedCubeCountArray.Init(0, NumStages);
-		mRecordCubeCountArray.Init(100, NumStages); // 最小値を記録していきたいので初期値は大きい値にする
-		mStageClearStates.Init(EStageClearState::NotCleared, NumStages);
-	}
-
+	ResetProgress();
 }
 
 bool UGameProgressionSubsystem::IsCompleteMedal()
@@ -92,3 +104,45 @@ bool UGameProgressionSubsystem::IsCompleteUsedCubes()
 
 	return false;
 }
+
+void UGameProgressionSubsystem::SaveProgress()
+{
+	UCubePetsSaveGame* SaveData = Cast<UCubePetsSaveGame>(UGameplayStatics::CreateSaveGameObject(UCubePetsSaveGame::StaticClass()));
+
+	if (SaveData)
+	{
+		SaveData->mMaxUnlockedStageIndex = mMaxUnlockedStageIndex;
+		SaveData->mCurrentStageIndex = mCurrentStageIndex;
+		SaveData->mCollectedMedalMap = mCollectedMedalMap;
+		SaveData->mStageClearStates = mStageClearStates;
+		SaveData->mCurrentMedalCountArray = mCurrentMedalCountArray;
+		SaveData->mCurrentUsedCubeCountArray = mCurrentUsedCubeCountArray;
+		SaveData->mRecordCubeCountArray = mRecordCubeCountArray;
+
+		UGameplayStatics::SaveGameToSlot(SaveData, mSaveSlotName, 0);
+	}
+}
+
+void UGameProgressionSubsystem::LoadProgress()
+{
+	UCubePetsSaveGame* SaveData = Cast<UCubePetsSaveGame>(UGameplayStatics::LoadGameFromSlot(mSaveSlotName, 0));
+
+	if (!SaveData) return;
+
+	mMaxUnlockedStageIndex = SaveData->mMaxUnlockedStageIndex;
+	mCurrentStageIndex = SaveData->mCurrentStageIndex;
+	mCollectedMedalMap = SaveData->mCollectedMedalMap;
+	mStageClearStates = SaveData->mStageClearStates;
+	mCurrentMedalCountArray = SaveData->mCurrentMedalCountArray;
+	mCurrentUsedCubeCountArray = SaveData->mCurrentUsedCubeCountArray;
+	mRecordCubeCountArray = SaveData->mRecordCubeCountArray;
+}
+
+bool UGameProgressionSubsystem::IsExistenceSaveData()
+{
+	UCubePetsSaveGame* SaveData = Cast<UCubePetsSaveGame>(UGameplayStatics::LoadGameFromSlot(mSaveSlotName, 0));
+
+	return SaveData ? true : false;
+}
+
+

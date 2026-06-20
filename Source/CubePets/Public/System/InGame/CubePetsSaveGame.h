@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
+#include "Subsystems/StageClearState.h"
 #include "CubePetsSaveGame.generated.h"
 
 /**
@@ -14,26 +15,28 @@ class CUBEPETS_API UCubePetsSaveGame : public USaveGame
 {
 	GENERATED_BODY()
 
-protected:
-
-	UPROPERTY()
-	FVector mCheckPointLocation;
-
-	UPROPERTY()
-	FName mLevelName;
-
 public:
 
-	UFUNCTION(BlueprintCallable, Category="CheckPoint")
-	void SetCheckPointLocation(FVector NewLocation)
-	{
-		mCheckPointLocation = NewLocation;
-	};
-	
-	UFUNCTION(BlueprintPure, Category="CheckPoint")
-	FVector GetCheckPointLocation() const
-	{
-		return mCheckPointLocation;
-	}
+	UPROPERTY()
+	int32 mMaxUnlockedStageIndex = 0;
+
+	UPROPERTY()
+	int32 mCurrentStageIndex = 0;
+
+	UPROPERTY()
+	TMap<FName, bool> mCollectedMedalMap;
+
+	UPROPERTY()
+	TArray<EStageClearState> mStageClearStates;
+
+	UPROPERTY()
+	TArray<int32> mCurrentMedalCountArray;
+
+	UPROPERTY()
+	TArray<int32> mCurrentUsedCubeCountArray;
+
+	UPROPERTY()
+	TArray<int32> mRecordCubeCountArray;
+
 
 };

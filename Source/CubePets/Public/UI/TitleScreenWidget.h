@@ -16,6 +16,10 @@ class CUBEPETS_API UTitleScreenWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
+protected:
+
+	virtual void NativeConstruct() override;
+
 public:
 
 	// BP側のアニメーションと紐づける
@@ -25,12 +29,18 @@ public:
 	UPROPERTY(Transient, meta = (BindWidgetAnim))
 	TObjectPtr<UWidgetAnimation> TextStartConfirmed;
 
+	UPROPERTY(Transient, meta = (BindWidgetAnim))
+	TObjectPtr<UWidgetAnimation> TextLoadConfirmed;
+
 	// アニメーションを再生する関数
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 	void StartAppearanceDecoration();
 
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 	void StartTextStartConfirmed();
+
+	UFUNCTION(BlueprintCallable, Category = "Animation")
+	void StartTextLoadConfirmed();
 	
 protected:
 
@@ -47,5 +57,10 @@ public:
 public:
 
 	FOnAnimationFinished mOnAnimationFinished;
+
+protected:
+
+	UPROPERTY(BlueprintReadOnly, Category = "SaveData")
+	bool bHasSaveData = false;
 
 };
