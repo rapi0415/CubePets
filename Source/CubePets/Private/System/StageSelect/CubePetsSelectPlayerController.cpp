@@ -57,9 +57,17 @@ void ACubePetsSelectPlayerController::BeginPlay()
 		}
 	}
 
-	// 初回も0を渡して関数を呼ぶ（OnIndexChangedを呼ぶため）
-	ChangeIndex(0);
-
+	// OnIndexChangedを呼ぶためにChangeIndexを呼ぶ（遊んでたステージに帰ってくるようにする）
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			int32 Index = ProgressionSubsystem->GetCurrentStageIndex();
+			ChangeIndex(Index);
+		}
+	}
 }
 
 void ACubePetsSelectPlayerController::SetupInputComponent()
@@ -94,13 +102,14 @@ bool ACubePetsSelectPlayerController::InputKey(const FInputKeyParams& Params)
 void ACubePetsSelectPlayerController::OnPressDecide()
 {
 	// アイリスインが終わるまで操作禁止
-	if (!bIsIrisInFinished) return;
+	if (!bIsActiveInput) return;
 
 	// ステージ決定、フェードアウトして遷移する
 	mNextDestination = ENextDestination::STAGE;
 	if (mCurrentIrisWidget)
 	{
 		mCurrentIrisWidget->StartIrisOut();
+		bIsActiveInput = false;
 	}
 }
 
@@ -125,7 +134,7 @@ void ACubePetsSelectPlayerController::TransitionToStage()
 void ACubePetsSelectPlayerController::OnPressLeftRight(const FInputActionValue& Value)
 {
 	// アイリスインが終わるまで操作禁止
-	if (!bIsIrisInFinished) return;
+	if (!bIsActiveInput) return;
 
 	float AxisValue = Value.Get<float>();
 	int32 Direction = static_cast<int32>(AxisValue);
@@ -178,19 +187,20 @@ void ACubePetsSelectPlayerController::ChangeIndex(int32 Direction)
 void ACubePetsSelectPlayerController::OnPressCancel()
 {
 	// アイリスインが終わるまで操作禁止
-	if (!bIsIrisInFinished) return;
+	if (!bIsActiveInput) return;
 
 	// タイトルに戻る、フェードアウトして遷移する
 	mNextDestination = ENextDestination::TITLE;
 	if (mCurrentIrisWidget)
 	{
 		mCurrentIrisWidget->StartIrisOut();
+		bIsActiveInput = false;
 	}
 }
 
 void ACubePetsSelectPlayerController::OnFinishIrisIn()
 {
-	bIsIrisInFinished = true;
+	bIsActiveInput = true;
 }
 
 void ACubePetsSelectPlayerController::OnFinishIrisOut()

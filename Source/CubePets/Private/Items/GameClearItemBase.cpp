@@ -38,7 +38,7 @@ void AGameClearItemBase::OnOverlapBegin(
 			float DelayTimeUI = 2.0f;
 			GetWorld()->GetTimerManager().SetTimer(mClearTimerHandle, this, &AGameClearItemBase::ShowGameClearUI, DelayTimeUI, false);
 
-			// さらに一定時間後にフェードアウトしてタイトルに戻る
+			// さらに一定時間後にフェードアウトしてステージ遷移
 			float DelayTimeFade = 4.0f;
 			GetWorld()->GetTimerManager().SetTimer(mFadeOutTimerHandle, this, &AGameClearItemBase::StartFadeOut, DelayTimeFade, false);
 

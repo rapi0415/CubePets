@@ -122,6 +122,6 @@ protected:
 protected:
 
 	// アイリスインが終わったかどうか
-	bool bIsIrisInFinished = false;
+	bool bIsActiveInput = false;
 	
 };
