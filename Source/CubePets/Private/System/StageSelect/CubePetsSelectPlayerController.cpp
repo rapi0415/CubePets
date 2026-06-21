@@ -10,6 +10,7 @@
 #include "Subsystems/GameProgressionSubsystem.h"
 #include "Subsystems/CubePetsInputDeviceSubsystem.h"
 #include "Subsystems/StageClearState.h"
+#include "Subsystems/CheckPointSubsystem.h"
 
 void ACubePetsSelectPlayerController::BeginPlay()
 {
@@ -57,10 +58,10 @@ void ACubePetsSelectPlayerController::BeginPlay()
 		}
 	}
 
-	// OnIndexChangedを呼ぶためにChangeIndexを呼ぶ（遊んでたステージに帰ってくるようにする）
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
+		// OnIndexChangedを呼ぶためにChangeIndexを呼ぶ（遊んでたステージに帰ってくるようにする）
 		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
 		if (ProgressionSubsystem)
 		{
@@ -69,6 +70,13 @@ void ACubePetsSelectPlayerController::BeginPlay()
 
 			// セーブする
 			ProgressionSubsystem->SaveProgress();
+		}
+
+		// チェックポイント情報をリセット
+		UCheckPointSubsystem* CPSubsystem = GameInstance->GetSubsystem<UCheckPointSubsystem>();
+		if (CPSubsystem)
+		{
+			CPSubsystem->ResetCheckPoint();
 		}
 	}
 }

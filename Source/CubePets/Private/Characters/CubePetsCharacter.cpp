@@ -10,9 +10,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "System/InGame/CubePetsPlayerController.h"
-#include "Subsystems/SaveGameInstanceSubsystem.h"
 #include "System/InGame/CubePetsGameModeBase.h"
 #include "Subsystems/GameProgressionSubsystem.h"
+#include "Subsystems/CheckPointSubsystem.h"
 
 // Sets default values
 ACubePetsCharacter::ACubePetsCharacter()
@@ -65,15 +65,17 @@ void ACubePetsCharacter::BeginPlay()
 	}
 
 	// チェックポイント記録を見てワープする
-	USaveGameInstanceSubsystem* SaveSubsystem = GetGameInstance()->GetSubsystem<USaveGameInstanceSubsystem>();
-
-	if (SaveSubsystem && !SaveSubsystem->GetCurrentCheckPoint().IsZero())
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
 	{
-		SetActorLocation(SaveSubsystem->GetCurrentCheckPoint(), false, nullptr, ETeleportType::TeleportPhysics);
+		UCheckPointSubsystem* CPSubsystem = GameInstance->GetSubsystem<UCheckPointSubsystem>();
+		if (CPSubsystem && CPSubsystem->HasCheckPoint())
+		{
+			SetActorLocation(CPSubsystem->GetCurrentCheckPoint(), false, nullptr, ETeleportType::TeleportPhysics);
+		}
 	}
 
 	// Subsystemの持つ「箱を使った数」をリセット
-	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
 		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();

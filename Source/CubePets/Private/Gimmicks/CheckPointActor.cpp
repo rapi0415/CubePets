@@ -3,10 +3,8 @@
 
 #include "Gimmicks/CheckPointActor.h"
 #include "Components/BoxComponent.h"
-#include "Kismet/GameplayStatics.h"
 #include "Characters/CubePetsCharacter.h"
-#include "System/InGame/CubePetsSaveGame.h"
-#include "Subsystems/SaveGameInstanceSubsystem.h"
+#include "Subsystems/CheckPointSubsystem.h"
 
 // Sets default values
 ACheckPointActor::ACheckPointActor()
@@ -47,22 +45,27 @@ void ACheckPointActor::NotifyActorBeginOverlap(AActor* OtherActor)
 	Super::NotifyActorBeginOverlap(OtherActor);
 
 	// 接触したのがプレイヤーならチェックポイントの座標をセーブする
-	/*
+	
 	if (ACubePetsCharacter* PlayerCharacter = Cast<ACubePetsCharacter>(OtherActor))
 	{
-		USaveGameInstanceSubsystem* SaveSubsystem = GetGameInstance()->GetSubsystem<USaveGameInstanceSubsystem>();
-		SaveSubsystem->SetCurrentCheckPoint(GetActorLocation());
+		// Subsystemの座標情報を更新
+		UGameInstance* GameInstance = GetGameInstance();
+		if (GameInstance)
+		{
+			UCheckPointSubsystem* Subsystem = GameInstance->GetSubsystem<UCheckPointSubsystem>();
+			if (Subsystem)
+			{
+				Subsystem->SetCurrentCheckPoint(GetActorLocation());
+			}
+		}
 
-		UCubePetsSaveGame* SaveGame = Cast<UCubePetsSaveGame>(UGameplayStatics::CreateSaveGameObject(UCubePetsSaveGame::StaticClass()));
-		SaveGame->SetCheckPointLocation(SaveSubsystem->GetCurrentCheckPoint());
-		UGameplayStatics::SaveGameToSlot(SaveGame, TEXT("Slot1"), 0);
-
+		// エフェクト類を表示
 		PlayEffects();
 
 		// プレイヤーの頭上にセーブしたことを示すテキストを表示
 		PlayerCharacter->ShowFloatingText();
 	}
-	*/
+	
 }
 
 void ACheckPointActor::PlayEffects()
