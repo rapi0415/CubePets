@@ -7,6 +7,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Kismet/GameplayStatics.h"
 #include "Subsystems/CubePetsInputDeviceSubsystem.h"
+#include "Subsystems/GameProgressionSubsystem.h"
 
 void ACubePetsEndingPlayerController::BeginPlay()
 {
@@ -33,6 +34,17 @@ void ACubePetsEndingPlayerController::BeginPlay()
 			{ 
 				Subsystem->AddMappingContext(mEndingMappingContext, 10);
 			}
+		}
+	}
+
+	// ƒZ[ƒu‚·‚é
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			ProgressionSubsystem->SaveProgress();
 		}
 	}
 }

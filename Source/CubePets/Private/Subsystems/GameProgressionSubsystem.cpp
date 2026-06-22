@@ -52,9 +52,17 @@ void UGameProgressionSubsystem::UpdateCurrentStageClearState(int32 Index)
 
 void UGameProgressionSubsystem::UnLockNextStage(int32 ClearedStageIndex)
 {
-	if (ClearedStageIndex == mMaxUnlockedStageIndex)
+	if (mStageDataTable)
 	{
-		mMaxUnlockedStageIndex++;
+		// 総ステージ数と解放済みステージ数が同じだったら何もせず終了
+		int32 NumStages = mStageDataTable->GetRowNames().Num() - 1;
+		if (NumStages == mMaxUnlockedStageIndex) return;
+
+		// 今のステージNo.と解放済みステージ数が同じだったら次のステージをアンロック
+		if (ClearedStageIndex == mMaxUnlockedStageIndex)
+		{
+			mMaxUnlockedStageIndex++;
+		}
 	}
 }
 
