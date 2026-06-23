@@ -11,6 +11,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "Subsystems/CubePetsInputDeviceSubsystem.h"
 #include "Subsystems/GameProgressionSubsystem.h"
+#include "EngineUtils.h"
+#include "Camera/CameraActor.h"
 
 void ACubePetsTitlePlayerController::BeginPlay()
 {
@@ -19,6 +21,13 @@ void ACubePetsTitlePlayerController::BeginPlay()
 	// インプットモード初期化処理
 	FInputModeGameAndUI InputMode;
 	SetInputMode(InputMode);
+
+	// カメラ設定
+	for (TActorIterator<ACameraActor> It(GetWorld()); It; ++It)
+	{
+		SetViewTargetWithBlend(Cast<AActor>(*It));
+		break;
+	}
 
 	// タイトル画面を表示
 	if (mTitleWidgetClass)
