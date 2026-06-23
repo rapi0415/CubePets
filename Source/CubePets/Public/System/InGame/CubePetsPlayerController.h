@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "InputActionValue.h"
 #include "CubePetsPlayerController.generated.h"
 
 class UIrisWidget;
@@ -11,6 +12,22 @@ class UGameHUDWidget;
 class UInputAction;
 class UInputMappingContext;
 class UPauseWidget;
+
+UENUM(BlueprintType)
+enum class EGameState : uint8
+{
+	NONE,
+	INGAME,
+	PAUSE,
+};
+
+UENUM(BlueprintType)
+enum class EPauseMenuItem : uint8
+{
+	RESUME,
+	RESTART,
+	RETURN_SELECT,
+};
 
 /**
  * 
@@ -36,6 +53,7 @@ public:
 
 protected:
 
+	// 入力デバイスの検知
 	virtual bool InputKey(const FInputKeyParams& Params) override;
 
 	bool bIsUsingGamepad = false;
@@ -86,16 +104,56 @@ private:
 
 protected:
 
-	// インプット系
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
-	TObjectPtr<UInputMappingContext> mSystemMappingContext;
+	EGameState mGameState = EGameState::NONE;
+	EPauseMenuItem mPauseMenuItem = EPauseMenuItem::RESUME;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input")
+	int32 mCurrentIndex = 0;
+
+	UPROPERTY(EditAnywhere, Category = "UI")
+	int32 mMaxIndex = 2;
+
+protected:
+
+	// インプット系
+	// IMC（ポーズ用）
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	TObjectPtr<UInputMappingContext> mSystemMappingContext = nullptr;
+
+	// IMC（ポーズメニュー）
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	TObjectPtr<UInputMappingContext> mPauseMappingContext = nullptr;
+
+	// ポーズ
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	TObjectPtr<UInputAction> mPauseAction = nullptr;
 
-	UFUNCTION(BlueprintCallable, Category="Pause")
+	// 上下キー
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	TObjectPtr<UInputAction> mUpDownAction = nullptr;
+
+	// 決定
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	TObjectPtr<UInputAction> mDecideAction = nullptr;
+
+protected:
+
+	UFUNCTION(BlueprintCallable, Category = "Pause")
 	void TogglePause();
 
+	UFUNCTION(BlueprintCallable, Category = "Pause")
+	void OnPressUpDown(const FInputActionValue& Value);
+
+	UFUNCTION(BlueprintCallable, Category = "Pause")
+	void OnPressDecide();
+
+	void OnResume();
+	void OnReturnSelect();
+
 	virtual void SetupInputComponent() override;
+
+public:
+
+	UFUNCTION(BlueprintCallable, Category = "Pause")
+	void ChangeIndex(int32 Direction);
 
 };

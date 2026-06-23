@@ -18,19 +18,6 @@ bool ACubePetsPlayerController::InputKey(const FInputKeyParams& Params)
 {
 	bool bIsGamepadKey = Params.Key.IsGamepadKey();
 
-	// 前回と違うデバイスが使われたらUIを更新する
-	/*
-	if (bIsGamepadKey != bIsUsingGamepad)
-	{
-		bIsUsingGamepad = bIsGamepadKey;
-
-		if (mCurrentGameHUDWidget)
-		{
-			mCurrentGameHUDWidget->UpdateDeviceIcon(bIsUsingGamepad);
-		}
-	}
-	*/
-
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
@@ -55,11 +42,11 @@ void ACubePetsPlayerController::BeginPlay()
 
 		if (mCurrentIrisWidget)
 		{
-			mCurrentIrisWidget->AddToViewport(100);
+			mCurrentIrisWidget->AddToViewport(1000);
 
 			mCurrentIrisWidget->StartIrisIn();
 
-			// リスタート用の関数をバインドしておく
+			// レベル遷移&リスタート用の関数をバインドしておく
 			mCurrentIrisWidget->mOnIrisOutFinished.AddDynamic(this, &ACubePetsPlayerController::HandleLevelTransitionNotification);
 		}
 	}
@@ -84,7 +71,7 @@ void ACubePetsPlayerController::BeginPlay()
 	{
 		if (auto* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
 		{
-			Subsystem->AddMappingContext(mSystemMappingContext, 10);
+			Subsystem->AddMappingContext(mSystemMappingContext, 0);
 		}
 	}
 }
@@ -149,6 +136,16 @@ void ACubePetsPlayerController::TogglePause()
 
 	if (bNewPauseState)
 	{
+		// ポーズ中の操作用のIMCをAdd
+		if (ULocalPlayer* LocalPlayer = GetLocalPlayer())
+		{
+			auto* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer);
+			if (Subsystem)
+			{
+				Subsystem->AddMappingContext(mPauseMappingContext, 1);
+			}
+		}
+
 		SetInputMode(FInputModeGameAndUI());
 		bShowMouseCursor = true;
 
@@ -158,12 +155,25 @@ void ACubePetsPlayerController::TogglePause()
 			mCurrentPauseWidget = CreateWidget<UPauseWidget>(this, mPauseWidgetClass);
 			if (mCurrentPauseWidget)
 			{
-				mCurrentPauseWidget->AddToViewport(1000);
+				mCurrentPauseWidget->AddToViewport(100);
 			}
 		}
+
+		// ステート更新
+		mGameState = EGameState::PAUSE;
 	}
 	else
 	{
+		// ポーズ中の操作用のIMCをRemove
+		if (ULocalPlayer* LocalPlayer = GetLocalPlayer())
+		{
+			auto* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer);
+			if (Subsystem)
+			{
+				Subsystem->RemoveMappingContext(mPauseMappingContext);
+			}
+		}
+
 		SetInputMode(FInputModeGameOnly());
 		bShowMouseCursor = false;
 
@@ -173,6 +183,66 @@ void ACubePetsPlayerController::TogglePause()
 			mCurrentPauseWidget->RemoveFromParent();
 			mCurrentPauseWidget = nullptr;
 		}
+		
+		// ステート更新
+		mGameState = EGameState::INGAME;
+	}
+}
+
+// 上下キー
+void ACubePetsPlayerController::OnPressUpDown(const FInputActionValue& Value)
+{
+	// ポーズ中だけ有効にする
+	if (mGameState == EGameState::PAUSE)
+	{
+		float AxisValue = Value.Get<float>();
+		int32 Direction = static_cast<int32>(AxisValue);
+		ChangeIndex(Direction);
+	}
+}
+
+// 決定
+void ACubePetsPlayerController::OnPressDecide()
+{
+	if (mGameState != EGameState::PAUSE) return;
+
+	EPauseMenuItem ChoseItem = static_cast<EPauseMenuItem>(mCurrentIndex);
+
+	switch (ChoseItem)
+	{
+	case EPauseMenuItem::RESUME:
+
+		OnResume();
+		break;
+	
+	case EPauseMenuItem::RESTART:
+	
+		break;
+	
+	case EPauseMenuItem::RETURN_SELECT:
+	
+		OnReturnSelect();
+		break;
+	
+	default:
+		break;
+	}
+}
+
+void ACubePetsPlayerController::OnResume()
+{
+	// ポーズ解除
+	TogglePause();
+}
+
+void ACubePetsPlayerController::OnReturnSelect()
+{
+	mTargetLevelName = TEXT("PL_Select");
+
+	// フェードアウトアニメーション
+	if (mCurrentIrisWidget)
+	{
+		mCurrentIrisWidget->StartIrisOut();
 	}
 }
 
@@ -183,5 +253,23 @@ void ACubePetsPlayerController::SetupInputComponent()
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent))
 	{
 		EnhancedInputComponent->BindAction(mPauseAction, ETriggerEvent::Triggered, this, &ACubePetsPlayerController::TogglePause);
+		EnhancedInputComponent->BindAction(mUpDownAction, ETriggerEvent::Triggered, this, &ACubePetsPlayerController::OnPressUpDown);
+		EnhancedInputComponent->BindAction(mDecideAction, ETriggerEvent::Triggered, this, &ACubePetsPlayerController::OnPressDecide);
 	}
+}
+
+void ACubePetsPlayerController::ChangeIndex(int32 Direction)
+{
+	int32 TargetIndex = mCurrentIndex + Direction;
+
+	if (TargetIndex > mMaxIndex) return;
+	if (TargetIndex < 0) return;
+
+	mCurrentIndex = TargetIndex;
+
+	if (mCurrentPauseWidget)
+	{
+		mCurrentPauseWidget->OnIndexChanged(mCurrentIndex);
+	}
+
 }

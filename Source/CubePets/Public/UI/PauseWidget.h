@@ -13,5 +13,16 @@ UCLASS()
 class CUBEPETS_API UPauseWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
+protected:
+
+	virtual void NativeConstruct() override;
+
+public:
+
+	void OnIndexChanged(int32 Index);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "UI")
+	void BP_OnIndexChanged(int32 Index);
+
 };

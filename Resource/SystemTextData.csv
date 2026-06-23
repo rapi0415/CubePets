@@ -11,6 +11,8 @@ Title_English,英語
 Pause_Resume,ゲーム再開
 Pause_Title,タイトルに戻る
 Pause_Quit,ゲーム終了
+Pause_Restart,やりなおし
+Pause_Return,ステージ選択に戻る
 Game_Clear,ゲームクリア！
 Game_Save,セーブ！
 Stage_01,ステージ1
