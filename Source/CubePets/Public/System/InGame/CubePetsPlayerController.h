@@ -13,6 +13,8 @@ class UInputAction;
 class UInputMappingContext;
 class UPauseWidget;
 
+DECLARE_MULTICAST_DELEGATE(FOnResetStageInfo);
+
 UENUM(BlueprintType)
 enum class EGameState : uint8
 {
@@ -27,6 +29,7 @@ enum class EPauseMenuItem : uint8
 	RESUME,
 	RESTART,
 	RETURN_SELECT,
+	NONE,
 };
 
 /**
@@ -36,6 +39,10 @@ UCLASS()
 class CUBEPETS_API ACubePetsPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
+
+	FOnResetStageInfo mOnResetStageInfo;
 
 public:
 	
@@ -147,7 +154,8 @@ protected:
 	void OnPressDecide();
 
 	void OnResume();
-	void OnReturnSelect();
+	void OnRestart();
+	void OnReturnToSelect();
 
 	virtual void SetupInputComponent() override;
 

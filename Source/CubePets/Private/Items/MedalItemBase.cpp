@@ -4,6 +4,8 @@
 #include "Items/MedalItemBase.h"
 #include "Characters/CubePetsCharacter.h"
 #include "Subsystems/GameProgressionSubsystem.h"
+#include "Kismet/GameplayStatics.h"
+#include "System/InGame/CubePetsPlayerController.h"
 
 void AMedalItemBase::BeginPlay()
 {
@@ -16,7 +18,7 @@ void AMedalItemBase::BeginPlay()
 		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
 		if (ProgressionSubsystem)
 		{
-			// 獲得地味かどうか調べて、獲得済みなら消す
+			// 獲得済みかどうか調べて、獲得済みなら消す
 			if (ProgressionSubsystem->IsMedalAlreadyCollected(mMedalID))
 			{
 				Destroy();
@@ -24,7 +26,35 @@ void AMedalItemBase::BeginPlay()
 			}
 		}
 	}
+
+	// PlayerControllerを取得（メダル獲得状況をリセットする関数をバインド）
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (PC)
+	{
+		ACubePetsPlayerController* CubePetsPC = Cast<ACubePetsPlayerController>(PC);
+		if (CubePetsPC)
+		{
+			CubePetsPC->mOnResetStageInfo.AddUObject(this, &AMedalItemBase::ResetMedal);
+		}
+	}
 }
+
+void AMedalItemBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (PC)
+	{
+		ACubePetsPlayerController* CubePetsPC = Cast<ACubePetsPlayerController>(PC);
+		if (CubePetsPC)
+		{
+			CubePetsPC->mOnResetStageInfo.RemoveAll(this);
+		}
+	}
+}
+
+
 
 void AMedalItemBase::OnOverlapBegin
 (
@@ -59,7 +89,28 @@ void AMedalItemBase::OnOverlapBegin
 					ProgressionSubsystem->SetMedalCollected(mMedalID);
 				}
 			}
-			Destroy();
+			// Destroy();
+		}
+	}
+}
+
+void AMedalItemBase::ResetMedal()
+{
+	// Subsystemを取得
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			// 獲得済みならメダルの数を-1する（獲得したら+1されてるはずなのでこれでリセットできる）
+			if (bIsPickuped)
+			{
+				ProgressionSubsystem->SubtractMedalCount(mStageIndex);
+			}
+
+			// 獲得状況管理用Mapから除外する（）
+			ProgressionSubsystem->ResetMedalCollected(mMedalID);
 		}
 	}
 }

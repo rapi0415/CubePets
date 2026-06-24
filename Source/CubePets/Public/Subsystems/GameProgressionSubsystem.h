@@ -150,6 +150,17 @@ public:
 		}
 	}
 
+	UFUNCTION(BlueprintCallable, Category = "Medal")
+	void SubtractMedalCount(int32 StageIndex)
+	{
+		if (mCurrentMedalCountArray.IsValidIndex(StageIndex))
+		{
+			// 集めたメダル+1
+			mCurrentMedalCountArray[StageIndex]--;
+			UE_LOG(LogTemp, Warning, TEXT("Medal : -1"));
+		}
+	}
+
 public:
 
 	// ステージのメダル総数をデータテーブルから取得する関数
@@ -185,6 +196,13 @@ public:
 		{
 			mCollectedMedalMap.Add(MedalID, true);
 		}
+	}
+
+	// メダルの獲得状況をリセットする関数
+	UFUNCTION(BlueprintCallable, Category = "Medal")
+	void ResetMedalCollected(FName MedalID)
+	{
+		mCollectedMedalMap.Remove(MedalID);
 	}
 
 protected:

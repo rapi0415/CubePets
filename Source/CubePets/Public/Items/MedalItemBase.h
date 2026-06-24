@@ -17,6 +17,7 @@ class CUBEPETS_API AMedalItemBase : public APickupItemBase
 protected:
 
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	
 protected:
 
@@ -37,5 +38,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Stage")
 	FName mMedalID;
+
+protected:
+
+	void ResetMedal();
 
 };

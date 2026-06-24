@@ -217,11 +217,16 @@ void ACubePetsPlayerController::OnPressDecide()
 	
 	case EPauseMenuItem::RESTART:
 	
+		OnRestart();
 		break;
 	
 	case EPauseMenuItem::RETURN_SELECT:
 	
-		OnReturnSelect();
+		OnReturnToSelect();
+		break;
+
+	case EPauseMenuItem::NONE:
+
 		break;
 	
 	default:
@@ -235,8 +240,26 @@ void ACubePetsPlayerController::OnResume()
 	TogglePause();
 }
 
-void ACubePetsPlayerController::OnReturnSelect()
+void ACubePetsPlayerController::OnRestart()
 {
+	// ステージ情報をリセット
+	mOnResetStageInfo.Broadcast();
+
+	FName CurrentLevelName = *GetWorld()->GetName();
+	mTargetLevelName = CurrentLevelName;
+
+	// フェードアウトアニメーション
+	if (mCurrentIrisWidget)
+	{
+		mCurrentIrisWidget->StartIrisOut();
+	}
+}
+
+void ACubePetsPlayerController::OnReturnToSelect()
+{
+	// ステージ情報をリセット
+	mOnResetStageInfo.Broadcast();
+
 	mTargetLevelName = TEXT("PL_Select");
 
 	// フェードアウトアニメーション
@@ -254,7 +277,7 @@ void ACubePetsPlayerController::SetupInputComponent()
 	{
 		EnhancedInputComponent->BindAction(mPauseAction, ETriggerEvent::Triggered, this, &ACubePetsPlayerController::TogglePause);
 		EnhancedInputComponent->BindAction(mUpDownAction, ETriggerEvent::Triggered, this, &ACubePetsPlayerController::OnPressUpDown);
-		EnhancedInputComponent->BindAction(mDecideAction, ETriggerEvent::Triggered, this, &ACubePetsPlayerController::OnPressDecide);
+		EnhancedInputComponent->BindAction(mDecideAction, ETriggerEvent::Started, this, &ACubePetsPlayerController::OnPressDecide);
 	}
 }
 
