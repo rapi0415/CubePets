@@ -85,17 +85,19 @@ protected:
 
 	// 決定ボタン関連
 	UFUNCTION(BlueprintCallable, Category = "Input")
-	void OnPressConfirm();
+	void OnPressDecide();
 
 	ETitleState mCurrentTitleState = ETitleState::PRE_TITLE;
 
-	void HandlePreTitleConfirm();
-	void HandleMainTitleConfirm();
+	void HandlePreTitleDecide();
+	void HandleMainTitleDecide();
 
-	void OnMenuConfirmed(ETitleMenuItem ChosenItem);
+	void OnMenuDecided(ETitleMenuItem ChosenItem);
 
 	void StartGame();
 	void LoadGame();
+	void ChangeJapanese();
+	void ChangeEnglish();
 
 	// 上下ボタン
 	UFUNCTION(BlueprintCallable, Category = "Input")

@@ -13,6 +13,7 @@
 #include "Subsystems/GameProgressionSubsystem.h"
 #include "EngineUtils.h"
 #include "Camera/CameraActor.h"
+#include "Internationalization/Internationalization.h"
 
 void ACubePetsTitlePlayerController::BeginPlay()
 {
@@ -88,18 +89,18 @@ void ACubePetsTitlePlayerController::BeginPlay()
 }
 
 // 決定キー
-void ACubePetsTitlePlayerController::OnPressConfirm()
+void ACubePetsTitlePlayerController::OnPressDecide()
 {
 	switch (mCurrentTitleState)
 	{
 	case ETitleState::PRE_TITLE:
 		
-		HandlePreTitleConfirm();
+		HandlePreTitleDecide();
 		break;
 
 	case ETitleState::MAIN_TITLE:
 		
-		HandleMainTitleConfirm();
+		HandleMainTitleDecide();
 		break;
 
 	case ETitleState::NONE:
@@ -113,7 +114,7 @@ void ACubePetsTitlePlayerController::OnPressConfirm()
 }
 
 // 開始画面で決定ボタンを押したときの処理
-void ACubePetsTitlePlayerController::HandlePreTitleConfirm()
+void ACubePetsTitlePlayerController::HandlePreTitleDecide()
 {
 	mCurrentTitleState = ETitleState::NONE;
 
@@ -132,13 +133,13 @@ void ACubePetsTitlePlayerController::HandlePreTitleConfirm()
 }
 
 // タイトル画面（メイン）での決定ボタン処理
-void ACubePetsTitlePlayerController::HandleMainTitleConfirm()
+void ACubePetsTitlePlayerController::HandleMainTitleDecide()
 {
 	ETitleMenuItem ChoseItem = static_cast<ETitleMenuItem>(mCurrentIndex);
-	OnMenuConfirmed(ChoseItem);
+	OnMenuDecided(ChoseItem);
 }
 
-void ACubePetsTitlePlayerController::OnMenuConfirmed(ETitleMenuItem ChosenItem)
+void ACubePetsTitlePlayerController::OnMenuDecided(ETitleMenuItem ChosenItem)
 {
 	switch (ChosenItem)
 	{
@@ -153,12 +154,21 @@ void ACubePetsTitlePlayerController::OnMenuConfirmed(ETitleMenuItem ChosenItem)
 		break;
 
 	case ETitleMenuItem::JAPANESE:
+
+		ChangeJapanese();
 		break;
+
 	case ETitleMenuItem::ENGLISH:
+		
+		ChangeEnglish();
 		break;
+	
 	case ETitleMenuItem::SHOP:
+		
 		break;
+	
 	case ETitleMenuItem::QUIT:
+		
 		break;
 	default:
 		break;
@@ -228,6 +238,16 @@ void ACubePetsTitlePlayerController::LoadGame()
 	}
 }
 
+void ACubePetsTitlePlayerController::ChangeJapanese()
+{
+	FInternationalization::Get().SetCurrentCulture(TEXT("ja-JP"));
+}
+
+void ACubePetsTitlePlayerController::ChangeEnglish()
+{
+	FInternationalization::Get().SetCurrentCulture(TEXT("en"));
+}
+
 void ACubePetsTitlePlayerController::WarpTo()
 {
 	// レベルの遷移
@@ -258,7 +278,7 @@ void ACubePetsTitlePlayerController::SetupInputComponent()
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent))
 	{
-		EnhancedInputComponent->BindAction(mConfirmAction, ETriggerEvent::Triggered, this, &ACubePetsTitlePlayerController::OnPressConfirm);
+		EnhancedInputComponent->BindAction(mConfirmAction, ETriggerEvent::Triggered, this, &ACubePetsTitlePlayerController::OnPressDecide);
 		EnhancedInputComponent->BindAction(mUpDownAction, ETriggerEvent::Triggered, this, &ACubePetsTitlePlayerController::OnPressUpDown);
 	}
 }
