@@ -14,6 +14,7 @@
 #include "EngineUtils.h"
 #include "Camera/CameraActor.h"
 #include "Internationalization/Internationalization.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 void ACubePetsTitlePlayerController::BeginPlay()
 {
@@ -169,7 +170,9 @@ void ACubePetsTitlePlayerController::OnMenuDecided(ETitleMenuItem ChosenItem)
 	
 	case ETitleMenuItem::QUIT:
 		
+		QuitGame();
 		break;
+
 	default:
 		break;
 	}
@@ -240,12 +243,20 @@ void ACubePetsTitlePlayerController::LoadGame()
 
 void ACubePetsTitlePlayerController::ChangeJapanese()
 {
+	// 日本語に切り替える
 	FInternationalization::Get().SetCurrentCulture(TEXT("ja-JP"));
 }
 
 void ACubePetsTitlePlayerController::ChangeEnglish()
 {
+	// 英語に切り替える
 	FInternationalization::Get().SetCurrentCulture(TEXT("en"));
+}
+
+void ACubePetsTitlePlayerController::QuitGame()
+{
+	// ゲームを終了する
+	UKismetSystemLibrary::QuitGame(GetWorld(), this, EQuitPreference::Quit, false);
 }
 
 void ACubePetsTitlePlayerController::WarpTo()

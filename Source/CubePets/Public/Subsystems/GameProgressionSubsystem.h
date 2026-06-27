@@ -155,9 +155,8 @@ public:
 	{
 		if (mCurrentMedalCountArray.IsValidIndex(StageIndex))
 		{
-			// 集めたメダル+1
+			// 集めたメダル-1
 			mCurrentMedalCountArray[StageIndex]--;
-			UE_LOG(LogTemp, Warning, TEXT("Medal : -1"));
 		}
 	}
 
@@ -215,6 +214,10 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Cube")
 	TArray<int32> mRecordCubeCountArray;
 
+	// 使った箱の数（チェックポイント保存用）
+	UPROPERTY(BlueprintReadOnly, Category = "Cube")
+	int32 mCheckPointCubeCount = 0;
+
 public:
 
 	// get 使った箱の数を取得する関数
@@ -252,7 +255,7 @@ public:
 			mCurrentUsedCubeCountArray[mCurrentStageIndex] = 0;
 
 			// 使った箱の数が変わったことを通知する
-			OnUsedCubeCountChanged.Broadcast();
+			// OnUsedCubeCountChanged.Broadcast();
 		}
 	}
 
@@ -273,6 +276,33 @@ public:
 	{
 		int32& Record = mRecordCubeCountArray[mCurrentStageIndex];
 		Record = FMath::Min(Record, mCurrentUsedCubeCountArray[mCurrentStageIndex]);
+	}
+
+	// 使った箱の数（チェックポイント保存用）を保存しておく関数
+	UFUNCTION()
+	void UpdateCheckPointCubeCount()
+	{
+		mCheckPointCubeCount = GetCurrentUsedCubeCount();
+	}
+
+	// 使った箱の数をチェックポイント通過時の数に戻す関数
+	UFUNCTION()
+	void RestoreToSavedCubeCount()
+	{
+		if (mCurrentUsedCubeCountArray.IsValidIndex(mCurrentStageIndex))
+		{
+			mCurrentUsedCubeCountArray[mCurrentStageIndex] = mCheckPointCubeCount;
+
+			// 使った箱の数が変わったことを通知する
+			OnUsedCubeCountChanged.Broadcast();
+		}
+	}
+
+	// 使った箱の数（チェックポイント保存用）をリセットする関数
+	UFUNCTION()
+	void ResetCheckPointCubeCount()
+	{
+		mCheckPointCubeCount = 0;
 	}
 
 public:

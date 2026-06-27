@@ -13,6 +13,7 @@ void UGameProgressionSubsystem::ResetProgress()
 	mMaxUnlockedStageIndex = 0; // 解放済みステージ数
 	mCurrentStageIndex = 0; // 現在のステージ番号
 	mCollectedMedalMap.Empty(); // メダルの獲得情報
+	mCheckPointCubeCount = 0; // 使った箱の数（チェックポイント保存用）
 
 	// データテーブルを取得して、配列を初期化する
 	const UCubePetsGameSettings* Settings = GetDefault<UCubePetsGameSettings>();

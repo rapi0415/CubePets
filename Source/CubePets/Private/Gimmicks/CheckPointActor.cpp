@@ -5,6 +5,7 @@
 #include "Components/BoxComponent.h"
 #include "Characters/CubePetsCharacter.h"
 #include "Subsystems/CheckPointSubsystem.h"
+#include "Subsystems/GameProgressionSubsystem.h"
 
 // Sets default values
 ACheckPointActor::ACheckPointActor()
@@ -48,14 +49,21 @@ void ACheckPointActor::NotifyActorBeginOverlap(AActor* OtherActor)
 	
 	if (ACubePetsCharacter* PlayerCharacter = Cast<ACubePetsCharacter>(OtherActor))
 	{
-		// Subsystemの座標情報を更新
 		UGameInstance* GameInstance = GetGameInstance();
 		if (GameInstance)
 		{
 			UCheckPointSubsystem* Subsystem = GameInstance->GetSubsystem<UCheckPointSubsystem>();
 			if (Subsystem)
 			{
+				// Subsystemの座標情報を更新
 				Subsystem->SetCurrentCheckPoint(GetActorLocation());
+			}
+
+			UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+			if (ProgressionSubsystem)
+			{
+				// Subsystemの使った箱情報を保存
+				ProgressionSubsystem->UpdateCheckPointCubeCount();
 			}
 		}
 

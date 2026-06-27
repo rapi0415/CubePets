@@ -66,6 +66,11 @@ void AGameClearItemBase::OnOverlapBegin(
 
 					// ステージをクリア済みにする（完全クリアかどうかはSubsystem側で判定してもらう）
 					ProgressionSubsystem->UpdateCurrentStageClearState(mStageIndex);
+
+					// 使った箱の数をリセット
+					ProgressionSubsystem->ResetUsedCubeCount();
+					ProgressionSubsystem->ResetCheckPointCubeCount();
+
 				}
 			}
 		}

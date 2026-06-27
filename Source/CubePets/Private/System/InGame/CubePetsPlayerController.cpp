@@ -13,6 +13,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Subsystems/CubePetsInputDeviceSubsystem.h"
+#include "Subsystems/GameProgressionSubsystem.h"
+#include "Subsystems/CheckPointSubsystem.h"
 
 bool ACubePetsPlayerController::InputKey(const FInputKeyParams& Params)
 {
@@ -242,8 +244,27 @@ void ACubePetsPlayerController::OnResume()
 
 void ACubePetsPlayerController::OnRestart()
 {
-	// ステージ情報をリセット
+	// ステージ情報をリセット（メダル獲得状況のリセット用）
 	mOnResetStageInfo.Broadcast();
+
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		// チェックポイントをリセット
+		UCheckPointSubsystem* CPSubsystem = GameInstance->GetSubsystem<UCheckPointSubsystem>();
+		if (CPSubsystem)
+		{
+			CPSubsystem->ResetCheckPoint();
+		}
+
+		// 使った箱の数をリセット
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			ProgressionSubsystem->ResetUsedCubeCount();
+			ProgressionSubsystem->ResetCheckPointCubeCount();
+		}
+	}
 
 	FName CurrentLevelName = *GetWorld()->GetName();
 	mTargetLevelName = CurrentLevelName;
@@ -257,8 +278,20 @@ void ACubePetsPlayerController::OnRestart()
 
 void ACubePetsPlayerController::OnReturnToSelect()
 {
-	// ステージ情報をリセット
+	// ステージ情報をリセット（メダル獲得状況のリセット用）
 	mOnResetStageInfo.Broadcast();
+
+	// 使った箱の数をリセット
+	UGameInstance* GameInstance = GetGameInstance();
+	if (GameInstance)
+	{
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			ProgressionSubsystem->ResetUsedCubeCount();
+			ProgressionSubsystem->ResetCheckPointCubeCount();
+		}
+	}
 
 	mTargetLevelName = TEXT("PL_Select");
 

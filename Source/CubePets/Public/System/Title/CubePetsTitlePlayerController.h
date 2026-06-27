@@ -98,6 +98,7 @@ protected:
 	void LoadGame();
 	void ChangeJapanese();
 	void ChangeEnglish();
+	void QuitGame();
 
 	// 上下ボタン
 	UFUNCTION(BlueprintCallable, Category = "Input")

@@ -64,24 +64,21 @@ void ACubePetsCharacter::BeginPlay()
 		}
 	}
 
-	// チェックポイント記録を見てワープする
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
+		// Subsystemの持つ「箱を使った数」をチェックポイント通過時に保存してある数に戻す（最初は0）
+		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (ProgressionSubsystem)
+		{
+			ProgressionSubsystem->RestoreToSavedCubeCount();
+		}
+
+		// チェックポイント記録を見てワープする
 		UCheckPointSubsystem* CPSubsystem = GameInstance->GetSubsystem<UCheckPointSubsystem>();
 		if (CPSubsystem && CPSubsystem->HasCheckPoint())
 		{
 			SetActorLocation(CPSubsystem->GetCurrentCheckPoint(), false, nullptr, ETeleportType::TeleportPhysics);
-		}
-	}
-
-	// Subsystemの持つ「箱を使った数」をリセット
-	if (GameInstance)
-	{
-		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
-		if (ProgressionSubsystem)
-		{
-			ProgressionSubsystem->ResetUsedCubeCount();
 		}
 	}
 }
