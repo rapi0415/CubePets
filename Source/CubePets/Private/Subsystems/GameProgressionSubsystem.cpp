@@ -85,6 +85,7 @@ void UGameProgressionSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
+	// リセットはInitialize以外でも呼びたいので関数化する
 	ResetProgress();
 }
 
@@ -153,5 +154,19 @@ bool UGameProgressionSubsystem::IsExistenceSaveData()
 
 	return SaveData ? true : false;
 }
+
+#if !UE_BUILD_SHIPPING
+void UGameProgressionSubsystem::UnlockAllStages()
+{
+	if (mStageDataTable)
+	{
+		// 総ステージ数を取得
+		int32 NumStages = mStageDataTable->GetRowNames().Num() - 1;
+		
+		// 解放済みステージ数を総ステージ数と同じ数にする（＝全開放）
+		mMaxUnlockedStageIndex = NumStages;
+	}
+}
+#endif
 
 

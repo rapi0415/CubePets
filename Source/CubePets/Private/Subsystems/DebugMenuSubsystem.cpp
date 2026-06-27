@@ -5,6 +5,7 @@
 #include "Characters/CubePetsCharacter.h"
 #include "Gimmicks/CheckPointActor.h"
 #include "Kismet/GameplayStatics.h"
+#include "Subsystems/GameProgressionSubsystem.h"
 
 #if !UE_BUILD_SHIPPING
 #include <imgui.h>
@@ -130,19 +131,42 @@ void UDebugMenuSubsystem::RenderStageMenu()
 		if (CheckPoints.IsEmpty())
 		{
 			ImGui::Text("No CheckPoints found in this level!");
+		}
+		else
+		{
+			for (int32 i = 0; i < CheckPoints.Num(); ++i)
+			{
+				AActor* PointActor = CheckPoints[i];
+
+				FString ButtonName = FString::Printf(TEXT("Warp to %s"), *PointActor->GetName());
+
+				if (ImGui::Button(TCHAR_TO_UTF8(*ButtonName)))
+				{
+					WarpToLocation(PointActor->GetActorLocation());
+				}
+			}
+		}
+	}
+
+	// 全ステージ解放する機能
+	if (ImGui::CollapsingHeader("Unlock Stage", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		UGameInstance* GameInstance = GetGameInstance();
+		if (!GameInstance)
+		{
+			ImGui::Text("GameInstance not found!");
+			return;
+		}
+		UGameProgressionSubsystem* PSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
+		if (!PSubsystem)
+		{
+			ImGui::Text("Subsystem not found!");
 			return;
 		}
 
-		for (int32 i = 0; i < CheckPoints.Num(); ++i)
+		if (ImGui::Button("Unlock All Stages"))
 		{
-			AActor* PointActor = CheckPoints[i];
-
-			FString ButtonName = FString::Printf(TEXT("Warp to %s"), *PointActor->GetName());
-
-			if (ImGui::Button(TCHAR_TO_UTF8(*ButtonName)))
-			{
-				WarpToLocation(PointActor->GetActorLocation());
-			}
+			PSubsystem->UnlockAllStages();
 		}
 	}
 }

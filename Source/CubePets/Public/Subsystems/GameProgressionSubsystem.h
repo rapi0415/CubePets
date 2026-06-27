@@ -27,16 +27,6 @@ public:
 	int32 mTotalCube = 0;
 };
 
-/*
-UENUM(BlueprintType)
-enum class EStageClearState : uint8
-{
-	NotCleared,
-	Cleared,
-	FullyCleared,
-};
-*/
-
 /**
  * 
  */
@@ -44,6 +34,8 @@ UCLASS()
 class CUBEPETS_API UGameProgressionSubsystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
+
+	friend class UDebugMenuSubsystem;
 	
 public:
 
@@ -352,5 +344,15 @@ public:
 	bool IsExistenceSaveData();
 
 	static const FString mSaveSlotName;
+
+protected:
+
+#if !UE_BUILD_SHIPPING
+
+	// 全ステージ解放する関数（デバッグ用）
+	void UnlockAllStages();
+
+#endif
+
 
 };
