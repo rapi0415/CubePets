@@ -257,12 +257,15 @@ void ACubePetsPlayerController::OnRestart()
 			CPSubsystem->ResetCheckPoint();
 		}
 
-		// 使った箱の数をリセット
 		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
 		if (ProgressionSubsystem)
 		{
+			// 使った箱の数をリセット
 			ProgressionSubsystem->ResetUsedCubeCount();
 			ProgressionSubsystem->ResetCheckPointCubeCount();
+
+			// メダルをリセット
+			//ProgressionSubsystem->ResetStageMedalInfo();
 		}
 	}
 

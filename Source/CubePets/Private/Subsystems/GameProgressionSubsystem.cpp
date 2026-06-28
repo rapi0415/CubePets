@@ -13,6 +13,7 @@ void UGameProgressionSubsystem::ResetProgress()
 	mMaxUnlockedStageIndex = 0; // 解放済みステージ数
 	mCurrentStageIndex = 0; // 現在のステージ番号
 	mCollectedMedalMap.Empty(); // メダルの獲得情報
+	mCollectedMedalMapTemp.Empty(); // メダルの獲得情報（一時保存用）
 	mCheckPointCubeCount = 0; // 使った箱の数（チェックポイント保存用）
 
 	// データテーブルを取得して、配列を初期化する
@@ -66,6 +67,52 @@ void UGameProgressionSubsystem::UnLockNextStage(int32 ClearedStageIndex)
 		}
 	}
 }
+
+// 一時保存用の辞書にしか保存されていないメダルをリセット
+void UGameProgressionSubsystem::ResetMedalCollectedTemp()
+{
+	// 一時保存にしかないメダルの数を差分として引くことで数のつじつまを合わせる
+	int32 UnconfirmedCount = 0;
+	for (auto& Elem : mCollectedMedalMapTemp)
+	{
+		if (!mCollectedMedalMap.Contains(Elem.Key))
+		{
+			UnconfirmedCount++;
+		}
+	}
+	mCurrentMedalCountArray[mCurrentStageIndex] -= UnconfirmedCount;
+
+	// 一次保存用辞書を本体で上書きすることでリセットする
+	mCollectedMedalMapTemp = mCollectedMedalMap;
+
+	// メダルの数が変わったことを通知する
+	OnMedalCountChanged.Broadcast();
+}
+
+// やり直し時にそのステージのメダル獲得状況をリセットする関数
+/*
+void UGameProgressionSubsystem::ResetStageMedalInfo()
+{
+
+
+	FString StageStr = FString::Printf(TEXT("Stage%02d"), mCurrentStageIndex + 1);
+
+	TArray<FName> KeysToRemove;
+	for (auto& Elem : mCollectedMedalMap)
+	{
+		if (Elem.Key.ToString().Contains(StageStr))
+		{
+			KeysToRemove.Add(Elem.Key);
+		}
+	}
+	for (FName Key : KeysToRemove)
+	{
+		mCollectedMedalMap.Remove(Key);
+	}
+
+	mCurrentMedalCountArray[mCurrentStageIndex] = 0;
+}
+*/
 
 const FStageData* UGameProgressionSubsystem::GetStageDataByIndex(int32 Index) const
 {

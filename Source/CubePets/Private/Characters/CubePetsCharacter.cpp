@@ -67,11 +67,15 @@ void ACubePetsCharacter::BeginPlay()
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
-		// Subsystemの持つ「箱を使った数」をチェックポイント通過時に保存してある数に戻す（最初は0）
 		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
 		if (ProgressionSubsystem)
 		{
+			// Subsystemの持つ「箱を使った数」をチェックポイント通過時に保存してある数に戻す（最初は0）
 			ProgressionSubsystem->RestoreToSavedCubeCount();
+
+			// 一時保存用の辞書にしか登録していないメダルをリセット
+			ProgressionSubsystem->ResetMedalCollectedTemp();
+
 		}
 
 		// チェックポイント記録を見てワープする

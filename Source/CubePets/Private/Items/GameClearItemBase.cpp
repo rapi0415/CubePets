@@ -71,6 +71,8 @@ void AGameClearItemBase::OnOverlapBegin(
 					ProgressionSubsystem->ResetUsedCubeCount();
 					ProgressionSubsystem->ResetCheckPointCubeCount();
 
+					// メダル獲得を確定させる
+					ProgressionSubsystem->SetMedalCollected();
 				}
 			}
 		}

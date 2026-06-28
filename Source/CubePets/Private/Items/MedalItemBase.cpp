@@ -85,8 +85,8 @@ void AMedalItemBase::OnOverlapBegin
 					// ステージ番号を伝えて、そのステージの獲得メダル数に+1する
 					ProgressionSubsystem->AddMedalCount(mStageIndex);
 
-					// 自分のメダルIDを伝えて辞書に「獲得済み」として登録する
-					ProgressionSubsystem->SetMedalCollected(mMedalID);
+					// 自分のメダルIDを伝えて仮の辞書に「獲得済み」として登録する（一時保存）
+					ProgressionSubsystem->SetMedalCollectedTemp(mMedalID);
 				}
 			}
 			// Destroy();
@@ -104,9 +104,17 @@ void AMedalItemBase::ResetMedal()
 		if (ProgressionSubsystem)
 		{
 			// 獲得済みならメダルの数を-1する（獲得したら+1されてるはずなのでこれでリセットできる）
+			/*
 			if (bIsPickuped)
 			{
-				ProgressionSubsystem->SubtractMedalCount(mStageIndex);
+				// ProgressionSubsystem->SubtractMedalCount(mStageIndex);
+			}
+			*/
+
+			// 獲得が確定してるならリセットしなくて良いので終了する
+			if (ProgressionSubsystem->IsMedalAlreadyCollected(mMedalID))
+			{
+				return;
 			}
 
 			// 獲得状況管理用Mapから除外する（）

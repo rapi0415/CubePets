@@ -64,6 +64,9 @@ void ACheckPointActor::NotifyActorBeginOverlap(AActor* OtherActor)
 			{
 				// Subsystemの使った箱情報を保存
 				ProgressionSubsystem->UpdateCheckPointCubeCount();
+
+				// メダル獲得を確定させる
+				ProgressionSubsystem->SetMedalCollected();
 			}
 		}
 

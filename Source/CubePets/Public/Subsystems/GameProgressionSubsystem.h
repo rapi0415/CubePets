@@ -168,6 +168,10 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Medal")
 	TMap<FName, bool> mCollectedMedalMap;
 
+	// メダルIDを保存する辞書（一時保存用）※チェックポイントに触れるまでは未確定にしたい
+	UPROPERTY()
+	TMap<FName, bool> mCollectedMedalMapTemp;
+
 	// メダルがすでに獲得済みかチェックする関数
 	UFUNCTION(BlueprintCallable, Category = "Medal")
 	bool IsMedalAlreadyCollected(FName MedalID) const
@@ -179,14 +183,27 @@ public:
 		return false;
 	}
 
-	// メダルを獲得済みにする関数
-	UFUNCTION(BlueprintCallable, Category = "Medal")
-	void SetMedalCollected(FName MedalID)
+	// メダルを"一時的"に獲得済みにする関数
+	UFUNCTION()
+	void SetMedalCollectedTemp(FName MedalId)
 	{
+		if (!MedalId.IsNone())
+		{
+			mCollectedMedalMapTemp.Add(MedalId, true);
+		}
+	}
+
+	// メダルを獲得済み（確定）にする関数
+	UFUNCTION(BlueprintCallable, Category = "Medal")
+	void SetMedalCollected()
+	{
+		/*
 		if (!MedalID.IsNone())
 		{
 			mCollectedMedalMap.Add(MedalID, true);
 		}
+		*/
+		mCollectedMedalMap = mCollectedMedalMapTemp;
 	}
 
 	// メダルの獲得状況をリセットする関数
@@ -195,6 +212,15 @@ public:
 	{
 		mCollectedMedalMap.Remove(MedalID);
 	}
+
+	UFUNCTION()
+	void ResetMedalCollectedTemp();
+
+	// やり直し時にそのステージのメダル獲得状況をリセットする関数
+	/*
+	UFUNCTION()
+	void ResetStageMedalInfo();
+	*/
 
 protected:
 
