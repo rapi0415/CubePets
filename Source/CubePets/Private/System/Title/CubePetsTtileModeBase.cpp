@@ -8,3 +8,13 @@ void ACubePetsTtileModeBase::BeginPlay()
 	Super::BeginPlay();
 }
 
+void ACubePetsTtileModeBase::StopTitleBGM()
+{
+	BP_StopTitleBGM();
+}
+
+void ACubePetsTtileModeBase::PlayMusic()
+{
+	BP_PlayMusic();
+}
+

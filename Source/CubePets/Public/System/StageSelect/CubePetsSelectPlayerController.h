@@ -104,7 +104,7 @@ public:
 	void TransitionToStage();
 
 	UFUNCTION(BlueprintCallable, Category = "UI")
-	void ChangeIndex(int32 Direction);
+	void ChangeIndex(int32 Direction, bool bPlaySound);
 
 protected:
 
@@ -123,5 +123,24 @@ protected:
 
 	// アイリスインが終わったかどうか
 	bool bIsActiveInput = false;
+
+public:
+
+	void PlayDecideEffect();
+	void PlayCursorEffect();
+	void PlayCancelEffect();
+
+protected:
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Effect")
+	void BP_PlayDecideEffect();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Effect")
+	void BP_PlayCursorEffect();
+	
+	UFUNCTION(BlueprintImplementableEvent, Category = "Effect")
+	void BP_PlayCancelEffect();
+
+
 	
 };

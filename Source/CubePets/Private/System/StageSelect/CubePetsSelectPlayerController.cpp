@@ -11,6 +11,7 @@
 #include "Subsystems/CubePetsInputDeviceSubsystem.h"
 #include "Subsystems/StageClearState.h"
 #include "Subsystems/CheckPointSubsystem.h"
+#include "System/StageSelect/CubePetsSelectModeBase.h"
 
 void ACubePetsSelectPlayerController::BeginPlay()
 {
@@ -66,7 +67,7 @@ void ACubePetsSelectPlayerController::BeginPlay()
 		if (ProgressionSubsystem)
 		{
 			int32 Index = ProgressionSubsystem->GetCurrentStageIndex();
-			ChangeIndex(Index);
+			ChangeIndex(Index, false);
 
 			// セーブする
 			ProgressionSubsystem->SaveProgress();
@@ -122,6 +123,12 @@ void ACubePetsSelectPlayerController::OnPressDecide()
 		mCurrentIrisWidget->StartIrisOut();
 		bIsActiveInput = false;
 	}
+
+	// BGMを止める
+	ACubePetsSelectModeBase* GameMode = Cast<ACubePetsSelectModeBase>(GetWorld()->GetAuthGameMode());
+	GameMode->StopBGM();
+
+	PlayDecideEffect();
 }
 
 // タイトルに遷移するための関数
@@ -149,10 +156,10 @@ void ACubePetsSelectPlayerController::OnPressLeftRight(const FInputActionValue& 
 
 	float AxisValue = Value.Get<float>();
 	int32 Direction = static_cast<int32>(AxisValue);
-	ChangeIndex(Direction);
+	ChangeIndex(Direction, true);
 }
 
-void ACubePetsSelectPlayerController::ChangeIndex(int32 Direction)
+void ACubePetsSelectPlayerController::ChangeIndex(int32 Direction, bool bPlaySound)
 {
 	// Subsystemからステージクリア状況を取得してその範囲でIndexを更新
 	UGameInstance* GameInstance = GetGameInstance();
@@ -175,6 +182,12 @@ void ACubePetsSelectPlayerController::ChangeIndex(int32 Direction)
 			}
 
 			mCurrentIndex = TargetIndex;
+
+			// 移動できたということなので音を鳴らす（なお、左右キー入力以外で呼ばれるときはbPlaySoundをfalseにして音を鳴らさないようにする）
+			if (bPlaySound)
+			{
+				PlayCursorEffect();
+			}
 
 			// Subsystemにも記憶させておく（インゲームとかで取得したい）
 			ProgressionSubsystem->SetCurrentStageIndex(mCurrentIndex);
@@ -207,6 +220,12 @@ void ACubePetsSelectPlayerController::OnPressCancel()
 		mCurrentIrisWidget->StartIrisOut();
 		bIsActiveInput = false;
 	}
+
+	// BGMを止める
+	ACubePetsSelectModeBase* GameMode = Cast<ACubePetsSelectModeBase>(GetWorld()->GetAuthGameMode());
+	GameMode->StopBGM();
+
+	PlayCancelEffect();
 }
 
 void ACubePetsSelectPlayerController::OnFinishIrisIn()
@@ -230,4 +249,19 @@ void ACubePetsSelectPlayerController::OnFinishIrisOut()
 		break;
 	}
 	mNextDestination = ENextDestination::NONE;
+}
+
+void ACubePetsSelectPlayerController::PlayDecideEffect()
+{
+	BP_PlayDecideEffect();
+}
+
+void ACubePetsSelectPlayerController::PlayCursorEffect()
+{
+	BP_PlayCursorEffect();
+}
+
+void ACubePetsSelectPlayerController::PlayCancelEffect()
+{
+	BP_PlayCancelEffect();
 }

@@ -111,7 +111,7 @@ private:
 
 protected:
 
-	EGameState mGameState = EGameState::NONE;
+	EGameState mGameState = EGameState::INGAME;
 	EPauseMenuItem mPauseMenuItem = EPauseMenuItem::RESUME;
 
 	int32 mCurrentIndex = 0;
@@ -163,5 +163,18 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Pause")
 	void ChangeIndex(int32 Direction);
+
+public:
+
+	void PlayDecideEffect();
+	void PlayCursorEffect();
+
+protected:
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Effect")
+	void BP_PlayDecideEffect();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Effect")
+	void BP_PlayCursorEffect();
 
 };

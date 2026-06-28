@@ -130,6 +130,9 @@ void ACubePetsPlayerController::NotifyReticleStateChanged(bool bReticleExistence
 // ポーズ切り替え
 void ACubePetsPlayerController::TogglePause()
 {
+	// 操作不能状態なら何もしない
+	if (mGameState == EGameState::NONE) return;
+
 	UWorld* World = GetWorld();
 	if (!World) return;
 
@@ -215,16 +218,19 @@ void ACubePetsPlayerController::OnPressDecide()
 	case EPauseMenuItem::RESUME:
 
 		OnResume();
+		PlayDecideEffect();
 		break;
 	
 	case EPauseMenuItem::RESTART:
 	
 		OnRestart();
+		PlayDecideEffect();
 		break;
 	
 	case EPauseMenuItem::RETURN_SELECT:
 	
 		OnReturnToSelect();
+		PlayDecideEffect();
 		break;
 
 	case EPauseMenuItem::NONE:
@@ -277,6 +283,9 @@ void ACubePetsPlayerController::OnRestart()
 	{
 		mCurrentIrisWidget->StartIrisOut();
 	}
+
+	// ステート更新（操作不能状態にしたい）
+	mGameState = EGameState::NONE;
 }
 
 void ACubePetsPlayerController::OnReturnToSelect()
@@ -303,6 +312,9 @@ void ACubePetsPlayerController::OnReturnToSelect()
 	{
 		mCurrentIrisWidget->StartIrisOut();
 	}
+
+	// ステート更新（操作不能状態にしたい）
+	mGameState = EGameState::NONE;
 }
 
 void ACubePetsPlayerController::SetupInputComponent()
@@ -326,9 +338,22 @@ void ACubePetsPlayerController::ChangeIndex(int32 Direction)
 
 	mCurrentIndex = TargetIndex;
 
+	// 移動できたということなので音を鳴らす
+	PlayCursorEffect();
+
 	if (mCurrentPauseWidget)
 	{
 		mCurrentPauseWidget->OnIndexChanged(mCurrentIndex);
 	}
 
+}
+
+void ACubePetsPlayerController::PlayDecideEffect()
+{
+	BP_PlayDecideEffect();
+}
+
+void ACubePetsPlayerController::PlayCursorEffect()
+{
+	BP_PlayCursorEffect();
 }

@@ -154,6 +154,18 @@ public:
 	UFUNCTION()
 	void PlayDecorationPartsAnimation();
 
+public:
+	
+	void PlayDecideEffect();
+	void PlayCursorEffect();
+
+protected:
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Effect")
+	void BP_PlayDecideEffect();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Effect")
+	void BP_PlayCursorEffect();
 
 
 };

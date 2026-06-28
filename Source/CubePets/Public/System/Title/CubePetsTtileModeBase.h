@@ -29,7 +29,16 @@ protected:
 
 public:
 
+	void StopTitleBGM();
+
+	void PlayMusic();
+
+protected:
+
 	// BGM停止用関数
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Audio")
-	void StopTitleBGM();
+	void BP_StopTitleBGM();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Audio")
+	void BP_PlayMusic();
 };

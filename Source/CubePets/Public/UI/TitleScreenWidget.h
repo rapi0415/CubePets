@@ -56,6 +56,7 @@ public:
 
 public:
 
+	UPROPERTY(BlueprintAssignable)
 	FOnAnimationFinished mOnAnimationFinished;
 
 protected:

@@ -15,6 +15,7 @@
 #include "Camera/CameraActor.h"
 #include "Internationalization/Internationalization.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "System/Title/CubePetsTtileModeBase.h"
 
 void ACubePetsTitlePlayerController::BeginPlay()
 {
@@ -97,11 +98,13 @@ void ACubePetsTitlePlayerController::OnPressDecide()
 	case ETitleState::PRE_TITLE:
 		
 		HandlePreTitleDecide();
+		PlayDecideEffect();
 		break;
 
 	case ETitleState::MAIN_TITLE:
 		
 		HandleMainTitleDecide();
+		PlayDecideEffect();
 		break;
 
 	case ETitleState::NONE:
@@ -206,6 +209,10 @@ void ACubePetsTitlePlayerController::StartGame()
 			Subsystem->ResetProgress();
 		}
 	}
+
+	// BGMを止める
+	ACubePetsTtileModeBase* GameMode = Cast<ACubePetsTtileModeBase>(GetWorld()->GetAuthGameMode());
+	GameMode->StopTitleBGM();
 }
 
 void ACubePetsTitlePlayerController::LoadGame()
@@ -239,6 +246,10 @@ void ACubePetsTitlePlayerController::LoadGame()
 	{
 		mCurrentTitleWidget->StartTextLoadConfirmed();
 	}
+
+	// BGMを止める
+	ACubePetsTtileModeBase* GameMode = Cast<ACubePetsTtileModeBase>(GetWorld()->GetAuthGameMode());
+	GameMode->StopTitleBGM();
 }
 
 void ACubePetsTitlePlayerController::ChangeJapanese()
@@ -272,8 +283,8 @@ void ACubePetsTitlePlayerController::WarpTo()
 // 上下キー
 void ACubePetsTitlePlayerController::OnPressUpDown(const FInputActionValue& Value)
 {
-	// 操作不能状態のときはすぐにreturn
-	if (mCurrentTitleState == ETitleState::NONE) return;
+	// メインタイトル画面じゃないときは操作したくないのですぐにreturn
+	if (mCurrentTitleState != ETitleState::MAIN_TITLE) return;
 
 	if (mCurrentTitleWidget)
 	{
@@ -298,21 +309,36 @@ void ACubePetsTitlePlayerController::SetupInputComponent()
 void ACubePetsTitlePlayerController::ChangeTitleStateToMainTitle()
 {
 	mCurrentTitleState = ETitleState::MAIN_TITLE;
+
+	// このタイミングでタイトル画面用のBGMも鳴らす
+	ACubePetsTtileModeBase* GameMode = Cast<ACubePetsTtileModeBase>(GetWorld()->GetAuthGameMode());
+	GameMode->PlayMusic();
 }
 
 void ACubePetsTitlePlayerController::ChangeIndex(int32 Direction)
 {
 	// セーブデータの有無によってIndexを変えたい
+	// 4番（Shop）もいったん除く
 	if (bHasSaveData)
 	{
-		mSelectableIndices = { 0, 1, 2, 3, 4, 5 };
+		mSelectableIndices = { 0, 1, 2, 3, 5 };
 	}
 	else
 	{
-		mSelectableIndices = { 0, 2, 3, 4, 5 }; // セーブデータがないときは 1番 = Load を除く
+		mSelectableIndices = { 0, 2, 3, 5 }; // セーブデータがないときは 1番（Load） を除く
 	}
 
-	mCurrentPos = FMath::Clamp(mCurrentPos + Direction, 0, mSelectableIndices.Num() - 1);
+	int32 CheckPos = mCurrentPos + Direction;
+
+	if (CheckPos > mSelectableIndices.Num() - 1) return;
+	if (CheckPos < 0) return;
+	
+	mCurrentPos = CheckPos;
+
+	// 移動できたということなので音を鳴らす
+	PlayCursorEffect();
+
+	// mCurrentPos = FMath::Clamp(mCurrentPos + Direction, 0, mSelectableIndices.Num() - 1);
 
 	mCurrentIndex = mSelectableIndices[mCurrentPos];
 
@@ -346,5 +372,15 @@ void ACubePetsTitlePlayerController::PlayDecorationPartsAnimation()
 
 		mCurrentTitleWidget->StartAppearanceDecoration();
 	}
+}
+
+void ACubePetsTitlePlayerController::PlayDecideEffect()
+{
+	BP_PlayDecideEffect();
+}
+
+void ACubePetsTitlePlayerController::PlayCursorEffect()
+{
+	BP_PlayCursorEffect();
 }
 
