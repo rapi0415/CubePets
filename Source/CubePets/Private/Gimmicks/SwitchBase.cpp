@@ -58,18 +58,20 @@ void ASwitchBase::OnOverlapBegin(
 	// スイッチ起動、処理はBPで定義
 	if (OtherActor && OtherActor != this)
 	{
-		if (mTargetActor)
+		mOverlapCount++;
+
+		if (mTargetActor && mOverlapCount == 1)
 		{
+			// スイッチオン
 			OnSwitchActivated(OtherActor, mTargetActor);
+
+			// 色を変える
+			if (mDynamicMaterial)
+			{
+				mDynamicMaterial->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor::Red);
+			}
 		}
 	}
-
-	// 色を変える
-	if (mDynamicMaterial)
-	{
-		mDynamicMaterial->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor::Red);
-	}
-
 }
 
 void ASwitchBase::OnOverlapEnd(
@@ -82,17 +84,21 @@ void ASwitchBase::OnOverlapEnd(
 	// スイッチ解除、処理はBPで定義
 	if (OtherActor && OtherActor != this)
 	{
-		if (mTargetActor)
-		{
-			OnSwitchDeactivated(OtherActor, mTargetActor);
-		}
-	}
+		mOverlapCount = FMath::Max(0, mOverlapCount - 1);
 
-	// 色を変える
-	if (mDynamicMaterial)
-	{
-		FLinearColor DefaultColor = FLinearColor(0.4f, 0.4f, 0.4f, 0.0f);
-		mDynamicMaterial->SetVectorParameterValue(TEXT("BaseColor"), DefaultColor);
+		// Count=0、つまりもう何も乗っていないなら
+		if (mTargetActor && mOverlapCount == 0)
+		{
+			// スイッチオフ
+			OnSwitchDeactivated(OtherActor, mTargetActor);
+
+			// 色を変える
+			if (mDynamicMaterial)
+			{
+				FLinearColor DefaultColor = FLinearColor(0.4f, 0.4f, 0.4f, 0.0f);
+				mDynamicMaterial->SetVectorParameterValue(TEXT("BaseColor"), DefaultColor);
+			}
+		}
 	}
 }
 

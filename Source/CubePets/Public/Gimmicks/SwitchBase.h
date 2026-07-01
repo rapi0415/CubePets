@@ -36,6 +36,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	TObjectPtr<UBoxComponent> mBoxTrigger = nullptr;
 
+protected:
+
 	UFUNCTION()
 	void OnOverlapBegin(
 		UPrimitiveComponent* OverlappedComp,
@@ -59,6 +61,8 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent, Category="Switch")
 	void OnSwitchDeactivated(AActor* Deactivator, AActor* Target);
+
+	int32 mOverlapCount = 0;
 
 protected:
 
