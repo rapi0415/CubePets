@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Subsystems/GameProgressionSubsystem.h"
@@ -10,13 +10,13 @@ const FString UGameProgressionSubsystem::mSaveSlotName = TEXT("PlayerProgress");
 
 void UGameProgressionSubsystem::ResetProgress()
 {
-	mMaxUnlockedStageIndex = 0; // ‰ğ•úÏ‚İƒXƒe[ƒW”
-	mCurrentStageIndex = 0; // Œ»İ‚ÌƒXƒe[ƒW”Ô†
-	mCollectedMedalMap.Empty(); // ƒƒ_ƒ‹‚ÌŠl“¾î•ñ
-	mCollectedMedalMapTemp.Empty(); // ƒƒ_ƒ‹‚ÌŠl“¾î•ñiˆê•Û‘¶—pj
-	mCheckPointCubeCount = 0; // g‚Á‚½” ‚Ì”iƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg•Û‘¶—pj
+	mMaxUnlockedStageIndex = 0; // è§£æ”¾æ¸ˆã¿ã‚¹ãƒ†ãƒ¼ã‚¸æ•°
+	mCurrentStageIndex = 0; // ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·
+	mCollectedMedalMap.Empty(); // ãƒ¡ãƒ€ãƒ«ã®ç²å¾—æƒ…å ±
+	mCollectedMedalMapTemp.Empty(); // ãƒ¡ãƒ€ãƒ«ã®ç²å¾—æƒ…å ±ï¼ˆä¸€æ™‚ä¿å­˜ç”¨ï¼‰
+	mCheckPointCubeCount = 0; // ä½¿ã£ãŸç®±ã®æ•°ï¼ˆãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆä¿å­˜ç”¨ï¼‰
 
-	// ƒf[ƒ^ƒe[ƒuƒ‹‚ğæ“¾‚µ‚ÄA”z—ñ‚ğ‰Šú‰»‚·‚é
+	// ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’å–å¾—ã—ã¦ã€é…åˆ—ã‚’åˆæœŸåŒ–ã™ã‚‹
 	const UCubePetsGameSettings* Settings = GetDefault<UCubePetsGameSettings>();
 	if (Settings && Settings->mMedalDataTablePath.IsValid())
 	{
@@ -29,15 +29,15 @@ void UGameProgressionSubsystem::ResetProgress()
 
 		mCurrentMedalCountArray.Init(0, NumStages);
 		mCurrentUsedCubeCountArray.Init(0, NumStages);
-		mRecordCubeCountArray.Init(100, NumStages); // Å¬’l‚ğ‹L˜^‚µ‚Ä‚¢‚«‚½‚¢‚Ì‚Å‰Šú’l‚Í‘å‚«‚¢’l‚É‚·‚é
+		mRecordCubeCountArray.Init(100, NumStages); // æœ€å°å€¤ã‚’è¨˜éŒ²ã—ã¦ã„ããŸã„ã®ã§åˆæœŸå€¤ã¯å¤§ãã„å€¤ã«ã™ã‚‹
 		mStageClearStates.Init(EStageClearState::NotCleared, NumStages);
 	}
 }
 
 void UGameProgressionSubsystem::UpdateCurrentStageClearState(int32 Index)
 {
-	// ŒÄ‚Î‚ê‚½“_‚Å‚»‚ÌƒXƒe[ƒW‚ÍƒNƒŠƒAÏ‚İ‚Æ”»’è
-	// W‚ß‚½ƒƒ_ƒ‹‚Æg‚Á‚½” ‚ğ’B¬‚µ‚Ä‚é‚©Šm”F‚µ‚ÄState‚ğ•ÏX
+	// å‘¼ã°ã‚ŒãŸæ™‚ç‚¹ã§ãã®ã‚¹ãƒ†ãƒ¼ã‚¸ã¯ã‚¯ãƒªã‚¢æ¸ˆã¿ã¨åˆ¤å®š
+	// é›†ã‚ãŸãƒ¡ãƒ€ãƒ«ã¨ä½¿ã£ãŸç®±ã‚’é”æˆã—ã¦ã‚‹ã‹ç¢ºèªã—ã¦Stateã‚’å¤‰æ›´
 	if (mStageClearStates.IsValidIndex(Index))
 	{
 		mStageClearStates[Index] = EStageClearState::Cleared;
@@ -56,11 +56,11 @@ void UGameProgressionSubsystem::UnLockNextStage(int32 ClearedStageIndex)
 {
 	if (mStageDataTable)
 	{
-		// ‘ƒXƒe[ƒW”‚Æ‰ğ•úÏ‚İƒXƒe[ƒW”‚ª“¯‚¶‚¾‚Á‚½‚ç‰½‚à‚¹‚¸I—¹
+		// ç·ã‚¹ãƒ†ãƒ¼ã‚¸æ•°ã¨è§£æ”¾æ¸ˆã¿ã‚¹ãƒ†ãƒ¼ã‚¸æ•°ãŒåŒã˜ã ã£ãŸã‚‰ä½•ã‚‚ã›ãšçµ‚äº†
 		int32 NumStages = mStageDataTable->GetRowNames().Num() - 1;
 		if (NumStages == mMaxUnlockedStageIndex) return;
 
-		// ¡‚ÌƒXƒe[ƒWNo.‚Æ‰ğ•úÏ‚İƒXƒe[ƒW”‚ª“¯‚¶‚¾‚Á‚½‚çŸ‚ÌƒXƒe[ƒW‚ğƒAƒ“ƒƒbƒN
+		// ä»Šã®ã‚¹ãƒ†ãƒ¼ã‚¸No.ã¨è§£æ”¾æ¸ˆã¿ã‚¹ãƒ†ãƒ¼ã‚¸æ•°ãŒåŒã˜ã ã£ãŸã‚‰æ¬¡ã®ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 		if (ClearedStageIndex == mMaxUnlockedStageIndex)
 		{
 			mMaxUnlockedStageIndex++;
@@ -68,10 +68,10 @@ void UGameProgressionSubsystem::UnLockNextStage(int32 ClearedStageIndex)
 	}
 }
 
-// ˆê•Û‘¶—p‚Ì«‘‚É‚µ‚©•Û‘¶‚³‚ê‚Ä‚¢‚È‚¢ƒƒ_ƒ‹‚ğƒŠƒZƒbƒg
+// ä¸€æ™‚ä¿å­˜ç”¨ã®è¾æ›¸ã«ã—ã‹ä¿å­˜ã•ã‚Œã¦ã„ãªã„ãƒ¡ãƒ€ãƒ«ã‚’ãƒªã‚»ãƒƒãƒˆ
 void UGameProgressionSubsystem::ResetMedalCollectedTemp()
 {
-	// ˆê•Û‘¶‚É‚µ‚©‚È‚¢ƒƒ_ƒ‹‚Ì”‚ğ·•ª‚Æ‚µ‚Äˆø‚­‚±‚Æ‚Å”‚Ì‚Â‚¶‚Â‚Ü‚ğ‡‚í‚¹‚é
+	// ä¸€æ™‚ä¿å­˜ã«ã—ã‹ãªã„ãƒ¡ãƒ€ãƒ«ã®æ•°ã‚’å·®åˆ†ã¨ã—ã¦å¼•ãã“ã¨ã§æ•°ã®ã¤ã˜ã¤ã¾ã‚’åˆã‚ã›ã‚‹
 	int32 UnconfirmedCount = 0;
 	for (auto& Elem : mCollectedMedalMapTemp)
 	{
@@ -82,14 +82,14 @@ void UGameProgressionSubsystem::ResetMedalCollectedTemp()
 	}
 	mCurrentMedalCountArray[mCurrentStageIndex] -= UnconfirmedCount;
 
-	// ˆêŸ•Û‘¶—p«‘‚ğ–{‘Ì‚Åã‘‚«‚·‚é‚±‚Æ‚ÅƒŠƒZƒbƒg‚·‚é
+	// ä¸€æ¬¡ä¿å­˜ç”¨è¾æ›¸ã‚’æœ¬ä½“ã§ä¸Šæ›¸ãã™ã‚‹ã“ã¨ã§ãƒªã‚»ãƒƒãƒˆã™ã‚‹
 	mCollectedMedalMapTemp = mCollectedMedalMap;
 
-	// ƒƒ_ƒ‹‚Ì”‚ª•Ï‚í‚Á‚½‚±‚Æ‚ğ’Ê’m‚·‚é
+	// ãƒ¡ãƒ€ãƒ«ã®æ•°ãŒå¤‰ã‚ã£ãŸã“ã¨ã‚’é€šçŸ¥ã™ã‚‹
 	OnMedalCountChanged.Broadcast();
 }
 
-// ‚â‚è’¼‚µ‚É‚»‚ÌƒXƒe[ƒW‚Ìƒƒ_ƒ‹Šl“¾ó‹µ‚ğƒŠƒZƒbƒg‚·‚éŠÖ”
+// ã‚„ã‚Šç›´ã—æ™‚ã«ãã®ã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒ¡ãƒ€ãƒ«ç²å¾—çŠ¶æ³ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹é–¢æ•°
 /*
 void UGameProgressionSubsystem::ResetStageMedalInfo()
 {
@@ -132,7 +132,7 @@ void UGameProgressionSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
-	// ƒŠƒZƒbƒg‚ÍInitializeˆÈŠO‚Å‚àŒÄ‚Ñ‚½‚¢‚Ì‚ÅŠÖ”‰»‚·‚é
+	// ãƒªã‚»ãƒƒãƒˆã¯Initializeä»¥å¤–ã§ã‚‚å‘¼ã³ãŸã„ã®ã§é–¢æ•°åŒ–ã™ã‚‹
 	ResetProgress();
 }
 
@@ -207,10 +207,10 @@ void UGameProgressionSubsystem::UnlockAllStages()
 {
 	if (mStageDataTable)
 	{
-		// ‘ƒXƒe[ƒW”‚ğæ“¾
+		// ç·ã‚¹ãƒ†ãƒ¼ã‚¸æ•°ã‚’å–å¾—
 		int32 NumStages = mStageDataTable->GetRowNames().Num() - 1;
 		
-		// ‰ğ•úÏ‚İƒXƒe[ƒW”‚ğ‘ƒXƒe[ƒW”‚Æ“¯‚¶”‚É‚·‚éi‘SŠJ•új
+		// è§£æ”¾æ¸ˆã¿ã‚¹ãƒ†ãƒ¼ã‚¸æ•°ã‚’ç·ã‚¹ãƒ†ãƒ¼ã‚¸æ•°ã¨åŒã˜æ•°ã«ã™ã‚‹ï¼ˆï¼å…¨é–‹æ”¾ï¼‰
 		mMaxUnlockedStageIndex = NumStages;
 	}
 }

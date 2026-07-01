@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "System/StageSelect/CubePetsSelectPlayerController.h"
@@ -9,7 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Subsystems/GameProgressionSubsystem.h"
 #include "Subsystems/CubePetsInputDeviceSubsystem.h"
-#include "Subsystems/StageClearState.h"
+#include "Enums/StageClearState.h"
 #include "Subsystems/CheckPointSubsystem.h"
 #include "System/StageSelect/CubePetsSelectModeBase.h"
 
@@ -20,7 +20,7 @@ void ACubePetsSelectPlayerController::BeginPlay()
 	FInputModeGameAndUI InputMode;
 	SetInputMode(InputMode);
 
-	// ƒXƒe[ƒWƒZƒŒƒNƒg‰æ–Ê‚ğ•\¦
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã‚’è¡¨ç¤º
 	if (mStageSelectWidgetClass)
 	{
 		mCurrentStageSelectWidget = CreateWidget<UStageSelectWidget>(this, mStageSelectWidgetClass);
@@ -31,7 +31,7 @@ void ACubePetsSelectPlayerController::BeginPlay()
 		}
 	}
 
-	// ƒtƒF[ƒh‚ğ•\¦
+	// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚’è¡¨ç¤º
 	if (mIrisWidgetClass)
 	{
 		mCurrentIrisWidget = CreateWidget<UIrisWidget>(this, mIrisWidgetClass);
@@ -39,18 +39,18 @@ void ACubePetsSelectPlayerController::BeginPlay()
 		{
 			mCurrentIrisWidget->AddToViewport(10);
 
-			// ƒAƒCƒŠƒXƒCƒ“‚ğÄ¶
+			// ã‚¢ã‚¤ãƒªã‚¹ã‚¤ãƒ³ã‚’å†ç”Ÿ
 			mCurrentIrisWidget->StartIrisIn();
 
-			// ó‘Ô‘JˆÚ—p‚ÌŠÖ”‚ğƒoƒCƒ“ƒh‚µ‚Ä‚¨‚­
+			// çŠ¶æ…‹é·ç§»ç”¨ã®é–¢æ•°ã‚’ãƒã‚¤ãƒ³ãƒ‰ã—ã¦ãŠã
 			mCurrentIrisWidget->mOnIrisInFinished.AddDynamic(this, &ACubePetsSelectPlayerController::OnFinishIrisIn);
 
-			// ƒtƒF[ƒhƒAƒEƒgI—¹‚µ‚½‚Æ‚«‚ÉŒÄ‚Ñ‚½‚¢ŠÖ”‚àƒoƒCƒ“ƒh‚µ‚Ä‚¨‚­
+			// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆçµ‚äº†ã—ãŸã¨ãã«å‘¼ã³ãŸã„é–¢æ•°ã‚‚ãƒã‚¤ãƒ³ãƒ‰ã—ã¦ãŠã
 			mCurrentIrisWidget->mOnIrisOutFinished.AddDynamic(this, &ACubePetsSelectPlayerController::OnFinishIrisOut);
 		}
 	}
 
-	// EnhancedInput—p‚Ìˆ—i“ü—Íƒ}ƒbƒsƒ“ƒO‚Ì“o˜^j
+	// EnhancedInputç”¨ã®å‡¦ç†ï¼ˆå…¥åŠ›ãƒãƒƒãƒ”ãƒ³ã‚°ã®ç™»éŒ²ï¼‰
 	if (ULocalPlayer* LocalPlayer = GetLocalPlayer())
 	{
 		if (auto* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
@@ -62,18 +62,18 @@ void ACubePetsSelectPlayerController::BeginPlay()
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
-		// OnIndexChanged‚ğŒÄ‚Ô‚½‚ß‚ÉChangeIndex‚ğŒÄ‚Ôi—V‚ñ‚Å‚½ƒXƒe[ƒW‚É‹A‚Á‚Ä‚­‚é‚æ‚¤‚É‚·‚éj
+		// OnIndexChangedã‚’å‘¼ã¶ãŸã‚ã«ChangeIndexã‚’å‘¼ã¶ï¼ˆéŠã‚“ã§ãŸã‚¹ãƒ†ãƒ¼ã‚¸ã«å¸°ã£ã¦ãã‚‹ã‚ˆã†ã«ã™ã‚‹ï¼‰
 		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
 		if (ProgressionSubsystem)
 		{
 			int32 Index = ProgressionSubsystem->GetCurrentStageIndex();
 			ChangeIndex(Index, false);
 
-			// ƒZ[ƒu‚·‚é
+			// ã‚»ãƒ¼ãƒ–ã™ã‚‹
 			ProgressionSubsystem->SaveProgress();
 		}
 
-		// ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒgî•ñ‚ğƒŠƒZƒbƒg
+		// ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆæƒ…å ±ã‚’ãƒªã‚»ãƒƒãƒˆ
 		UCheckPointSubsystem* CPSubsystem = GameInstance->GetSubsystem<UCheckPointSubsystem>();
 		if (CPSubsystem)
 		{
@@ -113,10 +113,10 @@ bool ACubePetsSelectPlayerController::InputKey(const FInputKeyParams& Params)
 
 void ACubePetsSelectPlayerController::OnPressDecide()
 {
-	// ƒAƒCƒŠƒXƒCƒ“‚ªI‚í‚é‚Ü‚Å‘€ì‹Ö~
+	// ã‚¢ã‚¤ãƒªã‚¹ã‚¤ãƒ³ãŒçµ‚ã‚ã‚‹ã¾ã§æ“ä½œç¦æ­¢
 	if (!bIsActiveInput) return;
 
-	// ƒXƒe[ƒWŒˆ’èAƒtƒF[ƒhƒAƒEƒg‚µ‚Ä‘JˆÚ‚·‚é
+	// ã‚¹ãƒ†ãƒ¼ã‚¸æ±ºå®šã€ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã—ã¦é·ç§»ã™ã‚‹
 	mNextDestination = ENextDestination::STAGE;
 	if (mCurrentIrisWidget)
 	{
@@ -124,14 +124,14 @@ void ACubePetsSelectPlayerController::OnPressDecide()
 		bIsActiveInput = false;
 	}
 
-	// BGM‚ğ~‚ß‚é
+	// BGMã‚’æ­¢ã‚ã‚‹
 	ACubePetsSelectModeBase* GameMode = Cast<ACubePetsSelectModeBase>(GetWorld()->GetAuthGameMode());
 	GameMode->StopBGM();
 
 	PlayDecideEffect();
 }
 
-// ƒ^ƒCƒgƒ‹‚É‘JˆÚ‚·‚é‚½‚ß‚ÌŠÖ”
+// ã‚¿ã‚¤ãƒˆãƒ«ã«é·ç§»ã™ã‚‹ãŸã‚ã®é–¢æ•°
 void ACubePetsSelectPlayerController::TransitionToTitle()
 {
 	if (!mTitleLevelName.IsNone())
@@ -140,7 +140,7 @@ void ACubePetsSelectPlayerController::TransitionToTitle()
 	}
 }
 
-// ƒXƒe[ƒW‚É‘JˆÚ‚·‚é‚½‚ß‚ÌŠÖ”
+// ã‚¹ãƒ†ãƒ¼ã‚¸ã«é·ç§»ã™ã‚‹ãŸã‚ã®é–¢æ•°
 void ACubePetsSelectPlayerController::TransitionToStage()
 {
 	if (mLevelNameArray.IsValidIndex(mCurrentIndex))
@@ -151,7 +151,7 @@ void ACubePetsSelectPlayerController::TransitionToStage()
 
 void ACubePetsSelectPlayerController::OnPressLeftRight(const FInputActionValue& Value)
 {
-	// ƒAƒCƒŠƒXƒCƒ“‚ªI‚í‚é‚Ü‚Å‘€ì‹Ö~
+	// ã‚¢ã‚¤ãƒªã‚¹ã‚¤ãƒ³ãŒçµ‚ã‚ã‚‹ã¾ã§æ“ä½œç¦æ­¢
 	if (!bIsActiveInput) return;
 
 	float AxisValue = Value.Get<float>();
@@ -161,7 +161,7 @@ void ACubePetsSelectPlayerController::OnPressLeftRight(const FInputActionValue& 
 
 void ACubePetsSelectPlayerController::ChangeIndex(int32 Direction, bool bPlaySound)
 {
-	// Subsystem‚©‚çƒXƒe[ƒWƒNƒŠƒAó‹µ‚ğæ“¾‚µ‚Ä‚»‚Ì”ÍˆÍ‚ÅIndex‚ğXV
+	// Subsystemã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢çŠ¶æ³ã‚’å–å¾—ã—ã¦ãã®ç¯„å›²ã§Indexã‚’æ›´æ–°
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
@@ -183,23 +183,23 @@ void ACubePetsSelectPlayerController::ChangeIndex(int32 Direction, bool bPlaySou
 
 			mCurrentIndex = TargetIndex;
 
-			// ˆÚ“®‚Å‚«‚½‚Æ‚¢‚¤‚±‚Æ‚È‚Ì‚Å‰¹‚ğ–Â‚ç‚·i‚È‚¨A¶‰EƒL[“ü—ÍˆÈŠO‚ÅŒÄ‚Î‚ê‚é‚Æ‚«‚ÍbPlaySound‚ğfalse‚É‚µ‚Ä‰¹‚ğ–Â‚ç‚³‚È‚¢‚æ‚¤‚É‚·‚éj
+			// ç§»å‹•ã§ããŸã¨ã„ã†ã“ã¨ãªã®ã§éŸ³ã‚’é³´ã‚‰ã™ï¼ˆãªãŠã€å·¦å³ã‚­ãƒ¼å…¥åŠ›ä»¥å¤–ã§å‘¼ã°ã‚Œã‚‹ã¨ãã¯bPlaySoundã‚’falseã«ã—ã¦éŸ³ã‚’é³´ã‚‰ã•ãªã„ã‚ˆã†ã«ã™ã‚‹ï¼‰
 			if (bPlaySound)
 			{
 				PlayCursorEffect();
 			}
 
-			// Subsystem‚É‚à‹L‰¯‚³‚¹‚Ä‚¨‚­iƒCƒ“ƒQ[ƒ€‚Æ‚©‚Åæ“¾‚µ‚½‚¢j
+			// Subsystemã«ã‚‚è¨˜æ†¶ã•ã›ã¦ãŠãï¼ˆã‚¤ãƒ³ã‚²ãƒ¼ãƒ ã¨ã‹ã§å–å¾—ã—ãŸã„ï¼‰
 			ProgressionSubsystem->SetCurrentStageIndex(mCurrentIndex);
 
-			// Subsystem‚©‚çƒXƒe[ƒWƒNƒŠƒAó‹µ‚ğ‚à‚ç‚¤
+			// Subsystemã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢çŠ¶æ³ã‚’ã‚‚ã‚‰ã†
 			EStageClearState ClearState = ProgressionSubsystem->GetCurrentStageClearState(mCurrentIndex);
 
-			// Subsystem‚©‚çƒƒ_ƒ‹Šl“¾Ag‚Á‚½” ‚Ì’B¬ó‹µ‚ğ‚à‚ç‚¤
+			// Subsystemã‹ã‚‰ãƒ¡ãƒ€ãƒ«ç²å¾—ã€ä½¿ã£ãŸç®±ã®é”æˆçŠ¶æ³ã‚’ã‚‚ã‚‰ã†
 			bool MedalFlag = ProgressionSubsystem->IsCompleteMedal();
 			bool CubeFlag = ProgressionSubsystem->IsCompleteUsedCubes();
 
-			// ƒEƒBƒWƒFƒbƒg‚ÉIndex‚ª•Ï‚í‚Á‚½‚±‚Æ‚ğ’m‚ç‚¹‚éiSubsystem‚©‚ç’l‚ğ‚Á‚Ä—ˆ‚½‚¢‚Ì‚ÅğŒ®‚Ì’†‚É“ü‚ê‚Ä‚¢‚éj
+			// ã‚¦ã‚£ã‚¸ã‚§ãƒƒãƒˆã«IndexãŒå¤‰ã‚ã£ãŸã“ã¨ã‚’çŸ¥ã‚‰ã›ã‚‹ï¼ˆSubsystemã‹ã‚‰å€¤ã‚’æŒã£ã¦æ¥ãŸã„ã®ã§æ¡ä»¶å¼ã®ä¸­ã«å…¥ã‚Œã¦ã„ã‚‹ï¼‰
 			if (mCurrentStageSelectWidget)
 			{
 				mCurrentStageSelectWidget->OnIndexChanged(mCurrentIndex, MaxIndex, ClearState, MedalFlag, CubeFlag);
@@ -210,10 +210,10 @@ void ACubePetsSelectPlayerController::ChangeIndex(int32 Direction, bool bPlaySou
 
 void ACubePetsSelectPlayerController::OnPressCancel()
 {
-	// ƒAƒCƒŠƒXƒCƒ“‚ªI‚í‚é‚Ü‚Å‘€ì‹Ö~
+	// ã‚¢ã‚¤ãƒªã‚¹ã‚¤ãƒ³ãŒçµ‚ã‚ã‚‹ã¾ã§æ“ä½œç¦æ­¢
 	if (!bIsActiveInput) return;
 
-	// ƒ^ƒCƒgƒ‹‚É–ß‚éAƒtƒF[ƒhƒAƒEƒg‚µ‚Ä‘JˆÚ‚·‚é
+	// ã‚¿ã‚¤ãƒˆãƒ«ã«æˆ»ã‚‹ã€ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã—ã¦é·ç§»ã™ã‚‹
 	mNextDestination = ENextDestination::TITLE;
 	if (mCurrentIrisWidget)
 	{
@@ -221,7 +221,7 @@ void ACubePetsSelectPlayerController::OnPressCancel()
 		bIsActiveInput = false;
 	}
 
-	// BGM‚ğ~‚ß‚é
+	// BGMã‚’æ­¢ã‚ã‚‹
 	ACubePetsSelectModeBase* GameMode = Cast<ACubePetsSelectModeBase>(GetWorld()->GetAuthGameMode());
 	GameMode->StopBGM();
 

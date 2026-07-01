@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -22,7 +22,7 @@ protected:
 
 public:
 
-	// BP‘¤‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Æ•R‚Ã‚¯‚é
+	// BPå´ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã¨ç´ã¥ã‘ã‚‹
 	UPROPERTY(Transient, meta = (BindWidgetAnim))
 	TObjectPtr<UWidgetAnimation> AppearanceDecoration;
 
@@ -32,7 +32,7 @@ public:
 	UPROPERTY(Transient, meta = (BindWidgetAnim))
 	TObjectPtr<UWidgetAnimation> TextLoadConfirmed;
 
-	// ƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶‚·‚éŠÖ”
+	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å†ç”Ÿã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category = "Animation")
 	void StartAppearanceDecoration();
 

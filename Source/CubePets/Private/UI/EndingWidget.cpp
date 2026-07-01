@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "UI/EndingWidget.h"
@@ -16,7 +16,7 @@ void UEndingWidget::StartAppearanceText()
 {
 	if (AppearanceText)
 	{
-		// ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI‚í‚Á‚½‚ç’Ê’m—p‚ÌŠÖ”‚ğŒÄ‚Ô‚½‚ß‚ÉƒoƒCƒ“ƒh
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã£ãŸã‚‰é€šçŸ¥ç”¨ã®é–¢æ•°ã‚’å‘¼ã¶ãŸã‚ã«ãƒã‚¤ãƒ³ãƒ‰
 		FWidgetAnimationDynamicEvent EndDelegate;
 		EndDelegate.BindDynamic(this, &UEndingWidget::OnAppearanceAnimationFinished);
 

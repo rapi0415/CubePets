@@ -1,11 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Engine/DataTable.h"
-#include "StageClearState.h"
+#include "Enums/StageClearState.h"
 #include "GameProgressionSubsystem.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnMedalCountChanged);
@@ -18,11 +18,11 @@ struct FStageData : public FTableRowBase
 
 public:
 
-	// ƒƒ_ƒ‹‚Ì‘”iƒXƒe[ƒW–ˆj
+	// ãƒ¡ãƒ€ãƒ«ã®ç·æ•°ï¼ˆã‚¹ãƒ†ãƒ¼ã‚¸æ¯ï¼‰
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Medal")
 	int32 mTotalMedal = 0;
 
-	// ” ‚Ìg—p–Ú•W”iƒXƒe[ƒW–ˆj
+	// ç®±ã®ä½¿ç”¨ç›®æ¨™æ•°ï¼ˆã‚¹ãƒ†ãƒ¼ã‚¸æ¯ï¼‰
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Cube")
 	int32 mTotalCube = 0;
 };
@@ -44,17 +44,17 @@ public:
 
 protected:
 
-	// ƒXƒe[ƒW‚ÌƒNƒŠƒAó‹µŠÇ——p”z—ñ
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚¯ãƒªã‚¢çŠ¶æ³ç®¡ç†ç”¨é…åˆ—
 	TArray<EStageClearState> mStageClearStates;
 
 public:
 
-	// Subsystem‚ª‚Á‚Ä‚¢‚éî•ñ‚ğƒŠƒZƒbƒg‚·‚éŠÖ”
+	// SubsystemãŒæŒã£ã¦ã„ã‚‹æƒ…å ±ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹é–¢æ•°
 	void ResetProgress();
 
 public:
 
-	// w’è‚³‚ê‚½ƒXƒe[ƒW‚ÌƒNƒŠƒAó‹µ‚ğ•Ô‚·ŠÖ”
+	// æŒ‡å®šã•ã‚ŒãŸã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚¯ãƒªã‚¢çŠ¶æ³ã‚’è¿”ã™é–¢æ•°
 	UFUNCTION()
 	EStageClearState GetCurrentStageClearState(int32 Index)
 	{
@@ -70,39 +70,39 @@ public:
 
 protected:
 
-	// ‰ğ•ú‚³‚ê‚Ä‚¢‚éƒXƒe[ƒW‚Ì‘”
+	// è§£æ”¾ã•ã‚Œã¦ã„ã‚‹ã‚¹ãƒ†ãƒ¼ã‚¸ã®ç·æ•°
 	UPROPERTY(BlueprintReadOnly, Category="Stage")
 	int32 mMaxUnlockedStageIndex = 0;
 
 public:
 
-	// getiƒXƒe[ƒW‚Ì‘”j
+	// getï¼ˆã‚¹ãƒ†ãƒ¼ã‚¸ã®ç·æ•°ï¼‰
 	UFUNCTION(BlueprintCallable, Category="Stage")
 	int32 GetMaxUnlockedStageIndex()
 	{
 		return mMaxUnlockedStageIndex;
 	}
 
-	// Ÿ‚ÌƒXƒe[ƒW‚ğ‰ğ•ú‚·‚é
+	// æ¬¡ã®ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’è§£æ”¾ã™ã‚‹
 	UFUNCTION(BlueprintCallable, Category="Stage")
 	void UnLockNextStage(int32 ClearedStageIndex);
 
 protected:
 
-	// Subsystem‚É‚àƒXƒe[ƒW”Ô†‚ğ‹L‰¯‚³‚¹‚Ä‚¨‚­iƒCƒ“ƒQ[ƒ€‚Æ‚©‚Åæ“¾‚µ‚½‚¢j
+	// Subsystemã«ã‚‚ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ã‚’è¨˜æ†¶ã•ã›ã¦ãŠãï¼ˆã‚¤ãƒ³ã‚²ãƒ¼ãƒ ã¨ã‹ã§å–å¾—ã—ãŸã„ï¼‰
 	UPROPERTY(BlueprintReadOnly, Category="UI")
 	int32 mCurrentStageIndex = 0;
 
 public:
 
-	// getiƒXƒe[ƒW”Ô†j
+	// getï¼ˆã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ï¼‰
 	UFUNCTION(BlueprintCallable, Category="UI")
 	int32 GetCurrentStageIndex()
 	{
 		return mCurrentStageIndex;
 	}
 
-	// setiƒXƒe[ƒW”Ô†j
+	// setï¼ˆã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ï¼‰
 	UFUNCTION(BlueprintCallable, Category="UI")
 	void SetCurrentStageIndex(int32 Index)
 	{
@@ -111,13 +111,13 @@ public:
 
 protected:
 
-	// W‚ß‚½ƒƒ_ƒ‹‚Ì”iƒXƒe[ƒW–ˆj
+	// é›†ã‚ãŸãƒ¡ãƒ€ãƒ«ã®æ•°ï¼ˆã‚¹ãƒ†ãƒ¼ã‚¸æ¯ï¼‰
 	UPROPERTY(BlueprintReadOnly, Category="Medal")
 	TArray<int32> mCurrentMedalCountArray;
 
 public:
 
-	// get W‚ß‚½ƒƒ_ƒ‹‚Ì”‚ğæ“¾‚·‚éŠÖ”
+	// get é›†ã‚ãŸãƒ¡ãƒ€ãƒ«ã®æ•°ã‚’å–å¾—ã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category="Medal")
 	int32 GetCurrentMedalCount()
 	{
@@ -128,16 +128,16 @@ public:
 		return 0;
 	}
 
-	// add W‚ß‚½ƒƒ_ƒ‹‚Ì”‚ğXV‚·‚éŠÖ”
+	// add é›†ã‚ãŸãƒ¡ãƒ€ãƒ«ã®æ•°ã‚’æ›´æ–°ã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category="Medal")
 	void AddMedalCount(int32 StageIndex)
 	{
 		if (mCurrentMedalCountArray.IsValidIndex(StageIndex))
 		{
-			// W‚ß‚½ƒƒ_ƒ‹+1
+			// é›†ã‚ãŸãƒ¡ãƒ€ãƒ«+1
 			mCurrentMedalCountArray[StageIndex]++;
 
-			// ƒƒ_ƒ‹‚ª‘‚¦‚½‚±‚Æ‚ğ’Ê’m‚·‚é
+			// ãƒ¡ãƒ€ãƒ«ãŒå¢—ãˆãŸã“ã¨ã‚’é€šçŸ¥ã™ã‚‹
 			OnMedalCountChanged.Broadcast();
 		}
 	}
@@ -147,14 +147,14 @@ public:
 	{
 		if (mCurrentMedalCountArray.IsValidIndex(StageIndex))
 		{
-			// W‚ß‚½ƒƒ_ƒ‹-1
+			// é›†ã‚ãŸãƒ¡ãƒ€ãƒ«-1
 			mCurrentMedalCountArray[StageIndex]--;
 		}
 	}
 
 public:
 
-	// ƒXƒe[ƒW‚Ìƒƒ_ƒ‹‘”‚ğƒf[ƒ^ƒe[ƒuƒ‹‚©‚çæ“¾‚·‚éŠÖ”
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒ¡ãƒ€ãƒ«ç·æ•°ã‚’ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category="Medal")
 	int32 GetTotalMedal()
 	{
@@ -164,15 +164,15 @@ public:
 
 public:
 
-	// Šl“¾Ï‚İ‚Ìƒƒ_ƒ‹‚ÌID‚ğ•Û‘¶‚·‚é«‘
+	// ç²å¾—æ¸ˆã¿ã®ãƒ¡ãƒ€ãƒ«ã®IDã‚’ä¿å­˜ã™ã‚‹è¾æ›¸
 	UPROPERTY(BlueprintReadOnly, Category = "Medal")
 	TMap<FName, bool> mCollectedMedalMap;
 
-	// ƒƒ_ƒ‹ID‚ğ•Û‘¶‚·‚é«‘iˆê•Û‘¶—pj¦ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‚ÉG‚ê‚é‚Ü‚Å‚Í–¢Šm’è‚É‚µ‚½‚¢
+	// ãƒ¡ãƒ€ãƒ«IDã‚’ä¿å­˜ã™ã‚‹è¾æ›¸ï¼ˆä¸€æ™‚ä¿å­˜ç”¨ï¼‰â€»ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆã«è§¦ã‚Œã‚‹ã¾ã§ã¯æœªç¢ºå®šã«ã—ãŸã„
 	UPROPERTY()
 	TMap<FName, bool> mCollectedMedalMapTemp;
 
-	// ƒƒ_ƒ‹‚ª‚·‚Å‚ÉŠl“¾Ï‚İ‚©ƒ`ƒFƒbƒN‚·‚éŠÖ”
+	// ãƒ¡ãƒ€ãƒ«ãŒã™ã§ã«ç²å¾—æ¸ˆã¿ã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category = "Medal")
 	bool IsMedalAlreadyCollected(FName MedalID) const
 	{
@@ -183,7 +183,7 @@ public:
 		return false;
 	}
 
-	// ƒƒ_ƒ‹‚ğ"ˆê“I"‚ÉŠl“¾Ï‚İ‚É‚·‚éŠÖ”
+	// ãƒ¡ãƒ€ãƒ«ã‚’"ä¸€æ™‚çš„"ã«ç²å¾—æ¸ˆã¿ã«ã™ã‚‹é–¢æ•°
 	UFUNCTION()
 	void SetMedalCollectedTemp(FName MedalId)
 	{
@@ -193,7 +193,7 @@ public:
 		}
 	}
 
-	// ƒƒ_ƒ‹‚ğŠl“¾Ï‚İiŠm’èj‚É‚·‚éŠÖ”
+	// ãƒ¡ãƒ€ãƒ«ã‚’ç²å¾—æ¸ˆã¿ï¼ˆç¢ºå®šï¼‰ã«ã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category = "Medal")
 	void SetMedalCollected()
 	{
@@ -206,7 +206,7 @@ public:
 		mCollectedMedalMap = mCollectedMedalMapTemp;
 	}
 
-	// ƒƒ_ƒ‹‚ÌŠl“¾ó‹µ‚ğƒŠƒZƒbƒg‚·‚éŠÖ”
+	// ãƒ¡ãƒ€ãƒ«ã®ç²å¾—çŠ¶æ³ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category = "Medal")
 	void ResetMedalCollected(FName MedalID)
 	{
@@ -216,7 +216,7 @@ public:
 	UFUNCTION()
 	void ResetMedalCollectedTemp();
 
-	// ‚â‚è’¼‚µ‚É‚»‚ÌƒXƒe[ƒW‚Ìƒƒ_ƒ‹Šl“¾ó‹µ‚ğƒŠƒZƒbƒg‚·‚éŠÖ”
+	// ã‚„ã‚Šç›´ã—æ™‚ã«ãã®ã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒ¡ãƒ€ãƒ«ç²å¾—çŠ¶æ³ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹é–¢æ•°
 	/*
 	UFUNCTION()
 	void ResetStageMedalInfo();
@@ -224,21 +224,21 @@ public:
 
 protected:
 
-	// g‚Á‚½” ‚Ì”iƒXƒe[ƒW–ˆj
+	// ä½¿ã£ãŸç®±ã®æ•°ï¼ˆã‚¹ãƒ†ãƒ¼ã‚¸æ¯ï¼‰
 	UPROPERTY(BlueprintReadOnly, Category = "Cube")
 	TArray<int32> mCurrentUsedCubeCountArray;
 
-	// g‚Á‚½” ‚Ì”iŠeƒXƒe[ƒW‚ÌÅ‚‹L˜^•Û—pj
+	// ä½¿ã£ãŸç®±ã®æ•°ï¼ˆå„ã‚¹ãƒ†ãƒ¼ã‚¸ã®æœ€é«˜è¨˜éŒ²ä¿æŒç”¨ï¼‰
 	UPROPERTY(BlueprintReadOnly, Category = "Cube")
 	TArray<int32> mRecordCubeCountArray;
 
-	// g‚Á‚½” ‚Ì”iƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg•Û‘¶—pj
+	// ä½¿ã£ãŸç®±ã®æ•°ï¼ˆãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆä¿å­˜ç”¨ï¼‰
 	UPROPERTY(BlueprintReadOnly, Category = "Cube")
 	int32 mCheckPointCubeCount = 0;
 
 public:
 
-	// get g‚Á‚½” ‚Ì”‚ğæ“¾‚·‚éŠÖ”
+	// get ä½¿ã£ãŸç®±ã®æ•°ã‚’å–å¾—ã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category = "Cube")
 	int32 GetCurrentUsedCubeCount()
 	{
@@ -249,22 +249,22 @@ public:
 		return 0;
 	}
 
-	// add g‚Á‚½” ‚Ì”‚ğ+1‚·‚éŠÖ”
+	// add ä½¿ã£ãŸç®±ã®æ•°ã‚’+1ã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category = "Cube")
 	void AddUsedCubeCount()
 	{
 		if (mCurrentUsedCubeCountArray.IsValidIndex(mCurrentStageIndex))
 		{
-			// g‚Á‚½” +1i99‚Å~‚ß‚Ä‚¨‚­j
+			// ä½¿ã£ãŸç®±+1ï¼ˆ99ã§æ­¢ã‚ã¦ãŠãï¼‰
 			int32& Count = mCurrentUsedCubeCountArray[mCurrentStageIndex];
 			Count = FMath::Min(Count + 1, 99);
 
-			// g‚Á‚½” ‚Ì”‚ª•Ï‚í‚Á‚½‚±‚Æ‚ğ’Ê’m‚·‚é
+			// ä½¿ã£ãŸç®±ã®æ•°ãŒå¤‰ã‚ã£ãŸã“ã¨ã‚’é€šçŸ¥ã™ã‚‹
 			OnUsedCubeCountChanged.Broadcast();
 		}
 	}
 
-	// g‚Á‚½” ‚Ì”‚ğƒŠƒZƒbƒg‚·‚éŠÖ”
+	// ä½¿ã£ãŸç®±ã®æ•°ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category="Cube")
 	void ResetUsedCubeCount()
 	{
@@ -272,12 +272,12 @@ public:
 		{
 			mCurrentUsedCubeCountArray[mCurrentStageIndex] = 0;
 
-			// g‚Á‚½” ‚Ì”‚ª•Ï‚í‚Á‚½‚±‚Æ‚ğ’Ê’m‚·‚é
+			// ä½¿ã£ãŸç®±ã®æ•°ãŒå¤‰ã‚ã£ãŸã“ã¨ã‚’é€šçŸ¥ã™ã‚‹
 			// OnUsedCubeCountChanged.Broadcast();
 		}
 	}
 
-	// g‚Á‚½” ‚ÌÅ‚‹L˜^‚ğæ“¾‚·‚éŠÖ”
+	// ä½¿ã£ãŸç®±ã®æœ€é«˜è¨˜éŒ²ã‚’å–å¾—ã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category = "CUbe")
 	int32 GetRecordCubeCount()
 	{
@@ -288,7 +288,7 @@ public:
 		return 0;
 	}
 
-	// g‚Á‚½” ‚ÌÅ‚‹L˜^‚ğXV‚·‚éŠÖ”
+	// ä½¿ã£ãŸç®±ã®æœ€é«˜è¨˜éŒ²ã‚’æ›´æ–°ã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category = "Cube")
 	void UpdateRecordCubeCount()
 	{
@@ -296,14 +296,14 @@ public:
 		Record = FMath::Min(Record, mCurrentUsedCubeCountArray[mCurrentStageIndex]);
 	}
 
-	// g‚Á‚½” ‚Ì”iƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg•Û‘¶—pj‚ğ•Û‘¶‚µ‚Ä‚¨‚­ŠÖ”
+	// ä½¿ã£ãŸç®±ã®æ•°ï¼ˆãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆä¿å­˜ç”¨ï¼‰ã‚’ä¿å­˜ã—ã¦ãŠãé–¢æ•°
 	UFUNCTION()
 	void UpdateCheckPointCubeCount()
 	{
 		mCheckPointCubeCount = GetCurrentUsedCubeCount();
 	}
 
-	// g‚Á‚½” ‚Ì”‚ğƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg’Ê‰ß‚Ì”‚É–ß‚·ŠÖ”
+	// ä½¿ã£ãŸç®±ã®æ•°ã‚’ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆé€šéæ™‚ã®æ•°ã«æˆ»ã™é–¢æ•°
 	UFUNCTION()
 	void RestoreToSavedCubeCount()
 	{
@@ -311,12 +311,12 @@ public:
 		{
 			mCurrentUsedCubeCountArray[mCurrentStageIndex] = mCheckPointCubeCount;
 
-			// g‚Á‚½” ‚Ì”‚ª•Ï‚í‚Á‚½‚±‚Æ‚ğ’Ê’m‚·‚é
+			// ä½¿ã£ãŸç®±ã®æ•°ãŒå¤‰ã‚ã£ãŸã“ã¨ã‚’é€šçŸ¥ã™ã‚‹
 			OnUsedCubeCountChanged.Broadcast();
 		}
 	}
 
-	// g‚Á‚½” ‚Ì”iƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg•Û‘¶—pj‚ğƒŠƒZƒbƒg‚·‚éŠÖ”
+	// ä½¿ã£ãŸç®±ã®æ•°ï¼ˆãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆä¿å­˜ç”¨ï¼‰ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹é–¢æ•°
 	UFUNCTION()
 	void ResetCheckPointCubeCount()
 	{
@@ -325,7 +325,7 @@ public:
 
 public:
 
-	// ƒXƒe[ƒW‚Ì” g—p–Ú•W”‚ğƒf[ƒ^ƒe[ƒuƒ‹‚©‚çæ“¾‚·‚éŠÖ”
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ã®ç®±ä½¿ç”¨ç›®æ¨™æ•°ã‚’ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category="Cube")
 	int32 GetTotalCube()
 	{
@@ -335,7 +335,7 @@ public:
 
 protected:
 
-	// ƒf[ƒ^ƒe[ƒuƒ‹
+	// ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«
 	UPROPERTY()
 	TObjectPtr<UDataTable> mStageDataTable;
 
@@ -347,25 +347,25 @@ protected:
 
 public:
 	
-	// ƒƒ_ƒ‹Šl“¾‚ğ’B¬‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©•Ô‚·ŠÖ”
+	// ãƒ¡ãƒ€ãƒ«ç²å¾—ã‚’é”æˆã—ã¦ã„ã‚‹ã‹ã©ã†ã‹è¿”ã™é–¢æ•°
 	UFUNCTION()
 	bool IsCompleteMedal();
 
-	// g‚Á‚½” ‚ğ’B¬‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©•Ô‚·ŠÖ”
+	// ä½¿ã£ãŸç®±ã‚’é”æˆã—ã¦ã„ã‚‹ã‹ã©ã†ã‹è¿”ã™é–¢æ•°
 	UFUNCTION()
 	bool IsCompleteUsedCubes();
 
 public:
 	
-	// ƒZ[ƒu
+	// ã‚»ãƒ¼ãƒ–
 	UFUNCTION()
 	void SaveProgress();
 
-	// ƒ[ƒh
+	// ãƒ­ãƒ¼ãƒ‰
 	UFUNCTION()
 	void LoadProgress();
 
-	// ƒZ[ƒuƒf[ƒ^‚ª‚ ‚é‚©Šm‚©‚ß‚éŠÖ”
+	// ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚‹ã‹ç¢ºã‹ã‚ã‚‹é–¢æ•°
 	UFUNCTION(BlueprintCallable, Category = "SaveData")
 	bool IsExistenceSaveData();
 
@@ -375,7 +375,7 @@ protected:
 
 #if !UE_BUILD_SHIPPING
 
-	// ‘SƒXƒe[ƒW‰ğ•ú‚·‚éŠÖ”iƒfƒoƒbƒO—pj
+	// å…¨ã‚¹ãƒ†ãƒ¼ã‚¸è§£æ”¾ã™ã‚‹é–¢æ•°ï¼ˆãƒ‡ãƒãƒƒã‚°ç”¨ï¼‰
 	void UnlockAllStages();
 
 #endif

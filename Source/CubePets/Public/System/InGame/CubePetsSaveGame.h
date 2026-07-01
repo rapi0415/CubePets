@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
-#include "Subsystems/StageClearState.h"
+#include "Enums/StageClearState.h"
 #include "CubePetsSaveGame.generated.h"
 
 /**

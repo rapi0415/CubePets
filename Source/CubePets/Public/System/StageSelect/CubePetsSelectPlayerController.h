@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -50,7 +50,7 @@ protected:
 
 protected:
 
-	// ƒCƒ“ƒvƒbƒgŒn
+	// ã‚¤ãƒ³ãƒ—ãƒƒãƒˆç³»
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	TObjectPtr<UInputMappingContext> mSelectMappingContext = nullptr;
 
@@ -63,15 +63,15 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	TObjectPtr<UInputAction> mCancelAction = nullptr;
 
-	// Œˆ’èƒ{ƒ^ƒ“ŠÖ˜A
+	// æ±ºå®šãƒœã‚¿ãƒ³é–¢é€£
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void OnPressDecide();
 
-	// ¶‰Eƒ{ƒ^ƒ“ŠÖ˜A
+	// å·¦å³ãƒœã‚¿ãƒ³é–¢é€£
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void OnPressLeftRight(const FInputActionValue& Value);
 
-	// ƒLƒƒƒ“ƒZƒ‹ƒ{ƒ^ƒ“ŠÖ˜A
+	// ã‚­ãƒ£ãƒ³ã‚»ãƒ«ãƒœã‚¿ãƒ³é–¢é€£
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void OnPressCancel();
 
@@ -79,7 +79,7 @@ protected:
 
 protected:
 
-	// ƒ{ƒ^ƒ“ƒAƒCƒRƒ“Ø‚è‘Ö‚¦—p
+	// ãƒœã‚¿ãƒ³ã‚¢ã‚¤ã‚³ãƒ³åˆ‡ã‚Šæ›¿ãˆç”¨
 	virtual bool InputKey(const FInputKeyParams& Params) override;
 
 	bool bIsUsingGamepad = false;
@@ -121,7 +121,7 @@ protected:
 
 protected:
 
-	// ƒAƒCƒŠƒXƒCƒ“‚ªI‚í‚Á‚½‚©‚Ç‚¤‚©
+	// ã‚¢ã‚¤ãƒªã‚¹ã‚¤ãƒ³ãŒçµ‚ã‚ã£ãŸã‹ã©ã†ã‹
 	bool bIsActiveInput = false;
 
 public:

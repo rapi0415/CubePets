@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "UI/StageStatusWidget.h"
@@ -12,7 +12,7 @@ void UStageStatusWidget::NativeConstruct()
 	UpdateMedalText();
 	UpdateCubeText();
 
-	// Subsystem‚ÌƒCƒxƒ“ƒg‚ğƒoƒCƒ“ƒh‚·‚éiƒeƒLƒXƒg‚ğXV‚·‚é‚½‚ßj
+	// Subsystemã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’ãƒã‚¤ãƒ³ãƒ‰ã™ã‚‹ï¼ˆãƒ†ã‚­ã‚¹ãƒˆã‚’æ›´æ–°ã™ã‚‹ãŸã‚ï¼‰
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
@@ -25,7 +25,7 @@ void UStageStatusWidget::NativeConstruct()
 	}
 }
 
-// W‚ß‚½ƒƒ_ƒ‹—pƒeƒLƒXƒg‚ÌXV—p
+// é›†ã‚ãŸãƒ¡ãƒ€ãƒ«ç”¨ãƒ†ã‚­ã‚¹ãƒˆã®æ›´æ–°ç”¨
 void UStageStatusWidget::UpdateMedalText()
 {
 	if (!TextBlockMedalCount) return;
@@ -44,7 +44,7 @@ void UStageStatusWidget::UpdateMedalText()
 	}
 }
 
-// g‚Á‚½” ƒeƒLƒXƒg‚ÌXV—p
+// ä½¿ã£ãŸç®±ãƒ†ã‚­ã‚¹ãƒˆã®æ›´æ–°ç”¨
 void UStageStatusWidget::UpdateCubeText()
 {
 	if (!TextBlockCubeCount) return;

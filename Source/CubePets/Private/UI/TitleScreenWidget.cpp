@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "UI/TitleScreenWidget.h"
@@ -8,7 +8,7 @@ void UTitleScreenWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	// ƒZ[ƒuƒf[ƒ^‘¶İŠm”F
+	// ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿å­˜åœ¨ç¢ºèª
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
@@ -19,7 +19,7 @@ void UTitleScreenWidget::NativeConstruct()
 		}
 	}
 
-	// ƒeƒLƒXƒg‚ÌƒtƒH[ƒJƒX‚às‚¢‚½‚¢‚Ì‚ÅOnIndexChanged‚ğŒÄ‚Ño‚·
+	// ãƒ†ã‚­ã‚¹ãƒˆã®ãƒ•ã‚©ãƒ¼ã‚«ã‚¹ã‚‚è¡Œã„ãŸã„ã®ã§OnIndexChangedã‚’å‘¼ã³å‡ºã™
 	OnIndexChanged(0);
 }
 
@@ -27,7 +27,7 @@ void UTitleScreenWidget::StartAppearanceDecoration()
 {
 	if (AppearanceDecoration)
 	{
-		// ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI‚í‚Á‚½‚ç’Ê’m—p‚ÌŠÖ”‚ğŒÄ‚Ô‚½‚ß‚ÉƒoƒCƒ“ƒh
+		// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã£ãŸã‚‰é€šçŸ¥ç”¨ã®é–¢æ•°ã‚’å‘¼ã¶ãŸã‚ã«ãƒã‚¤ãƒ³ãƒ‰
 		FWidgetAnimationDynamicEvent EndDelegate;
 		EndDelegate.BindDynamic(this, &UTitleScreenWidget::OnTitleAnimationFinished);
 
@@ -42,7 +42,7 @@ void UTitleScreenWidget::StartTextStartConfirmed()
 {
 	if (TextStartConfirmed)
 	{
-		// ƒeƒLƒXƒg‚Ì“_–ÅƒAƒjƒ[ƒVƒ‡ƒ“iƒ‹[ƒvÄ¶j
+		// ãƒ†ã‚­ã‚¹ãƒˆã®ç‚¹æ»…ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ï¼ˆãƒ«ãƒ¼ãƒ—å†ç”Ÿï¼‰
 		PlayAnimation(TextStartConfirmed, 0.0f, 0, EUMGSequencePlayMode::Forward, 1.0f, false);
 	}
 }
@@ -51,17 +51,17 @@ void UTitleScreenWidget::StartTextLoadConfirmed()
 {
 	if (TextLoadConfirmed)
 	{
-		// ƒeƒLƒXƒg‚Ì“_–ÅƒAƒjƒ[ƒVƒ‡ƒ“iƒ‹[ƒvÄ¶j
+		// ãƒ†ã‚­ã‚¹ãƒˆã®ç‚¹æ»…ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ï¼ˆãƒ«ãƒ¼ãƒ—å†ç”Ÿï¼‰
 		PlayAnimation(TextLoadConfirmed, 0.0f, 0, EUMGSequencePlayMode::Forward, 1.0f, false);
 	}
 }
 
 void UTitleScreenWidget::OnTitleAnimationFinished()
 {
-	// ƒeƒLƒXƒg‚ÌƒtƒH[ƒJƒX‚às‚¢‚½‚¢‚Ì‚ÅOnIndexChanged‚ğŒÄ‚Ño‚·
+	// ãƒ†ã‚­ã‚¹ãƒˆã®ãƒ•ã‚©ãƒ¼ã‚«ã‚¹ã‚‚è¡Œã„ãŸã„ã®ã§OnIndexChangedã‚’å‘¼ã³å‡ºã™
 	// OnIndexChanged(0);
 
-	// ƒoƒCƒ“ƒh‚µ‚Ä‚¢‚éŠÖ”‚ğŒÄ‚ÔiTitlePlayerController‚Ìó‘Ô‘JˆÚj
+	// ãƒã‚¤ãƒ³ãƒ‰ã—ã¦ã„ã‚‹é–¢æ•°ã‚’å‘¼ã¶ï¼ˆTitlePlayerControllerã®çŠ¶æ…‹é·ç§»ï¼‰
 	mOnAnimationFinished.Broadcast();
 }
 

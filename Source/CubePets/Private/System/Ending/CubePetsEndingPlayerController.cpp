@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "System/Ending/CubePetsEndingPlayerController.h"
@@ -13,7 +13,7 @@ void ACubePetsEndingPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ƒEƒBƒWƒFƒbƒg‚ğ¶¬
+	// ã‚¦ã‚£ã‚¸ã‚§ãƒƒãƒˆã‚’ç”Ÿæˆ
 	if (mEndingWidgetClass)
 	{
 		mCurrentEndingWidget = CreateWidget<UEndingWidget>(this, mEndingWidgetClass);
@@ -25,7 +25,7 @@ void ACubePetsEndingPlayerController::BeginPlay()
 		}
 	}
 
-	// EnhancedInput—p‚Ìˆ—i“ü—Íƒ}ƒbƒsƒ“ƒO‚Ì“o˜^j
+	// EnhancedInputç”¨ã®å‡¦ç†ï¼ˆå…¥åŠ›ãƒãƒƒãƒ”ãƒ³ã‚°ã®ç™»éŒ²ï¼‰
 	if (ULocalPlayer* LocalPlayer = GetLocalPlayer())
 	{
 		if (auto* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
@@ -37,7 +37,7 @@ void ACubePetsEndingPlayerController::BeginPlay()
 		}
 	}
 
-	// ƒZ[ƒu‚·‚é
+	// ã‚»ãƒ¼ãƒ–ã™ã‚‹
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
@@ -61,10 +61,10 @@ void ACubePetsEndingPlayerController::SetupInputComponent()
 
 void ACubePetsEndingPlayerController::OnPressDecide()
 {
-	// ‘€ì•s”\‚Ì‚Æ‚«‚Í‰½‚à‚µ‚È‚¢
+	// æ“ä½œä¸èƒ½ã®ã¨ãã¯ä½•ã‚‚ã—ãªã„
 	if (!bIsActive) return;
 
-	// ƒ^ƒCƒgƒ‹‚É–ß‚é
+	// ã‚¿ã‚¤ãƒˆãƒ«ã«æˆ»ã‚‹
 	if (!mTitleLevelName.IsNone())
 	{
 		UGameplayStatics::OpenLevel(this, mTitleLevelName);

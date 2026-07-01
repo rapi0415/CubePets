@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -24,7 +24,7 @@ protected:
 
 protected:
 
-	// ƒEƒBƒWƒFƒbƒg
+	// ã‚¦ã‚£ã‚¸ã‚§ãƒƒãƒˆ
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UEndingWidget> mEndingWidgetClass = nullptr;
 
@@ -33,7 +33,7 @@ protected:
 
 protected:
 
-	// ƒCƒ“ƒvƒbƒgŒn
+	// ã‚¤ãƒ³ãƒ—ãƒƒãƒˆç³»
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	TObjectPtr<UInputMappingContext> mEndingMappingContext = nullptr;
 
@@ -42,7 +42,7 @@ protected:
 
 	virtual void SetupInputComponent() override;
 
-	// Œˆ’èƒ{ƒ^ƒ“
+	// æ±ºå®šãƒœã‚¿ãƒ³
 	UFUNCTION()
 	void OnPressDecide();
 
@@ -60,7 +60,7 @@ protected:
 
 protected:
 
-	// ƒ{ƒ^ƒ“ƒAƒCƒRƒ“Ø‚è‘Ö‚¦—p
+	// ãƒœã‚¿ãƒ³ã‚¢ã‚¤ã‚³ãƒ³åˆ‡ã‚Šæ›¿ãˆç”¨
 	virtual bool InputKey(const FInputKeyParams& Params) override;
 
 	

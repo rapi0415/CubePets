@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -26,12 +26,6 @@ protected:
 	TObjectPtr<UUserWidget> StageStatus = nullptr;
 
 public:
-
-	// ControlGuide‚ÌŠÖ”‚ğŒÄ‚Ño‚·‚½‚ß‚ÌŠÖ”
-	/*
-	UFUNCTION(BlueprintCallable, Category="UI")
-	void UpdateDeviceIcon(bool bIsGamepad);
-	*/
 
 	UFUNCTION(BlueprintCallable, Category="UI")
 	void UpdateTextBlockCreate(bool bIsReticleExistence);

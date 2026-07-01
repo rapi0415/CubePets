@@ -1,10 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "Subsystems/StageClearState.h"
+#include "Enums/StageClearState.h"
 #include "StageSelectWidget.generated.h"
 
 class UCSVTextBlock;
@@ -22,14 +22,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="UI")
 	TArray<TSoftObjectPtr<UTexture2D>> mImageArray;
 
-	/*
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="UI")
-	TArray<FName> mLevelNameArray;
-
-	UPROPERTY(BlueprintReadOnly, Category="UI")
-	int32 mCurrentIndex = 0;
-	*/
-
 public:
 
 	void OnIndexChanged(int32 Index, int32 MaxIndex, EStageClearState ClearState, bool MedalFlag, bool CubeFlag);
@@ -37,16 +29,6 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category="UI")
 	void BP_OnIndexChanged(int32 Index, int32 MaxIndex, EStageClearState ClearState, bool MedalFlag, bool CubeFlag);
 
-	/*
-public:
-
-	UFUNCTION(BlueprintCallable, Category="UI")
-	void ChangeIndex(int32 Direction);
-
-	UFUNCTION(BlueprintCallable, Category="UI")
-	void SelectCurrentLevel();
-
-	*/
 
 protected:
 
@@ -58,11 +40,11 @@ protected:
 
 protected:
 
-	// ƒeƒLƒXƒgƒuƒƒbƒNiW‚ß‚½ƒƒ_ƒ‹j
+	// ãƒ†ã‚­ã‚¹ãƒˆãƒ–ãƒ­ãƒƒã‚¯ï¼ˆé›†ã‚ãŸãƒ¡ãƒ€ãƒ«ï¼‰
 	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
 	TObjectPtr<UCSVTextBlock> TextBlockMedalCount = nullptr;
 
-	// ƒeƒLƒXƒgƒuƒƒbƒNig‚Á‚½” j
+	// ãƒ†ã‚­ã‚¹ãƒˆãƒ–ãƒ­ãƒƒã‚¯ï¼ˆä½¿ã£ãŸç®±ï¼‰
 	UPROPERTY(BlueprintReadOnly, meta=(BindWidget))
 	TObjectPtr<UCSVTextBlock> TextBlockCubeCount = nullptr;
 
@@ -77,19 +59,5 @@ public:
 protected:
 
 	virtual void NativeConstruct() override;
-
-/*
-protected:
-
-	// ƒAƒjƒ[ƒVƒ‡ƒ“
-	UPROPERTY(Transient, meta = (BindWidgetAnim))
-	TObjectPtr<UWidgetAnimation> DecideRightArrow;
-
-public:
-
-	// ƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶‚·‚éŠÖ”
-	UFUNCTION(BlueprintCallable, Category = "Animation")
-	void StartDecideRightArrow();
-	*/
 
 };

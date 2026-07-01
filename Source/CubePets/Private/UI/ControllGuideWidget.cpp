@@ -22,22 +22,3 @@ void UControllGuideWidget::UpdateTextBlockCreate(bool bIsReticleExistence)
 	}
 }
 
-// ボタンアイコンをキーボード用とパッド用で切り替える
-/*
-void UControllGuideWidget::UpdateDeviceIcon(bool bIsGamepad)
-{
-	if (JumpButtonIconImage)
-	{
-		UTexture2D* NewJumpIcon = bIsGamepad ? mJumpGamepadIcon : mJumpKeyboardIcon;
-		UTexture2D* NewCreateIcon = bIsGamepad ? mCreateGamepadIcon : mCreateKeyboardIcon;
-		UTexture2D* NewLockRotIcon = bIsGamepad ? mLockRotGamepadIcon : mLockRotKeyboardIcon;
-
-		if (NewJumpIcon && NewCreateIcon && NewLockRotIcon)
-		{
-			JumpButtonIconImage->SetBrushFromTexture(NewJumpIcon);
-			CreateButtonIconImage->SetBrushFromTexture(NewCreateIcon);
-			LockRotButtonIconImage->SetBrushFromTexture(NewLockRotIcon);
-		}
-	}
-}
-*/

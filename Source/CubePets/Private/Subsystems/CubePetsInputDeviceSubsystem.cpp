@@ -1,11 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Subsystems/CubePetsInputDeviceSubsystem.h"
 
 void UCubePetsInputDeviceSubsystem::NotifyDeviceChanged(bool bIsGamepad)
 {
-	// •Ï‰»‚ª–³‚¯‚ê‚ÎƒXƒLƒbƒv
+	// å¤‰åŒ–ãŒç„¡ã‘ã‚Œã°ã‚¹ã‚­ãƒƒãƒ—
 	if (bIsGamepad == bIsUsingGamepad) return;
 
 	bIsUsingGamepad = bIsGamepad;

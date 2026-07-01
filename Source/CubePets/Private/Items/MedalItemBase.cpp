@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Items/MedalItemBase.h"
@@ -11,14 +11,14 @@ void AMedalItemBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Subsystem‚ğæ“¾
+	// Subsystemã‚’å–å¾—
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
 		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
 		if (ProgressionSubsystem)
 		{
-			// Šl“¾Ï‚İ‚©‚Ç‚¤‚©’²‚×‚ÄAŠl“¾Ï‚İ‚È‚çÁ‚·
+			// ç²å¾—æ¸ˆã¿ã‹ã©ã†ã‹èª¿ã¹ã¦ã€ç²å¾—æ¸ˆã¿ãªã‚‰æ¶ˆã™
 			if (ProgressionSubsystem->IsMedalAlreadyCollected(mMedalID))
 			{
 				Destroy();
@@ -27,7 +27,7 @@ void AMedalItemBase::BeginPlay()
 		}
 	}
 
-	// PlayerController‚ğæ“¾iƒƒ_ƒ‹Šl“¾ó‹µ‚ğƒŠƒZƒbƒg‚·‚éŠÖ”‚ğƒoƒCƒ“ƒhj
+	// PlayerControllerã‚’å–å¾—ï¼ˆãƒ¡ãƒ€ãƒ«ç²å¾—çŠ¶æ³ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹é–¢æ•°ã‚’ãƒã‚¤ãƒ³ãƒ‰ï¼‰
 	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	if (PC)
 	{
@@ -68,24 +68,24 @@ void AMedalItemBase::OnOverlapBegin
 {
 	if (OtherActor && OtherActor != this && !bIsPickuped)
 	{
-		// ÚG‚µ‚½‚Ì‚ªƒvƒŒƒCƒ„[‚©H
+		// æ¥è§¦ã—ãŸã®ãŒãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ï¼Ÿ
 		if (ACubePetsCharacter* PlayerCharacter = Cast<ACubePetsCharacter>(OtherActor))
 		{
 			Super::OnOverlapBegin(OverlappedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
 
 			bIsPickuped = true;
 
-			// Subsystem‚ğæ“¾
+			// Subsystemã‚’å–å¾—
 			UGameInstance* GameInstance = GetGameInstance();
 			if (GameInstance)
 			{
 				UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
 				if (ProgressionSubsystem)
 				{
-					// ƒXƒe[ƒW”Ô†‚ğ“`‚¦‚ÄA‚»‚ÌƒXƒe[ƒW‚ÌŠl“¾ƒƒ_ƒ‹”‚É+1‚·‚é
+					// ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ã‚’ä¼ãˆã¦ã€ãã®ã‚¹ãƒ†ãƒ¼ã‚¸ã®ç²å¾—ãƒ¡ãƒ€ãƒ«æ•°ã«+1ã™ã‚‹
 					ProgressionSubsystem->AddMedalCount(mStageIndex);
 
-					// ©•ª‚Ìƒƒ_ƒ‹ID‚ğ“`‚¦‚Ä‰¼‚Ì«‘‚ÉuŠl“¾Ï‚İv‚Æ‚µ‚Ä“o˜^‚·‚éiˆê•Û‘¶j
+					// è‡ªåˆ†ã®ãƒ¡ãƒ€ãƒ«IDã‚’ä¼ãˆã¦ä»®ã®è¾æ›¸ã«ã€Œç²å¾—æ¸ˆã¿ã€ã¨ã—ã¦ç™»éŒ²ã™ã‚‹ï¼ˆä¸€æ™‚ä¿å­˜ï¼‰
 					ProgressionSubsystem->SetMedalCollectedTemp(mMedalID);
 				}
 			}
@@ -96,14 +96,14 @@ void AMedalItemBase::OnOverlapBegin
 
 void AMedalItemBase::ResetMedal()
 {
-	// Subsystem‚ğæ“¾
+	// Subsystemã‚’å–å¾—
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
 		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
 		if (ProgressionSubsystem)
 		{
-			// Šl“¾Ï‚İ‚È‚çƒƒ_ƒ‹‚Ì”‚ğ-1‚·‚éiŠl“¾‚µ‚½‚ç+1‚³‚ê‚Ä‚é‚Í‚¸‚È‚Ì‚Å‚±‚ê‚ÅƒŠƒZƒbƒg‚Å‚«‚éj
+			// ç²å¾—æ¸ˆã¿ãªã‚‰ãƒ¡ãƒ€ãƒ«ã®æ•°ã‚’-1ã™ã‚‹ï¼ˆç²å¾—ã—ãŸã‚‰+1ã•ã‚Œã¦ã‚‹ã¯ãšãªã®ã§ã“ã‚Œã§ãƒªã‚»ãƒƒãƒˆã§ãã‚‹ï¼‰
 			/*
 			if (bIsPickuped)
 			{
@@ -111,13 +111,13 @@ void AMedalItemBase::ResetMedal()
 			}
 			*/
 
-			// Šl“¾‚ªŠm’è‚µ‚Ä‚é‚È‚çƒŠƒZƒbƒg‚µ‚È‚­‚Ä—Ç‚¢‚Ì‚ÅI—¹‚·‚é
+			// ç²å¾—ãŒç¢ºå®šã—ã¦ã‚‹ãªã‚‰ãƒªã‚»ãƒƒãƒˆã—ãªãã¦è‰¯ã„ã®ã§çµ‚äº†ã™ã‚‹
 			if (ProgressionSubsystem->IsMedalAlreadyCollected(mMedalID))
 			{
 				return;
 			}
 
-			// Šl“¾ó‹µŠÇ——pMap‚©‚çœŠO‚·‚éij
+			// ç²å¾—çŠ¶æ³ç®¡ç†ç”¨Mapã‹ã‚‰é™¤å¤–ã™ã‚‹ï¼ˆï¼‰
 			ProgressionSubsystem->ResetMedalCollected(mMedalID);
 		}
 	}

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -18,17 +18,17 @@ class CUBEPETS_API UStageStatusWidget : public UUserWidget
 
 protected:
 
-	// W‚ß‚½ƒƒ_ƒ‹ƒeƒLƒXƒg
+	// é›†ã‚ãŸãƒ¡ãƒ€ãƒ«ãƒ†ã‚­ã‚¹ãƒˆ
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UCSVTextBlock> TextBlockMedalCount = nullptr;
 
-	// g‚Á‚½” ƒeƒLƒXƒg
+	// ä½¿ã£ãŸç®±ãƒ†ã‚­ã‚¹ãƒˆ
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	TObjectPtr<UCSVTextBlock> TextBlockCubeCount = nullptr;
 
 public:
 
-	// W‚ß‚½ƒƒ_ƒ‹ƒeƒLƒXƒgXV—p
+	// é›†ã‚ãŸãƒ¡ãƒ€ãƒ«ãƒ†ã‚­ã‚¹ãƒˆæ›´æ–°ç”¨
 	UFUNCTION(BlueprintCallable, Category = "UI")
 	void UpdateMedalText();
 

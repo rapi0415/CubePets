@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "UI/StageSelectWidget.h"
@@ -11,91 +11,14 @@ void UStageSelectWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	/*
-	// Subsystem‚©‚ç¡‚ÌƒXƒe[ƒW”Ô†‚ðŽæ“¾‚µ‚ÄXViƒXƒe[ƒW‚©‚ç–ß‚Á‚Ä‚«‚½‚Æ‚«‚É—V‚ñ‚Å‚½ƒXƒe[ƒW‚©‚çŠJŽn‚³‚¹‚é‚½‚ßj
-	UGameInstance* GameInstance = GetGameInstance();
-	if (GameInstance)
-	{
-		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
-		if (ProgressionSubsystem)
-		{
-			int32 StageIndex = ProgressionSubsystem->GetCurrentStageIndex();
-			ChangeIndex(StageIndex); // Å‰‚Í0‚È‚Ì‚ÅƒXƒe[ƒW”Ô†‚ð‘«‚¹‚Î‚¢‚¢
-		}
-	}
-	*/
-
 	UpdateMedalText();
 	UpdateCubeText();
 }
-
-/*
-void UStageSelectWidget::StartDecideRightArrow()
-{
-	if (DecideRightArrow)
-	{
-		PlayAnimation(DecideRightArrow);
-	}
-}
-*/
 
 void UStageSelectWidget::OnIndexChanged(int32 Index, int32 MaxIndex, EStageClearState ClearState, bool MedalFlag, bool CubeFlag)
 {
 	BP_OnIndexChanged(Index, MaxIndex, ClearState, MedalFlag, CubeFlag);
 }
-
-/*
-void UStageSelectWidget::ChangeIndex(int32 Direction)
-{
-	if (mImageArray.Num() == 0) return;
-
-	// Subsystem‚©‚çƒXƒe[ƒWƒNƒŠƒAó‹µ‚ðŽæ“¾‚µ‚Ä‚»‚Ì”ÍˆÍ‚ÅIndex‚ðXV
-	UGameInstance* GameInstance = GetGameInstance();
-	if (GameInstance)
-	{
-		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
-		if (ProgressionSubsystem)
-		{
-			int32 TargetIndex = mCurrentIndex + Direction;
-
-			if (TargetIndex > ProgressionSubsystem->GetMaxUnlockedStageIndex())
-			{
-				return;
-			}
-
-			if (TargetIndex < 0)
-			{
-				return;
-			}
-
-			mCurrentIndex = TargetIndex;
-
-			// Subsystem‚É‚à‹L‰¯‚³‚¹‚Ä‚¨‚­iƒCƒ“ƒQ[ƒ€‚Æ‚©‚ÅŽæ“¾‚µ‚½‚¢j
-			ProgressionSubsystem->SetCurrentStageIndex(mCurrentIndex);
-		}
-	}
-
-	// ‰æ‘œ‚ðŽæ“¾‚·‚é
-	if (mImageArray[mCurrentIndex].IsValid())
-	{
-		OnIndexChanged(mImageArray[mCurrentIndex].Get());
-	}
-	else
-	{
-		OnIndexChanged(mImageArray[mCurrentIndex].LoadSynchronous());
-	}
-}
-*/
-
-/*
-void UStageSelectWidget::SelectCurrentLevel()
-{
-	if (mLevelNameArray.IsValidIndex(mCurrentIndex))
-	{
-		UGameplayStatics::OpenLevel(this, mLevelNameArray[mCurrentIndex]);
-	}
-}
-*/
 
 void UStageSelectWidget::UpdateMedalText()
 {

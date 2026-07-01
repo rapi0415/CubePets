@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Gimmicks/FallBlockBase.h"
@@ -10,11 +10,11 @@ AFallBlockBase::AFallBlockBase()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	// ƒXƒ^ƒeƒBƒbƒNƒƒbƒVƒ…
+	// ã‚¹ã‚¿ãƒ†ã‚£ãƒƒã‚¯ãƒ¡ãƒƒã‚·ãƒ¥
 	mStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
 	RootComponent = mStaticMesh;
 
-	// ƒ{ƒbƒNƒXƒgƒŠƒK[
+	// ãƒœãƒƒã‚¯ã‚¹ãƒˆãƒªã‚¬ãƒ¼
 	mBoxTrigger = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxTrigger"));
 	mBoxTrigger->SetupAttachment(mStaticMesh);
 	mBoxTrigger->SetBoxExtent(FVector(100.0f, 100.0f, 100.0f));
@@ -56,10 +56,10 @@ void AFallBlockBase::OnOverlapBegin(
 {
 	if (OtherActor && OtherActor != this)
 	{
-		// Œõ‚ç‚¹‚é
+		// å…‰ã‚‰ã›ã‚‹
 		SetGlow();
 
-		// ˆê’èŠÔŒã‚É—‚¿‚é
+		// ä¸€å®šæ™‚é–“å¾Œã«è½ã¡ã‚‹
 		OnFallBegin();
 	}
 }
@@ -68,7 +68,7 @@ void AFallBlockBase::SetGlow()
 {
 	if (mDynamicMaterial)
 	{
-		// Œõ‚ç‚¹‚é
+		// å…‰ã‚‰ã›ã‚‹
 		mDynamicMaterial->SetScalarParameterValue(TEXT("GlowIntensity"), 1.0f);
 	}
 }

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -17,7 +17,7 @@ class CUBEPETS_API UCubePetsGameSettings : public UDeveloperSettings
 	
 public:
 
-	// ƒf[ƒ^ƒe[ƒuƒ‹‚ğƒZƒbƒg‚·‚é‚½‚ß‚ÌƒvƒƒpƒeƒB
+	// ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ã‚»ãƒƒãƒˆã™ã‚‹ãŸã‚ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 	UPROPERTY(Config, EditAnywhere, BlueprintReadOnly, Category="Medal")
 	FSoftObjectPath mMedalDataTablePath;
 };
