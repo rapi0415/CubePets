@@ -23,14 +23,30 @@
 - 基本的な実装はすべてC++で行い、エフェクトや効果音の再生部分をBPに逃がす設計にしました。
 - 箱の生成はオブジェクトプールを用いて管理するようにしました。
 	- 10個以上箱を生すると古いものが消えるようにしています。
-   - その際、次に消える箱は赤く点滅するようにしました。
-   - また、プレイヤーが乗っている箱は消えないようにしました。
+	- その際、次に消える箱は赤く点滅するようにしました。
+	- また、プレイヤーが乗っている箱は消えないようにしました。
+	- [CubePetsCharacter.h](Source/CubePets/Public/Characters/CubePetsCharacter.h)
+	- [CubePetsCharacter.cpp](Source/CubePets/Private/Characters/CubePetsCharacter.cpp)
 - UI画面はすべてEnhancedInputを採用して自作することで標準機能に捕らわれない実装を実現しました。
+	- [CubePetsTitlePlayerController.h](Source/CubePets/Public/System/Title/CubePetsTitlePlayerController.h)
+	- [CubePetsTitlePlayerController.cpp](Source/CubePets/Private/System/Title/CubePetsTitlePlayerController.cpp)
+	- [CubePetsSelectPlayerController.h](Source/CubePets/Public/System/StageSelect/CubePetsSelectPlayerController.h)
+	- [CubePetsSelectPlayerController.cpp](Source/CubePets/Private/System/StageSelect/CubePetsSelectPlayerController.cpp)
 - テキストはCSVから読み込むようにすることで効率化し、ローカライズにも対応しました。
+	- [CSVTextBlock.h](Source/CubePets/Public/UI/CSVTextBlock.h)
+	- [CSVTextBlock.cpp](Source/CubePets/Private/UI/CSVTextBlock.cpp)
 - ボタンアイコンが入力デバイスによって変化するようにしました。
+	- [CubePetsInputDeviceSubsystem.h](Source/CubePets/Public/Subsystems/CubePetsInputDeviceSubsystem.h)
+	- [CubePetsInputDeviceSubsystem.cpp](Source/CubePets/Private/Subsystems/CubePetsInputDeviceSubsystem.cpp)
 - 実務を見据えてImGuiを用いたデバッグ機能を実装しました。
-- 各ステージに隠しメダルと最小手数ミッションを実装することでゲームとしてのやりこみ要素を組み込みました。（メダル獲得数の管理が大変でした）
+	- [DebugMenuSubsystem.h](Source/CubePets/Public/Subsystems/DebugMenuSubsystem.h)
+	- [DebugMenuSubsystem.cpp](Source/CubePets/Private/Subsystems/DebugMenuSubsystem.cpp) 
+- 各ステージに隠しメダルと最小手数ミッションを実装することでゲームとしてのやりこみ要素を組み込みました。
+	- [GameProgressionSubsystem.h](Source/CubePets/Public/Subsystems/GameProgressionSubsystem.h)
+	- [GameProgressionSubsystem.cpp](Source/CubePets/Private/Subsystems/GameProgressionSubsystem.cpp)
 - ギミックにはGASを採用しました。これにより例えば「大砲が、撃った弾が消えるまで次の弾は撃たない」といった処理がタグで簡単に管理できました。
+	- [GimmickBase.h](Source/CubePets/Public/Gimmicks/GimmickBase.h)
+	- [GimmickBase.cpp](Source/CubePets/Private/Gimmicks/GimmickBase.cpp)
 
 ## 5. 今後の課題、展望
 - 箱はプールしているが、大砲の弾などは毎回スポーンしているので改善の余地がありそうです。
