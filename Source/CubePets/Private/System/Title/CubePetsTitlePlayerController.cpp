@@ -300,7 +300,7 @@ void ACubePetsTitlePlayerController::SetupInputComponent()
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent))
 	{
-		EnhancedInputComponent->BindAction(mConfirmAction, ETriggerEvent::Triggered, this, &ACubePetsTitlePlayerController::OnPressDecide);
+		EnhancedInputComponent->BindAction(mConfirmAction, ETriggerEvent::Started, this, &ACubePetsTitlePlayerController::OnPressDecide);
 		EnhancedInputComponent->BindAction(mUpDownAction, ETriggerEvent::Triggered, this, &ACubePetsTitlePlayerController::OnPressUpDown);
 	}
 }
