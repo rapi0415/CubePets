@@ -41,7 +41,7 @@
 - 実務を見据えてImGuiを用いたデバッグ機能を実装しました。
 	- [DebugMenuSubsystem.h](Source/CubePets/Public/Subsystems/DebugMenuSubsystem.h)
 	- [DebugMenuSubsystem.cpp](Source/CubePets/Private/Subsystems/DebugMenuSubsystem.cpp) 
-- 各ステージに隠しメダルと最小手数ミッションを実装することでゲームとしてのやりこみ要素を組み込みました。（メダル獲得数の管理に苦労しました）
+- 各ステージに隠しメダルと最小手数ミッションを実装することでゲームとしてのやりこみ要素を組み込みました。
 	- [GameProgressionSubsystem.h](Source/CubePets/Public/Subsystems/GameProgressionSubsystem.h)
 	- [GameProgressionSubsystem.cpp](Source/CubePets/Private/Subsystems/GameProgressionSubsystem.cpp)
 - ギミックにはGASを採用しました。これにより例えば「大砲が、撃った弾が消えるまで次の弾は撃たない」といった処理がタグで簡単に管理できました。
