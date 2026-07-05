@@ -1,7 +1,7 @@
 # Cube Dog!
 
 ## プレイ動画
-
+[https://youtu.be/fP4A_1HFYFs](https://youtu.be/fP4A_1HFYFs)
 
 ## 1. プロジェクト概要
 本作はUnrealEngine5.5を使用して制作した、3Dパズルアクションゲームです。<br>
