@@ -3,6 +3,9 @@
 ## プレイ動画
 [https://youtu.be/fP4A_1HFYFs](https://youtu.be/fP4A_1HFYFs)
 
+## パッケージ
+[https://carnivals.itch.io/cubedog](https://carnivals.itch.io/cubedog)
+
 ## 1. プロジェクト概要
 本作はUnrealEngine5.5を使用して制作した、3Dパズルアクションゲームです。<br>
 箱を生成してステージを攻略するのが目的になります。
