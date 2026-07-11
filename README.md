@@ -47,7 +47,7 @@
 - 各ステージに隠しメダルと最小手数ミッションを実装することでゲームとしてのやりこみ要素を組み込みました。
 	- [GameProgressionSubsystem.h](Source/CubePets/Public/Subsystems/GameProgressionSubsystem.h)
 	- [GameProgressionSubsystem.cpp](Source/CubePets/Private/Subsystems/GameProgressionSubsystem.cpp)
-- ギミックにはGASを採用しました。これにより例えば「大砲が、撃った弾が消えるまで次の弾は撃たない」といった処理がタグで簡単に管理できました。
+- ギミックにはGASを採用しました。これにより例えば「大砲が、撃った弾が消えるまで次の弾は撃たない」といった処理がタグで簡単に管理できました。（GameAbilityはBPで実装しております）
 	- [GimmickBase.h](Source/CubePets/Public/Gimmicks/GimmickBase.h)
 	- [GimmickBase.cpp](Source/CubePets/Private/Gimmicks/GimmickBase.cpp)
 
