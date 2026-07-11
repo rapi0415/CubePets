@@ -248,21 +248,12 @@ void ACubePetsCharacter::Look(const FInputActionValue& Value)
 
 void ACubePetsCharacter::JumpAction(const FInputActionValue& Value)
 {
-	// ボタンが一度離されている場合のみジャンプする
-	/*
-	if (bIsJumpButtonReleased)
-	{
-		Jump();
-		bIsJumpButtonReleased = false;
-	}
-	*/
 	Jump();
 }
 
 void ACubePetsCharacter::StopJumpAction(const FInputActionValue& Value)
 {
 	StopJumping();
-	// bIsJumpButtonReleased = true;
 }
 
 void ACubePetsCharacter::CreateAction(const FInputActionValue& Value)

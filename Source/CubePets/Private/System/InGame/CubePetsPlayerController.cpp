@@ -250,9 +250,6 @@ void ACubePetsPlayerController::OnResume()
 
 void ACubePetsPlayerController::OnRestart()
 {
-	// ステージ情報をリセット（メダル獲得状況のリセット用）
-	mOnResetStageInfo.Broadcast();
-
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
@@ -269,9 +266,6 @@ void ACubePetsPlayerController::OnRestart()
 			// 使った箱の数をリセット
 			ProgressionSubsystem->ResetUsedCubeCount();
 			ProgressionSubsystem->ResetCheckPointCubeCount();
-
-			// メダルをリセット
-			//ProgressionSubsystem->ResetStageMedalInfo();
 		}
 	}
 
@@ -290,9 +284,6 @@ void ACubePetsPlayerController::OnRestart()
 
 void ACubePetsPlayerController::OnReturnToSelect()
 {
-	// ステージ情報をリセット（メダル獲得状況のリセット用）
-	mOnResetStageInfo.Broadcast();
-
 	// 使った箱の数をリセット
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)

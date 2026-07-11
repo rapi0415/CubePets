@@ -142,16 +142,6 @@ public:
 		}
 	}
 
-	UFUNCTION(BlueprintCallable, Category = "Medal")
-	void SubtractMedalCount(int32 StageIndex)
-	{
-		if (mCurrentMedalCountArray.IsValidIndex(StageIndex))
-		{
-			// 集めたメダル-1
-			mCurrentMedalCountArray[StageIndex]--;
-		}
-	}
-
 public:
 
 	// ステージのメダル総数をデータテーブルから取得する関数
@@ -197,12 +187,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Medal")
 	void SetMedalCollected()
 	{
-		/*
-		if (!MedalID.IsNone())
-		{
-			mCollectedMedalMap.Add(MedalID, true);
-		}
-		*/
 		mCollectedMedalMap = mCollectedMedalMapTemp;
 	}
 
@@ -215,12 +199,6 @@ public:
 
 	UFUNCTION()
 	void ResetMedalCollectedTemp();
-
-	// やり直し時にそのステージのメダル獲得状況をリセットする関数
-	/*
-	UFUNCTION()
-	void ResetStageMedalInfo();
-	*/
 
 protected:
 
@@ -271,9 +249,6 @@ public:
 		if (mCurrentUsedCubeCountArray.IsValidIndex(mCurrentStageIndex))
 		{
 			mCurrentUsedCubeCountArray[mCurrentStageIndex] = 0;
-
-			// 使った箱の数が変わったことを通知する
-			// OnUsedCubeCountChanged.Broadcast();
 		}
 	}
 

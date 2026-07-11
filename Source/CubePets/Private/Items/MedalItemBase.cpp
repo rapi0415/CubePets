@@ -26,35 +26,12 @@ void AMedalItemBase::BeginPlay()
 			}
 		}
 	}
-
-	// PlayerControllerを取得（メダル獲得状況をリセットする関数をバインド）
-	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	if (PC)
-	{
-		ACubePetsPlayerController* CubePetsPC = Cast<ACubePetsPlayerController>(PC);
-		if (CubePetsPC)
-		{
-			CubePetsPC->mOnResetStageInfo.AddUObject(this, &AMedalItemBase::ResetMedal);
-		}
-	}
 }
 
 void AMedalItemBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
-
-	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	if (PC)
-	{
-		ACubePetsPlayerController* CubePetsPC = Cast<ACubePetsPlayerController>(PC);
-		if (CubePetsPC)
-		{
-			CubePetsPC->mOnResetStageInfo.RemoveAll(this);
-		}
-	}
 }
-
-
 
 void AMedalItemBase::OnOverlapBegin
 (
@@ -90,35 +67,6 @@ void AMedalItemBase::OnOverlapBegin
 				}
 			}
 			// Destroy();
-		}
-	}
-}
-
-void AMedalItemBase::ResetMedal()
-{
-	// Subsystemを取得
-	UGameInstance* GameInstance = GetGameInstance();
-	if (GameInstance)
-	{
-		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
-		if (ProgressionSubsystem)
-		{
-			// 獲得済みならメダルの数を-1する（獲得したら+1されてるはずなのでこれでリセットできる）
-			/*
-			if (bIsPickuped)
-			{
-				// ProgressionSubsystem->SubtractMedalCount(mStageIndex);
-			}
-			*/
-
-			// 獲得が確定してるならリセットしなくて良いので終了する
-			if (ProgressionSubsystem->IsMedalAlreadyCollected(mMedalID))
-			{
-				return;
-			}
-
-			// 獲得状況管理用Mapから除外する（）
-			ProgressionSubsystem->ResetMedalCollected(mMedalID);
 		}
 	}
 }

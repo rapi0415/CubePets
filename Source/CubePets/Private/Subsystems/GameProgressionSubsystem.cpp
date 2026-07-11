@@ -89,31 +89,6 @@ void UGameProgressionSubsystem::ResetMedalCollectedTemp()
 	OnMedalCountChanged.Broadcast();
 }
 
-// やり直し時にそのステージのメダル獲得状況をリセットする関数
-/*
-void UGameProgressionSubsystem::ResetStageMedalInfo()
-{
-
-
-	FString StageStr = FString::Printf(TEXT("Stage%02d"), mCurrentStageIndex + 1);
-
-	TArray<FName> KeysToRemove;
-	for (auto& Elem : mCollectedMedalMap)
-	{
-		if (Elem.Key.ToString().Contains(StageStr))
-		{
-			KeysToRemove.Add(Elem.Key);
-		}
-	}
-	for (FName Key : KeysToRemove)
-	{
-		mCollectedMedalMap.Remove(Key);
-	}
-
-	mCurrentMedalCountArray[mCurrentStageIndex] = 0;
-}
-*/
-
 const FStageData* UGameProgressionSubsystem::GetStageDataByIndex(int32 Index) const
 {
 	if (!mStageDataTable) return nullptr;

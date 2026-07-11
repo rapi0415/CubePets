@@ -72,11 +72,6 @@ protected:
 
 protected:
 
-	// ジャンプ制御用
-	// bool bIsJumpButtonReleased = true;
-
-protected:
-
 	// ブロック生成用
 	UPROPERTY(Transient)
 	TObjectPtr<ACubeReticle> mCubeReticle = nullptr;

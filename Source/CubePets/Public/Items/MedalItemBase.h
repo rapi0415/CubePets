@@ -39,8 +39,4 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Stage")
 	FName mMedalID;
 
-protected:
-
-	void ResetMedal();
-
 };

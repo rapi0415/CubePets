@@ -62,10 +62,13 @@ void ACubePetsSelectPlayerController::BeginPlay()
 	UGameInstance* GameInstance = GetGameInstance();
 	if (GameInstance)
 	{
-		// OnIndexChangedを呼ぶためにChangeIndexを呼ぶ（遊んでたステージに帰ってくるようにする）
 		UGameProgressionSubsystem* ProgressionSubsystem = GameInstance->GetSubsystem<UGameProgressionSubsystem>();
 		if (ProgressionSubsystem)
 		{
+			// 一時保存用の辞書にしか登録していないメダルをリセット
+			ProgressionSubsystem->ResetMedalCollectedTemp();
+
+			// OnIndexChangedを呼ぶためにChangeIndexを呼ぶ（遊んでたステージに帰ってくるようにする）
 			int32 Index = ProgressionSubsystem->GetCurrentStageIndex();
 			ChangeIndex(Index, false);
 
