@@ -27,7 +27,7 @@
 ## 4. 工夫した点
 - 基本的な実装はすべてC++で行い、エフェクトや効果音の再生部分をBPに逃がす設計にしました。
 - 箱の生成はオブジェクトプールを用いて管理するようにしました。
-	- 10個以上箱を生すると古いものが消えるようにしています。
+	- 10個以上箱を生成すると古いものが消えるようにしています。
 	- その際、次に消える箱は赤く点滅するようにしました。
 	- また、プレイヤーが乗っている箱は消えないようにしました。
 	- [CubePetsCharacter.h](Source/CubePets/Public/Characters/CubePetsCharacter.h)
@@ -40,7 +40,7 @@
 - テキストはCSVから読み込むようにすることで効率化し、ローカライズにも対応しました。
 	- [CSVTextBlock.h](Source/CubePets/Public/UI/CSVTextBlock.h)
 	- [CSVTextBlock.cpp](Source/CubePets/Private/UI/CSVTextBlock.cpp)
-- ボタンアイコンが入力デバイスによって変化するようにしました。
+- ボタンアイコンが入力デバイスによって変化するようにしました。Subsystemに共通化することで使いやすくしています。
 	- [CubePetsInputDeviceSubsystem.h](Source/CubePets/Public/Subsystems/CubePetsInputDeviceSubsystem.h)
 	- [CubePetsInputDeviceSubsystem.cpp](Source/CubePets/Private/Subsystems/CubePetsInputDeviceSubsystem.cpp)
 - 実務を見据えてImGuiを用いたデバッグ機能を実装しました。
